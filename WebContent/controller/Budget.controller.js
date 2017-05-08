@@ -26,7 +26,7 @@ sap.ui.define([
 	var CController = Controller.extend("zn11_expense.controller.Budget", {
 		model: new sap.ui.model.json.JSONModel(),
 		onInit: function() {
-
+//budget controller
 		},
 		onAfterRendering: function() {},
 		getRouter: function() {
