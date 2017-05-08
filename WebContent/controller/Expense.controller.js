@@ -36,7 +36,7 @@ sap.ui.define([
 
 		onInit: function() {
 
-//deneme test
+
 
 		},
 
