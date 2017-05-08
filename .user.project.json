@@ -1,0 +1,60 @@
+{
+  "run": [
+    {
+      "filePath": "/ZN11_BPM/WebContent/index.html",
+      "previewMode": 0,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [
+        {
+          "paramName": "",
+          "paramValue": "",
+          "paramActive": false
+        },
+        {
+          "paramName": "",
+          "paramValue": "",
+          "paramActive": false
+        }
+      ],
+      "_metadata": {
+        "id": 7978896,
+        "runnerId": "webapprunner",
+        "displayName": "New Web Application 2"
+      }
+    },
+    {
+      "filePath": "/ZFIORI_BPM_N11/WebContent/extended_runnable_file.html",
+      "previewMode": 0,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [],
+      "_metadata": {
+        "id": 9800951,
+        "runnerId": "webapprunner",
+        "displayName": "New Web Application 1"
+      }
+    },
+    {
+      "filePath": "/ZFIORI_BPM_N11/WebContent/index.html",
+      "previewMode": 0,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [],
+      "_metadata": {
+        "id": 9978232,
+        "runnerId": "webapprunner",
+        "displayName": "New Web Application"
+      }
+    }
+  ]
+}

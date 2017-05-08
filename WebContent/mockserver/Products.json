@@ -1,0 +1,33 @@
+{
+
+	"ProductCollection": [
+
+		{
+
+			"BudgetNumber": "2017-BAF-266",
+
+			"VATAmount": "2.000,00",
+
+			"UsedAmount": "2.000",
+
+			"RemAmount": "0"
+
+		},
+
+		{
+
+			"BudgetNumber": "2017-BAF-455",
+
+			"VATAmount": "27000,00",
+
+			"UsedAmount": "2.000",
+
+			"RemAmount": "25.000"
+
+		}
+
+	]
+
+	
+
+}

@@ -1,0 +1,397 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="zn11_expense.controller.Expense" height="100%"
+
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" class="sapUiSizeCompact" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
+
+	xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
+
+	<OverflowToolbar>
+
+		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
+
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+
+		</Button>
+
+		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
+
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+
+		</Button>
+
+	</OverflowToolbar>
+
+	<IconTabBar class="sapUiResponsiveContentPadding" expanded="{device]/isNoPhone}">
+
+		<items>
+
+			<IconTabFilter text="DOCUMENT">
+
+				<Button icon="sap-icon://print" text="Print the document"/>
+
+				<Button icon="sap-icon://notes" text="Notes"/>
+
+				<Button icon="sap-icon://save" text="Save Changes"/>
+
+				<Panel class="sapUiSmallMargin panelContainer generalLabelFont generalLabelFontUi" expandable="false" width="95%">
+
+					<headerToolbar>
+
+						<Toolbar class="box-header">
+
+							<core:Icon class="size1 icon-shadow" color="#FFF" src="sap-icon://user-edit"/>
+
+							<ToolbarSeparator/>
+
+							<Title class="approvalText" text="Expense Approval"/>
+
+						</Toolbar>
+
+					</headerToolbar>
+
+					<content>
+
+						<Panel class=" panelBottom" id="panelFirstContainer" width="auto">
+
+							<headerToolbar>
+
+								<Toolbar height="3rem">
+
+									<Title class="boldText" text="Form Details"/>
+
+									<ImageContent class="imageLogo" src="img/n11_logo.png"></ImageContent>
+
+								</Toolbar>
+
+							</headerToolbar>
+
+							<content>
+
+								<VBox class="sapUiSmallMargin">
+
+									<f:SimpleForm emptySpanM="0" emptySpanXL="0" columnsM="2" columnsL="2" editable="true" emptySpanL="0" columnsXL="3" labelSpanL="4" labelSpanM="4"
+
+										labelSpanXL="4" layout="ResponsiveGridLayout" maxContainerCols="3">
+
+										<f:content>
+
+											<core:Title/>
+
+											<Label text="Request Owner"/>
+
+											<Input class="inputForm" value="{Request Owner}"/>
+
+											<Label text="Department"/>
+
+											<Input class="inputForm" value="{Department}"/>
+
+											<Label text="Title"/>
+
+											<Input class="inputForm" value="{Title}"/>
+
+											<core:Title/>
+
+											<Label text="Request Number"/>
+
+											<Input class="inputForm" value="{Request Number}"/>
+
+											<Label text="Request Date"/>
+
+											<Input class="inputForm" value="{RequestDate}"/>
+
+											<HBox>
+
+												<Input class="inputForm" value=""/>
+
+											</HBox>
+
+											<Label text="Status"/>
+
+											<Input class="inputForm" placeholder="Form Status"/>
+
+										</f:content>
+
+									</f:SimpleForm>
+
+								</VBox>
+
+							</content>
+
+						</Panel>
+
+						<Panel class=" panelBottom" id="panelSecondContainer" width="auto">
+
+							<headerToolbar>
+
+								<Toolbar height="3rem">
+
+									<Title class="boldText" text="Expense Details"/>
+
+								</Toolbar>
+
+							</headerToolbar>
+
+							<content>
+
+								<VBox class="sapUiSmallMargin">
+
+									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+
+										<f:content>
+
+											<Label text="Currency Type"/>
+
+											<Select width="100%">
+
+												<items>
+
+													<core:Item text="TRY"/>
+
+													<core:Item text="USD"/>
+
+													<core:Item text="EUR"/>
+
+												</items>
+
+											</Select>
+
+											<HBox>
+
+												<Input class="inputForm" value="{Request Owner}"/>
+
+											</HBox>
+
+											<Label text="Expense List"/>
+
+											<Table id="mainViewTbl83" inset="false" items="{ path: '/ET_HEADERSet', sorter: { path: 'Name' } }">
+
+												<columns>
+
+													<Column width="12em">
+
+														<Text text="Date"/>
+
+													</Column>
+
+													<Column demandPopin="true" minScreenWidth="Tablet">
+
+														<Text text="Description"/>
+
+													</Column>
+
+													<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">
+
+														<Text text="Amount"/>
+
+													</Column>
+
+												</columns>
+
+												<items>
+
+													<ColumnListItem>
+
+														<cells>
+
+															<Text text="{Date}"/>
+
+															<Text text="{Description}"/>
+
+															<Text text="{Amount}"/>
+
+														</cells>
+
+													</ColumnListItem>
+
+												</items>
+
+											</Table>
+
+											<Label text=""/>
+
+											<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onPress" text="Add" width="20%">
+
+												<layoutData>
+
+													<FlexItemData growFactor="1"/>
+
+												</layoutData>
+
+											</Button>
+
+											<HBox>
+
+												<Label text="Total Amount:"  class="labelPay"/>
+
+												<Input class="inputForm" value=""/>
+
+											</HBox>
+
+										</f:content>
+
+									</f:SimpleForm>
+
+								</VBox>
+
+							</content>
+
+						</Panel>
+
+						<Panel class=" panelBottom" id="panelSecondPlusContainer" width="auto">
+
+							<headerToolbar>
+
+								<Toolbar height="3rem">
+
+									<Title class="boldText" text="Expense Type"/>
+
+								</Toolbar>
+
+							</headerToolbar>
+
+							<content>
+
+								<VBox class="sapUiSmallMargin">
+
+									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+
+										<f:content>
+
+											<VBox>
+
+												<Label class="textLabel" text="Expense is Related With:"/>
+
+												<RadioButtonGroup columns="2">
+
+													<buttons>
+
+														<RadioButton id="RB-1" text="Travel"/>
+
+														<RadioButton id="RB-2" text="Other"/>
+
+													</buttons>
+
+												</RadioButtonGroup>
+
+												<Label class="textLabel" text="Expense was paid by:"/>
+
+												<RadioButtonGroup columns="2">
+
+													<buttons>
+
+														<RadioButton id="RB0-1" text="Corporate Credit Card"/>
+
+														<RadioButton id="RB0-2" text="Private Credit Card or Cash etc."/>
+
+													</buttons>
+
+												</RadioButtonGroup>
+
+											</VBox>
+
+										</f:content>
+
+									</f:SimpleForm>
+
+								</VBox>
+
+							</content>
+
+						</Panel>
+
+					</content>
+
+				</Panel>
+
+				<Button icon="sap-icon://print" text="Print the document"/>
+
+				<Button icon="sap-icon://notes" text="Notes"/>
+
+				<Button icon="sap-icon://save" text="Save Changes"/>
+
+			</IconTabFilter>
+
+			<IconTabFilter text="FLOW">
+
+				<List headerText="A List" showSeparators="Inner"></List>
+
+			</IconTabFilter>
+
+			<IconTabFilter text="MESSAGES">
+
+				<Button icon="sap-icon://add" text="Add Message"/>
+
+				<Table id="idExpenseMessage" inset="false" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+
+					<columns>
+
+						<Column width="12em">
+
+							<Text text="Send Name"/>
+
+						</Column>
+
+						<Column width="12em">
+
+							<Text text="Send Date"/>
+
+						</Column>
+
+						<Column width="12em">
+
+							<Text text="Subject"/>
+
+						</Column>
+
+						<Column width="12em">
+
+							<Text text="Message"/>
+
+						</Column>
+
+					</columns>
+
+					<items>
+
+						<ColumnListItem>
+
+							<cells>
+
+								<Text text="{SendName}"/>
+
+								<Text text="{SendDate}"/>
+
+								<Text text="{Subject}"/>
+
+								<Text text="{Message}"/>
+
+							</cells>
+
+						</ColumnListItem>
+
+					</items>
+
+				</Table>
+
+			</IconTabFilter>
+
+		</items>
+
+	</IconTabBar>
+
+	<OverflowToolbar>
+
+		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
+
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+
+		</Button>
+
+		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
+
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+
+		</Button>
+
+	</OverflowToolbar>
+
+</mvc:View>

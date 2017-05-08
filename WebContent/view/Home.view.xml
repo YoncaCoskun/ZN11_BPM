@@ -1,0 +1,429 @@
+<core:View xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact" controllerName="zn11_expense.controller.Home" height="100%" xmlns:mvc="sap.ui.core.mvc"
+
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
+
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns:tnt="sap.tnt" xmlns="sap.m">
+
+	<tnt:ToolPage id="toolPage">
+
+		<tnt:header>
+
+			<tnt:ToolHeader>
+
+				<Button class="box-shadow" icon="sap-icon://menu2" id="sideNavigationToggleButton" press="onSideNavButtonPress" type="Transparent">
+
+					<layoutData>
+
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+
+					</layoutData>
+
+				</Button>
+
+				<ToolbarSeparator/>
+
+				<!--<Image densityAware="false" src="img/n11.png" width="40px"></Image>-->
+
+				<ToolbarSpacer/>
+
+				<Text class="box-shadow" text="BPM MM OPERATIONS" wrapping="false"/>
+
+				<tnt:ToolHeaderUtilitySeparator/>
+
+				<ToolbarSpacer>
+
+					<layoutData>
+
+						<OverflowToolbarLayoutData minWidth="20px" priority="NeverOverflow"/>
+
+					</layoutData>
+
+				</ToolbarSpacer>
+
+					<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://bell"/>
+
+				<ToolbarSeparator/>
+
+					<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://email"/>
+
+				<ToolbarSeparator/>
+
+					<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://log"/>
+
+				<ToolbarSeparator/>
+
+					<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://person-placeholder"/>
+
+				<Button press="handleUserNamePress" text="Eren Aktaş" type="Transparent">
+
+					<layoutData>
+
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+
+					</layoutData>
+
+				</Button>
+
+			</tnt:ToolHeader>
+
+		</tnt:header>
+
+		<tnt:sideContent>
+
+			<tnt:SideNavigation id="sideNavigation">
+
+				<tnt:item>
+
+					<tnt:NavigationList>
+
+						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Home"/>
+
+						<tnt:NavigationListItem icon="sap-icon://action-settings" text="Applications">
+
+							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
+
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
+
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
+
+						</tnt:NavigationListItem>
+
+					</tnt:NavigationList>
+
+				</tnt:item>
+
+			</tnt:SideNavigation>
+
+		</tnt:sideContent>
+
+		<tnt:mainContents>
+
+			<NavContainer id="navContainer">
+
+				<pages>
+
+					<Page id="idHomePage" showHeader="false">
+
+						<l:BlockLayout background="Light" id="BlockLayout">
+
+							<l:BlockLayoutRow>
+
+								<l:BlockLayoutCell class="sapUiNoContentPadding">
+
+									<Image src="img/homeImage.png" width="100%"/>
+
+								</l:BlockLayoutCell>
+
+							</l:BlockLayoutRow>
+
+							<l:BlockLayoutRow class="shopAdministrationTitle" rowColorSet="ColorSet1">
+
+								<l:BlockLayoutCell class="sapUiResponsiveContentPadding sapUiTinyMarginBegin"></l:BlockLayoutCell>
+
+							</l:BlockLayoutRow>
+
+							<l:BlockLayoutRow rowColorSet="ColorSet2">
+
+								<l:BlockLayoutCell>
+
+									<l:VerticalLayout>
+
+										<core:Icon color="#346187" size="2.5rem" src="sap-icon://role"/>
+
+										<Title class="sapUiTinyMarginTopBottom" text="{i18n]administrationTitle}" titleStyle="H2"/>
+
+										<Text class="sapUiTinyMarginBottom" text="{i18n]administrationContent}"/>
+
+										<Link text="{i18n>accessLink}"/>
+
+										<Link text="{i18n>learnLink}"/>
+
+									</l:VerticalLayout>
+
+								</l:BlockLayoutCell>
+
+								<l:BlockLayoutCell>
+
+									<l:VerticalLayout>
+
+										<core:Icon color="#346187" size="2.5rem" src="sap-icon://add-product"/>
+
+										<Title class="sapUiTinyMarginTopBottom" text="{i18n]productTitle}" titleStyle="H2"/>
+
+										<Text class="sapUiTinyMarginBottom" text="{i18n]productContent}"/>
+
+										<Link text="{i18n>accessLink}"/>
+
+										<Link text="{i18n>learnLink}"/>
+
+									</l:VerticalLayout>
+
+								</l:BlockLayoutCell>
+
+								<l:BlockLayoutCell>
+
+									<l:VerticalLayout>
+
+										<core:Icon color="#346187" size="2.5rem" src="sap-icon://customer-financial-fact-sheet"/>
+
+										<Title class="sapUiTinyMarginTopBottom" text="{i18n]revenueTitle}" titleStyle="H2"/>
+
+										<Text class="sapUiTinyMarginBottom" text="{i18n]revenueContent}"/>
+
+										<Link text="{i18n>accessLink}"/>
+
+										<Link text="{i18n>learnLink}"/>
+
+									</l:VerticalLayout>
+
+								</l:BlockLayoutCell>
+
+								<l:BlockLayoutCell>
+
+									<l:VerticalLayout>
+
+										<core:Icon color="#346187" size="2.5rem" src="sap-icon://supplier"/>
+
+										<Title class="sapUiTinyMarginTopBottom" text="{i18n]supplierTitle}" titleStyle="H2"/>
+
+										<Text class="sapUiTinyMarginBottom" text="{i18n]supplierContent}"/>
+
+										<Link text="{i18n>accessLink}"/>
+
+										<Link text="{i18n>learnLink}"/>
+
+									</l:VerticalLayout>
+
+								</l:BlockLayoutCell>
+
+							</l:BlockLayoutRow>
+
+						</l:BlockLayout>
+
+					</Page>
+
+					<Page id="idExpensePage" showHeader="false">
+
+						<ScrollContainer height="100%" horizontal="false" id="root1" vertical="true">
+
+							<content>
+
+                             <mvc:XMLView viewName="zn11_expense.view.Expense"/>
+
+                            </content>
+
+						</ScrollContainer>
+
+					</Page>
+
+					<Page id="idBudgetPage" showHeader="false">
+
+						<ScrollContainer height="100%" horizontal="false" id="root3" vertical="true">
+
+							 <content>
+
+                             <mvc:XMLView viewName="zn11_expense.view.Budget"/>
+
+                            </content>
+
+						</ScrollContainer>
+
+					</Page>
+
+					<Page id="idPaymentPage" showHeader="false">
+
+						<ScrollContainer height="100%" horizontal="false" id="root4" vertical="true">
+
+							<content>
+
+								<mvc:XMLView viewName="zn11_expense.view.Payment"/>
+
+							</content>
+
+						</ScrollContainer>
+
+					</Page>
+
+					<ScrollContainer height="100%" horizontal="false" id="idExpensePage2" vertical="true">
+
+						<Panel class="sapUiSmallMargin sapUiLargeMarginBegin panelContainer" expandable="false" width="85%">
+
+							<headerToolbar>
+
+								<Toolbar class="box-header">
+
+									<core:Icon class="size1 icon-shadow" color="#FFF" src="sap-icon://user-edit"/>
+
+									<ToolbarSeparator/>
+
+									<Title text="Expense Approval Form"/>
+
+								</Toolbar>
+
+							</headerToolbar>
+
+							<content>
+
+								<Title level="H4" text="Form Details" textAlign="Center"/>
+
+								<f:Form editable="true" minWidth="auto">
+
+									<f:layout>
+
+										<f:ResponsiveGridLayout columnsL="2" columnsM="2" emptySpanL="0" emptySpanM="0" labelSpanL="3" labelSpanM="6"/>
+
+									</f:layout>
+
+									<f:formContainers>
+
+										<f:FormContainer expandable="false">
+
+											<f:formElements>
+
+												<f:FormElement label="{i18n>RequestInfo.requestOwner}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/requestOwner'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+												<f:FormElement label="{i18n>RequestInfo.department}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/department'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+												<f:FormElement label="{i18n>RequestInfo.title}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/title'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+											</f:formElements>
+
+										</f:FormContainer>
+
+										<f:FormContainer expandable="false">
+
+											<f:formElements>
+
+												<f:FormElement label="{i18n>RequestInfo.requestNumber}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/requestNumber'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+												<f:FormElement label="{i18n>RequestInfo.requestDate}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/requestDate'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+												<f:FormElement label="{i18n>RequestInfo.status}">
+
+													<f:fields>
+
+														<commons:TextField editable="true" value="{path : 'DO_DT_ExpenseApproval/RequestInfo/status'}"/>
+
+													</f:fields>
+
+												</f:FormElement>
+
+											</f:formElements>
+
+										</f:FormContainer>
+
+									</f:formContainers>
+
+								</f:Form>
+
+								<Title level="H4" text="Expense Details" textAlign="Center"/>
+
+								<f:Form class="comboBoxSize" editable="true" minWidth="auto">
+
+									<f:layout>
+
+										<f:ResponsiveGridLayout columnsL="2" columnsM="2" emptySpanL="0" emptySpanM="0" labelSpanL="3" labelSpanM="6"/>
+
+									</f:layout>
+
+									<f:formContainers>
+
+										<f:FormContainer expandable="false">
+
+											<f:formElements>
+
+												<f:FormElement label="{i18n>DO_DT_ExpenseApproval.currencyType}">
+
+													<f:fields>
+
+														<ComboBox value="{path : 'DO_DT_ExpenseApproval/currencyType'}" width="30%">
+
+															<core:Item key="0" text="USD"/>
+
+															<core:Item key="1" text="TRY"/>
+
+															<core:Item key="2" text="EUR"/>
+
+														</ComboBox>
+
+													</f:fields>
+
+												</f:FormElement>
+
+											</f:formElements>
+
+										</f:FormContainer>
+
+									</f:formContainers>
+
+									<f:formContainers>
+
+										<f:FormContainer expandable="false"></f:FormContainer>
+
+									</f:formContainers>
+
+								</f:Form>
+
+							</content>
+
+						</Panel>
+
+					</ScrollContainer>
+
+					<ScrollContainer height="100%" horizontal="false" id="page2" vertical="true"></ScrollContainer>
+
+					<ScrollContainer height="100%" horizontal="false" id="root2" vertical="true">
+
+						<Text text="This is the root page of the second element"></Text>
+
+					</ScrollContainer>
+
+				</pages>
+
+			</NavContainer>
+
+		</tnt:mainContents>
+
+	</tnt:ToolPage>
+
+</core:View>

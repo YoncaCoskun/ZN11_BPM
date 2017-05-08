@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog contentHeight="70%" contentWidth="70%" title="Add Message">
+		<buttons>
+			<Button id="btnInFragment1" press="onSendMessage" text="Send" type="Accept"/>
+			<Button id="btnInFragment2" press="onCloseDialog" text="Close" type="Reject"/>
+		</buttons>
+		<l:Grid defaultSpan="L12 M12 S12" id="contactFragment" width="auto">
+			<l:content>
+				<VBox class="sapUiSmallMargin">
+					<f:SimpleForm adjustLabelSpan="false" columnsL="2" columnsM="2" editable="true" layout="ResponsiveGridLayout">
+						<f:content>
+							<core:Title/>
+							<VBox>
+								<VBox>
+									<HBox>
+										<Label text="To"/>
+										<Button icon="sap-icon://add" id="addButtonTo" press="onAddTo"/>
+									</HBox>
+									<List delete="handleDelete" enableBusyIndicator="true" growing="true" headerText="Users" id="addTbl1" mode="Delete">
+									</List>
+								</VBox>
+								<VBox>
+									<HBox>
+										<Label text="Information"/>
+										<Button icon="sap-icon://add" id="addButtonInf" press="onAddTo"/>
+									</HBox>
+										<List delete="handleDelete" enableBusyIndicator="true" growing="true" headerText="Users" id="addTbl2" mode="Delete">
+									</List>
+								</VBox>
+								
+								<HBox>
+									<Label text="Attachments"/>
+									<Button icon="sap-icon://add" id="addButtonAttach" press="onAttachAdd"/>
+								</HBox>
+								<VBox>
+								<f:SimpleForm  id="simpleFormMessage">
+								    
+								</f:SimpleForm>
+							   	</VBox>
+								
+							</VBox>
+							<core:Title/>
+							<Label text="Subject"/>
+							<Input class="inputForm" value="About: Payment Approval 19294"/>
+							<Label text="Message"/>
+							<TextArea class="inputTextArea" value=""/>
+							<Label text=""/>
+							<CheckBox enabled="true" text="Important"/>
+						</f:content>
+					</f:SimpleForm>
+				</VBox>
+			</l:content>
+		</l:Grid>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<TableSelectDialog cancel="handleClose" confirm="handleClose"
+		 id="idUserTblTo" inset="false" items="{ path: '/results' }" noDataText="No Users Found" search="handleSearch" title="User Selection" multiSelect="true">
+		<ColumnListItem>
+			<cells>
+				<Text text="{FirstName}"/>
+				<Text text="{LastName}"/>
+				<Text text="{Department}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column demandPopin="true" minScreenWidth="Tablet">
+				<header>
+					<Text text="Firstname"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Tablet">
+				<header>
+					<Text text="Lastname"/>
+				</header>
+			</Column>
+			<Column demandPopin="true" minScreenWidth="Tablet">
+				<header>
+					<Text text="Department"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

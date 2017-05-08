@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog title="Attachment" contentWidth="850px" draggable="false" horizontalScrolling="false" resizable="false" showHeader="false"
+		xmlns:b="sap.suite.ui.commons" xmlns:l="sap.ui.layout.form" xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns="sap.ui.commons">
+		<content>
+			<l:SimpleForm editable="true" id="simpleFormAttach">
+			    <l:content>
+			        <m:VBox>
+			            <Label id="attachFile" text="Attach File"/>
+			            <u:FileUploader id="fileupload" width="700px" sameFilenameAllowed="false" placeholder="select file" useMultipart="false" sendXHR="true">
+			            </u:FileUploader>
+			             <!--<Button icon="sap-icon://upload" id="btn" text="Upload" type="Emphasized"/>-->
+			        </m:VBox>
+			    </l:content>
+			</l:SimpleForm>
+		</content>
+		<buttons>
+		    <Button icon="sap-icon://upload" id="btnUpload" press="uploadFile" text="Upload" type="Emphasized"/>
+		    <Button icon="sap-icon://sys-cancel" id="btnAttachClose" press="onCloseAttachDialog" text="Close" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
