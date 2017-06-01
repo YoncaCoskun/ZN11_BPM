@@ -2,11 +2,11 @@ jQuery.sap.require("sap.ui.model.odata.AnnotationHelper");
 
 sap.ui.define([
 
-'sap/m/MessagePopover',
+	'sap/m/MessagePopover',
 
-'sap/m/MessagePopoverItem',
+	'sap/m/MessagePopoverItem',
 
-'sap/m/Link',
+	'sap/m/Link',
 
 	'jquery.sap.global',
 
@@ -26,34 +26,20 @@ sap.ui.define([
 
 	"use strict";
 
-
-
 	var CController = Controller.extend("zn11_expense.controller.Expense", {
 
 		model: new sap.ui.model.json.JSONModel(),
 
-
-
 		onInit: function() {
-
-
 
 		},
 
 		onAfterRendering: function() {
 
-
-
 		}
-
-
 
 	});
 
-
-
 	return CController;
-
-
 
 });

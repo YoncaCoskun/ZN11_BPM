@@ -36,21 +36,21 @@
 										labelSpanM="4" labelSpanXL="4" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
 											<core:Title/>
-											<Label text="Request Owner"/>
+											<Label text="Request Owner:"/>
 											<Input class="inputForm" value="{RequestOwner}"/>
-											<Label text="Department"/>
+											<Label text="Department:"/>
 											<Input class="inputForm" value="{Department}"/>
-											<Label text="Title"/>
+											<Label text="Title:"/>
 											<Input class="inputForm" value="{Title} "/>
 											<core:Title/>
-											<Label text="Request Number"/>
+											<Label text="Request Number:"/>
 											<Input class="inputForm" value="{Request Number}"/>
-											<Label text="Request Date"/>
+											<Label text="Request Date:"/>
 											<Input class="inputForm" value="{RequestDate}"/>
 											<HBox>
 												<Input class="inputForm" value=""/>
 											</HBox>
-											<Label text="Status"/>
+											<Label text="Status:"/>
 											<Input class="inputForm" value="{Status}"/>
 										</f:content>
 									</f:SimpleForm>
@@ -68,30 +68,32 @@
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 										<f:content>
 											<core:Title/>
-											<Label text="Period Start/End"/>
+											<Label text="Period Start/End:"/>
 											<DatePicker class="inputForm" id="DP1" value="{PeriodDate}"/>
 											<DatePicker class="inputForm" id="DP2" value="{PeriodDate}"/>
-											<Label text="Supplier"/>
+											<Label text="Supplier:"/>
 											<Input class="inputForm" value="{Supplier}"/>
-											<Label text="Subject"/>
+											<Label text="Subject:"/>
 											<TextArea class="inputTextArea" value=""/>
-											<Label text="Budget Allocation"/>
+											<Label text="Budget Allocation:"/>
 											<Select class="budgetAllo" width="100%">
 												<items>
 													<core:Item text=""/>
 												</items>
 											</Select>
-											<Label text="Department"/>
+											<Label text="Department:"/>
 											<Input class="inputForm" value="{Department}"/>
-											<Label text="Type"/>
+											<Label text="Type:"/>
 											<Input class="inputForm" value="{Type} "/>
-											<Label text="Description"/>
+											<Label text="Description:"/>
 											<Input class="inputForm" value="{Description}"/>
-											<Label text="Sub.Description"/>
+											<Label text="Sub.Description:"/>
 											<Input class="inputForm" value="{SubDescription}"/>
-											<Label text="Purpose"/>
+											<Label text="Rem. Budget Amount:"/>
+											<Input class="inputForm" value="{RemBudAmount}"/>
+											<Label text="Purpose:"/>
 											<TextArea class="inputTextArea" value=""/>
-											<Label text="Explanation"/>
+											<Label text="Explanation:"/>
 											<TextArea class="inputTextArea" value=""/>
 											<Label text=""/>
 											<RadioButtonGroup class="sapUiMediumMarginBottom" columns="5">
@@ -103,13 +105,13 @@
 													<RadioButton id="RB3-5" text="Others"/>
 												</buttons>
 											</RadioButtonGroup>
-											<Label text="Realted Party"/>
+											<Label text="Realted Party:"/>
 											<Select width="100%">
 												<items>
 													<core:Item text=""/>
 												</items>
 											</Select>
-											<Label text="B&amp;R Explanation"/>
+											<Label text="B&amp;R Explanation:"/>
 											<TextArea class="inputTextArea" value=""/>
 											<Label text="Type here"/>
 										</f:content>
@@ -128,7 +130,7 @@
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 										<f:content>
 											<core:Title/>
-											<Label text="Currency"/>
+											<Label text="Currency:"/>
 											<Select width="100%">
 												<items>
 													<core:Item text="TRY"/>
@@ -139,12 +141,12 @@
 											<HBox>
 												<Input class="inputCurr" value="{Currency}"/>
 											</HBox>
-											<Label text="Total Amount"/>
+											<Label text="Total Amount:"/>
 											<Input class="inputForm" value="0"/>
 											<HBox>
 												<Label class="labelExc" text="(Exc.VAT)"/>
 											</HBox>
-											<Label text="Installments"/>
+											<Label text="Installments:"/>
 											<Table id="mainViewTbl" inset="false" items="{ path: '/ET_HEADERSet', sorter: { path: 'Name' } }">
 												<columns>
 													<Column width="12em">
@@ -167,7 +169,7 @@
 													</ColumnListItem>
 												</items>
 											</Table>
-											<Label text="Total Amount"/>
+											<Label text="Total Amount:"/>
 											<Input class="inputForm" value="0"/>
 											<HBox>
 												<Label class="labelPay" id="idTRY1" text="TRY"/>

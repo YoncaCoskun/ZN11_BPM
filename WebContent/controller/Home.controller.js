@@ -1,58 +1,30 @@
 jQuery.sap.require("sap.ui.model.odata.AnnotationHelper");
 
-
-
 sap.ui.define([
 
+	'sap/m/MessagePopover',
 
+	'sap/m/MessagePopoverItem',
 
-'sap/m/MessagePopover',
-
-
-
-'sap/m/MessagePopoverItem',
-
-
-
-'sap/m/Link',
-
-
+	'sap/m/Link',
 
 	'jquery.sap.global',
 
-
-
 	'sap/ui/core/Fragment',
-
-
 
 	'sap/ui/core/mvc/Controller',
 
-
-
 	'sap/ui/model/json/JSONModel',
-
-
 
 	'sap/ui/model/odata/AnnotationHelper',
 
-
-
 	'sap/m/Popover',
-
-
 
 	'sap/m/Button'
 
-
-
-], function (MessagePopover, MessagePopoverItem, Link, jQuery, Fragment, Controller, JSONModel, AnnotationHelper, Popover, Button) {
-
-
+], function(MessagePopover, MessagePopoverItem, Link, jQuery, Fragment, Controller, JSONModel, AnnotationHelper, Popover, Button) {
 
 	"use strict";
-
-
 
 	var oMessageTemplate = new MessagePopoverItem({
 
@@ -66,19 +38,9 @@ sap.ui.define([
 
 		counter: '{counter}'
 
-
-
 	});
 
-
-
- 
-
-
-
 	var oMessagePopover1 = new MessagePopover({
-
-
 
 		items: {
 
@@ -88,11 +50,7 @@ sap.ui.define([
 
 		}
 
-
-
 	});
-
-
 
 	var oMessagePopover2 = new MessagePopover({
 
@@ -104,15 +62,7 @@ sap.ui.define([
 
 		}
 
-
-
 	});
-
-
-
- 
-
-
 
 	var oMessagePopover3 = new MessagePopover({
 
@@ -128,357 +78,191 @@ sap.ui.define([
 
 	});
 
-
-
-
-
 	var CController = Controller.extend("zn11_expense.controller.Home", {
 
-		model : new sap.ui.model.json.JSONModel(),
+		model: new sap.ui.model.json.JSONModel(),
 
-		
-
-		onInit : function() {
-
-
+		onInit: function() {
 
 			var sErrorDescription = 'First Error message description. \n' +
 
+				'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
 
+				'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,' +
 
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
+				'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo' +
 
+				'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' +
 
+				'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non' +
 
-			'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,' +
+				'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
+			var aMockMessages = [{
 
+				type: 'Error',
 
-			'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo' +
+				title: 'Error message',
 
+				description: sErrorDescription,
 
+				subtitle: 'Example of subtitle',
 
-			'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' +
+				counter: 1
 
+			}, {
 
+				type: 'Warning',
 
-			'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non' +
+				title: 'Warning without description',
 
+				description: ''
 
+			}, {
 
-			'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+				type: 'Success',
 
+				title: 'Success message',
 
+				description: 'First Success message description',
 
+				subtitle: 'Example of subtitle',
 
+				counter: 1
 
+			}, {
 
+				type: 'Error',
 
-		var aMockMessages = [{
+				title: 'Error message',
 
-			type: 'Error',
+				description: 'Second Error message description',
 
-			title: 'Error message',
+				subtitle: 'Example of subtitle',
 
-			description: sErrorDescription,
+				counter: 2
 
-			subtitle: 'Example of subtitle',
+			}, {
 
-			counter: 1
+				type: 'Information',
 
+				title: 'Information message',
 
+				description: 'First Information message description',
 
-		}, {
+				subtitle: 'Example of subtitle',
 
-			type: 'Warning',
+				counter: 1
 
-			title: 'Warning without description',
+			}];
 
-			description: ''
+			var oModel = new JSONModel();
 
-		}, {
+			oModel.setData(aMockMessages);
 
+			var viewModel = new JSONModel()
 
+			viewModel.setData({
 
-			type: 'Success',
-
-			title: 'Success message',
-
-			description: 'First Success message description',
-
-			subtitle: 'Example of subtitle',
-
-			counter: 1
-
-
-
-		}, {
-
-
-
-			type: 'Error',
-
-			title: 'Error message',
-
-			description: 'Second Error message description',
-
-			subtitle: 'Example of subtitle',
-
-			counter: 2
-
-		}, {
-
-
-
-			type: 'Information',
-
-			title: 'Information message',
-
-			description: 'First Information message description',
-
-			subtitle: 'Example of subtitle',
-
-			counter: 1
-
-
-
-		}];
-
-
-
-
-
-
-
-		var oModel = new JSONModel();
-
-
-
-		oModel.setData(aMockMessages);
-
-
-
-
-
-
-
-		var viewModel = new JSONModel()
-
-
-
-		viewModel.setData({
-
-			messagesLength: aMockMessages.length + ''
-
-
-
-		});
-
-
-
-			this.getView().setModel(viewModel);
-
-
-
-			oMessagePopover1.setModel(oModel);
-
-
-
-			this._setToggleButtonTooltip(!sap.ui.Device.system.desktop);
-
-
-
-			var sURL, oModel, oView;
-
-
-
-			 
-
-
-
-			jQuery.sap.require("sap.ui.core.util.MockServer");
-
-
-
-			var oMockServer = new sap.ui.core.util.MockServer({
-
-
-
-				rootUri: "smartfield.SmartField/"
-
-
+				messagesLength: aMockMessages.length + ''
 
 			});
 
+			this.getView().setModel(viewModel);
 
+			oMessagePopover1.setModel(oModel);
 
-			oMockServer.simulate("https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/metadata.xml", "https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/");
+			this._setToggleButtonTooltip(!sap.ui.Device.system.desktop);
 
+			var sURL, oModel, oView;
 
+			jQuery.sap.require("sap.ui.core.util.MockServer");
+
+			var oMockServer = new sap.ui.core.util.MockServer({
+
+				rootUri: "smartfield.SmartField/"
+
+			});
+
+			oMockServer.simulate(
+				"https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/metadata.xml",
+				"https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/");
 
 			oMockServer.start();
 
-
-
 			oModel = new sap.ui.model.odata.v2.ODataModel("smartfield.SmartField", true);
-
-
 
 			// oModel.setCountSupported(false);
 
-
-
 			oModel.setDefaultBindingMode("TwoWay"); // <-- needed to take over changes into model
-
-
-
-	 
-
-
 
 			oView = this.getView();
 
-
-
 			oView.setModel(oModel);
-
-
 
 			oView.bindElement("/Products('1239102')");
 
-
-
 		},
 
-
-
-		onItemSelect : function(oEvent) {
-
-
+		onItemSelect: function(oEvent) {
 
 			var item = oEvent.getParameter('item');
 
-
-
 			var viewId = this.getView().getId();
-
-
 
 			sap.ui.getCore().byId(viewId + "--pageContainer").to(viewId + "--" + item.getKey());
 
-
-
 		},
 
-
-
-
-
-
-
-		handleUserNamePress: function (event) {
-
-
+		handleUserNamePress: function(event) {
 
 			var popover = new Popover({
 
-
-
 				showHeader: false,
-
-
 
 				placement: sap.m.PlacementType.Bottom,
 
-
-
-				content:[
-
-
+				content: [
 
 					new Button({
-
-
 
 						text: 'Feedback',
 
-
-
 						type: sap.m.ButtonType.Transparent
-
-
 
 					}),
 
-
-
 					new Button({
-
-
 
 						text: 'Help',
 
-
-
 						type: sap.m.ButtonType.Transparent
-
-
 
 					}),
 
-
-
 					new Button({
-
-
 
 						text: 'Logout',
 
-
-
 						type: sap.m.ButtonType.Transparent
-
-
 
 					})
 
-
-
 				]
-
-
 
 			}).addStyleClass('sapMOTAPopover sapTntToolHeaderPopover');
 
-
-
-
-
-
-
 			popover.openBy(event.getSource());
-
-
 
 		},
 
-
-
-		handlePopover: function (oEvent) {
-
-
+		handlePopover: function(oEvent) {
 
 			oMessagePopover1.openBy(oEvent.getSource());
 
-
-
 		},
 
-
-
-		onSideNavButtonPress : function() {
-
-
+		onSideNavButtonPress: function() {
 
 			var viewId = this.getView().getId();
 
@@ -486,25 +270,13 @@ sap.ui.define([
 
 			var sideExpanded = toolPage.getSideExpanded();
 
-
-
 			this._setToggleButtonTooltip(sideExpanded);
-
-
 
 			toolPage.setSideExpanded(!toolPage.getSideExpanded());
 
-
-
 		},
 
-
-
-
-
-		_setToggleButtonTooltip : function(bLarge) {
-
-
+		_setToggleButtonTooltip: function(bLarge) {
 
 			var toggleButton = this.getView().byId('sideNavigationToggleButton');
 
@@ -516,25 +288,15 @@ sap.ui.define([
 
 				toggleButton.setTooltip('Small Size Navigation');
 
-
-
 			}
-
-
 
 		},
 
-
-
 		onChangeEditMode: function(oEvent) {
-
-
 
 			var oView = this.getView();
 
 			var bFlag = !oView.byId("idCategory").getContextEditable();
-
-
 
 			oView.byId("idProductId").setContextEditable(bFlag);
 
@@ -558,19 +320,13 @@ sap.ui.define([
 
 			oView.byId("idAvailableSince").setContextEditable(bFlag);
 
-
-
 		},
 
 		onChangeEnabledMode: function(oEvent) {
 
-
-
 			var oView = this.getView();
 
 			var bFlag = !oView.byId("idCategory").getEnabled();
-
-
 
 			oView.byId("idProductId").setEnabled(bFlag);
 
@@ -594,23 +350,17 @@ sap.ui.define([
 
 			oView.byId("idAvailableSince").setEnabled(bFlag);
 
-
-
 		},
 
+		/*	btnHomeClick: function()
 
+			{
 
-	/*	btnHomeClick: function()
+				var navCon = this.getView().byId("navContainer");
 
-		{
+					navCon.to(this.getView().byId("idHomePage"), "slide");
 
-			var navCon = this.getView().byId("navContainer");
-
-				navCon.to(this.getView().byId("idHomePage"), "slide");
-
-		},*/
-
-
+			},*/
 
 		btnBudgetClick: function()
 
@@ -620,70 +370,30 @@ sap.ui.define([
 
 			navCon.to(this.getView().byId("idBudgetPage"), "slide");
 
-
-
 		},
 
-
-
-			btnExpenseClick: function()
-
-
+		btnExpenseClick: function()
 
 		{
-
-
 
 			var navCon = this.getView().byId("navContainer");
 
 			navCon.to(this.getView().byId("idExpensePage"), "slide");
 
-
-
 		},
-
-
 
 		btnPaymentClick: function()
 
-
-
 		{
-
-
 
 			var navCon = this.getView().byId("navContainer");
 
 			navCon.to(this.getView().byId("idPaymentPage"), "slide");
 
-
-
 		}
-
-
-
-
-
-
 
 	});
 
-
-
-
-
-
-
-
-
-
-
 	return CController;
-
-
-
-
-
-
 
 });

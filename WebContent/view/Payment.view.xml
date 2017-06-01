@@ -37,11 +37,11 @@
 										labelSpanXL="4" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
 											<core:Title/>
-											<Label text="Request Owner"/>
+											<Label text="Request Owner:"/>
 											<Input class="inputForm" value="EREN AKTAŞ"/>
-											<Label text="Department"/>
+											<Label text="Department:"/>
 											<Input class="inputForm" value="FINANCE AND BUDGET&amp;rEPORTING"/>
-											<Label text="Title"/>
+											<Label text="Title:"/>
 											<Input class="inputForm" value="SPECIALIST"/>
 											<Label text="Payment Form Type:"/>
 											<Select width="100%">
@@ -51,14 +51,14 @@
 												</items>
 											</Select>
 											<core:Title/>
-											<Label text="Request Number"/>
+											<Label text="Request Number:"/>
 											<Input class="inputForm" value="{Request Number}"/>
-											<Label text="Request Date"/>
+											<Label text="Request Date:"/>
 											<Input class="inputForm" value="{RequestDate}"/>
 											<HBox>
 												<Input class="inputForm" value=""/>
 											</HBox>
-											<Label text="Status"/>
+											<Label text="Status:"/>
 											<Input class="inputForm" placeholder="Form Status"/>
 										</f:content>
 									</f:SimpleForm>
@@ -75,16 +75,16 @@
 								<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 									<f:content>
 										<core:Title/>
-										<Label text="Invoice Date"/>
+										<Label text="Invoice Date:"/>
 										<DatePicker class="inputForm" id="ID" value="{InvoiceDate}" width="100%"/>
 										<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onPress" text="Reset" width="30%">
 											<layoutData>
 												<FlexItemData growFactor="1"/>
 											</layoutData>
 										</Button>
-										<Label text="Expiry Date"/>
+										<Label text="Expiry Date:"/>
 										<DatePicker class="inputForm" id="ED" value="{ExpiryDate}" width="100%"/>
-										<Label text="Currency Type"/>
+										<Label text="Currency Type:"/>
 										<Select width="100%">
 											<items>
 												<core:Item text="TRY"/>
@@ -93,7 +93,7 @@
 											</items>
 										</Select>
 										<Input class="inputForm" value="900,00" width="100%"/>
-										<Label text="Invoice Number"/>
+										<Label text="Invoice Number:"/>
 										<Input class="inputForm" value="648223" width="100%"/>
 									</f:content>
 								</f:SimpleForm>
@@ -109,7 +109,7 @@
 								<VBox class="sapUiSmallMargin">
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 										<f:content>
-											<Label text="Related Budget No"/>
+											<Label text="Related Budget No:"/>
 											<Table id="idProductsTable" inset="false" items="{ path: '/results', sorter: { path: 'BudgetNum' } }">
 												<columns>
 													<Column width="12em">
@@ -146,7 +146,7 @@
 												<Label class="labelPay" text="Total Amount:"/>
 												<Input class="inputForm" value=""/>
 											</HBox>
-											<Label text="Budget Form"/>
+											<Label text="Budget Form:"/>
 											<Table id="mainViewTbl74" inset="false" items="{ path: '/ET_HEADERSet', sorter: { path: 'Name' } }">
 												<columns>
 													<Column width="12em">
@@ -161,7 +161,7 @@
 													</ColumnListItem>
 												</items>
 											</Table>
-											<Label text="Doc(invoice..etc)"/>
+											<Label text="Doc(invoice..etc):"/>
 											<Button press="onPress" text="Add" width="10%">
 												<layoutData>
 													<FlexItemData growFactor="1"/>
@@ -182,23 +182,23 @@
 								<VBox class="sapUiSmallMargin">
 									<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
 										<f:content>
-											<Label text="Vendor Name"/>
+											<Label text="Vendor Name:"/>
 											<Input class="inputForm" editable="false" value="n11.com"/>
-											<Label text="Vendor Address"/>
+											<Label text="Vendor Address:"/>
 											<TextArea class="inputTextArea" editable="false" value="ISTANBUL TEKNIK UNIVERSITESI-ARI3"/>
-											<Label text="Vendor VKN/TCKN"/>
+											<Label text="Vendor VKN/TCKN:"/>
 											<Input class="inputForm" editable="false" value="6483532932"/>
-											<Label text="Vendor Phone No"/>
+											<Label text="Vendor Phone No:"/>
 											<Input class="inputForm" editable="false" value="5456372321"/>
-											<Label text="Contact Person"/>
+											<Label text="Contact Person:"/>
 											<Input class="inputForm" editable="false" value="EREN AKTAŞ"/>
-											<Label text="Vendor E-Mail"/>
+											<Label text="Vendor E-Mail:"/>
 											<Input class="inputForm" editable="false" value="eren@n11.com"/>
-											<Label text="Bank Name"/>
+											<Label text="Bank Name:"/>
 											<Input class="inputForm" editable="false" value="Akbank"/>
-											<Label text="IBAN Number"/>
+											<Label text="IBAN Number:"/>
 											<Input class="inputForm" editable="false" value="TR00 0000 0000 0000 00"/>
-											<Label text="Swift Code"/>
+											<Label text="Swift Code:"/>
 											<Input class="inputForm" editable="false" value="SWF"/>
 										</f:content>
 									</f:SimpleForm>
@@ -215,16 +215,16 @@
 								<VBox class="sapUiSmallMargin">
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
-											<Label text="Type"/>
+											<Label text="Type:"/>
 											<Select id="idType" width="100%">
 												<items>
 													<core:Item text="Invoice"/>
 													<core:Item text=""/>
 												</items>
 											</Select>
-											<Label text="Subject"/>
+											<Label text="Subject:"/>
 											<Input class="inputForm" id="idSubject"/>
-											<Label text="Payment Type"/>
+											<Label text="Payment Type:"/>
 											<RadioButtonGroup columns="2" select="clickPayment">
 												<buttons>
 													<RadioButton id="RB-Down" text="Down Payment"/>
@@ -260,25 +260,25 @@
 													<Button class="classButton" text="Delete"></Button>
 												</HBox>
 											</VBox>
-											<Label text="Installment Amount"/>
+											<Label text="Installment Amount:"/>
 											<Input class="inputForm" id="idInsAmount" value="0"/>
-											<Label text="Comment"/>
+											<Label text="Comment:"/>
 											<TextArea class="inputTextArea" id="idComment"/>
-											<Label text="VAT Budget Amount"/>
+											<Label text="VAT Budget Amount:"/>
 											<Input class="inputForm" id="idBudAmount" value="29.000"/>
 											<HBox>
 												<Label class="labelPay" id="idTRY0" text="TRY"/>
 											</HBox>
-											<Label text="Payment Amount"/>
+											<Label text="Payment Amount:"/>
 											<Input class="inputForm" id="idPayAmount" value="4.000"/>
 											<HBox>
 												<Label class="labelPay" id="idTRY1" text="TRY"/>
 											</HBox>
-											<Label text="VAT Amount"/>
+											<Label text="VAT Amount:"/>
 											<Input class="inputForm" id="idAmount" value="200"/>
-											<Label text="Withholding Tax"/>
+											<Label text="Withholding Tax:"/>
 											<Input class="inputForm" id="idTax" value="0,00"/>
-											<Label text="VAT Incl. Amount"/>
+											<Label text="VAT Incl. Amount:"/>
 											<Input class="inputForm" id="idIncAmount" value="4200"/>
 											<HBox>
 												<Label class="labelPay" id="idTRY2" text="TRY"/>
@@ -288,6 +288,17 @@
 													</layoutData>
 												</Button>
 											</HBox>
+											<Label text="Advance Information:"/>
+											<Select width="100%">
+												<items>
+													<core:Item text="YES"/>
+													<core:Item text="NO"/>
+												</items>
+											</Select>
+											<Label text="Advance Amount:"/>
+											<Input class="inputForm" value="0,00"/>
+											<Label text="Net Payment Amount:"/>
+											<Input class="inputForm" value="0,00"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
