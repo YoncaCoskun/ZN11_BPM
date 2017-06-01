@@ -8,7 +8,7 @@
   },
   "deploy": {
     "destination": "IFP",
-    "name": "ZN11_BPM"
+    "name": "ZN11_BPM_ONAY"
   },
   "generation": [
     {
