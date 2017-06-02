@@ -248,7 +248,9 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
     height: 1.5rem !important;
     width: 100% !important;
 }
-
+.sapUiSizeCompact .sapUiFormContainerTitle>.sapUiFormTitle {
+    height: 0rem !important;
+}
 /*.sapUiSizeCompact .sapUiDemoToolPage .sapTntToolHeader.sapMTB {
 
 	height: 3rem;
