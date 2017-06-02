@@ -178,7 +178,7 @@ sap.ui.define([
 		},
 		getDialogAttach: function() {
 			if (!this.oAttachAddDialog) {
-				this.oAttachAddDialog = sap.ui.xmlfragment("zn11_expense.view.AttachDialog", this);
+				this.oAttachAddDialog = sap.ui.xmlfragment("zn11_expense.view.AttachDialogBudget", this);
 				this.getView().addDependent(this.oAttachAddDialog);
 			}
 
@@ -188,7 +188,7 @@ sap.ui.define([
 		//Attachment close butonu
 		onCloseAttachDialog: function(oEvent) {
 			if (!this.oAttachAddDialog) {
-				this.oAttachAddDialog = sap.ui.xmlfragment("zn11_expense.view.AttachDialog", this.getView().getController());
+				this.oAttachAddDialog = sap.ui.xmlfragment("zn11_expense.view.AttachDialogBudget", this.getView().getController());
 
 			}
 			var oFileUploader = sap.ui.getCore().byId("fileupload");

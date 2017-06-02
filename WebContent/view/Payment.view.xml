@@ -314,7 +314,7 @@
 				<List headerText="A List" showSeparators="Inner"></List>
 			</IconTabFilter>
 			<IconTabFilter text="MESSAGES">
-				<Button icon="sap-icon://add" text="Add Message"/>
+				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="idClickPay"/>
 				<Table id="idPaymentMessage" inset="false" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
 					<columns>
 						<Column width="12em">
