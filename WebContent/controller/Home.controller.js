@@ -352,7 +352,7 @@ sap.ui.define([
 
 		},
 
-		/*	btnHomeClick: function()
+			btnHomeClick: function()
 
 			{
 
@@ -360,7 +360,7 @@ sap.ui.define([
 
 					navCon.to(this.getView().byId("idHomePage"), "slide");
 
-			},*/
+			},
 
 		btnBudgetClick: function()
 
