@@ -62,7 +62,7 @@
 
 
 
-	/*		sap.ui.getCore().attachInit(function() {
+			sap.ui.getCore().attachInit(function() {
 
 
 
@@ -83,21 +83,7 @@
 
 
 			});
-*/
-	sap.ui.getCore().attachInit(function() {
-				new sap.m.App ({
-					pages: [
-						new sap.m.Page({
-							//title: "GERÇEK ZAMANLI RAF YÖNETİM SİSTEMİ",
-							enableScrolling : false,
-							showHeader: false,
-							content: [ new sap.ui.core.ComponentContainer({
-								height : "100%", name : "zn11_expense"
-							})]
-						})
-					]
-				}).placeAt("content");
-			});
+
 
 
 
