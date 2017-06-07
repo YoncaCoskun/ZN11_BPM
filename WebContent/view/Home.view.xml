@@ -35,11 +35,11 @@
 			</tnt:ToolHeader>
 		</tnt:header>
 		<tnt:sideContent>
-			<tnt:SideNavigation id="sideNavigation" class="classNav">
+			<tnt:SideNavigation id="sideNavigation">
 				<tnt:item>
 					<tnt:NavigationList>
-						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Startup"/>
-						<tnt:NavigationListItem icon="sap-icon://action-settings" text="Applications">
+						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Home"/>
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Applications">
 							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
@@ -52,110 +52,10 @@
 			<NavContainer id="navContainer">
 				<pages>
 					<Page id="idHomePage" showHeader="false">
-					<GenericTile header="" subheader="" frameType="OneByOne" press="press" class="classUser">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good" />
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile header="" subheader="" frameType="OneByOne" press="press" class="classApproval">
-					<tileContent>
-						<TileContent unit="" footer="Approvals"  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-					<GenericTile header="" subheader="" frameType="OneByOne" press="press" class="classFav">
-					<tileContent>
-						<TileContent unit="" footer="Favorites"  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-						<GenericTile header="" subheader="" frameType="OneByOne" press="press" class="classRecent">
-					<tileContent>
-						<TileContent unit="" footer="Favorites"  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-			<!--	<GenericTile header="Motor" subheader="Durum" frameType="OneByOne" press="press">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile header="Motor" subheader="Durum" frameType="OneByOne">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile header="Motor" subheader="Durum" frameType="OneByOne" press="press">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile header="Motor" subheader="Durum" frameType="OneByOne" press="press">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>
-				<GenericTile header="Motor" subheader="Durum" frameType="OneByOne" press="press">
-					<tileContent>
-						<TileContent unit="" footer=""  class="classTile">
-							<content>
-								<NumericContent value="" scale="" valueColor="Good"/>
-							</content>
-						</TileContent>
-					</tileContent>
-				</GenericTile>-->
-								<!--			<l:BlockLayoutCell>
-									<l:VerticalLayout>
-										<core:Icon color="#346187" size="2.5rem" src="sap-icon://customer-financial-fact-sheet"/>
-										<Title class="sapUiTinyMarginTopBottom" text="{i18n]revenueTitle}" titleStyle="H2"/>
-										<Text class="sapUiTinyMarginBottom" text="{i18n]revenueContent}"/>
-										<Link text="{i18n>accessLink}"/>
-										<Link text="{i18n>learnLink}"/>
-									</l:VerticalLayout>
-								</l:BlockLayoutCell>
-								<l:BlockLayoutCell>
-									<l:VerticalLayout>
-										<core:Icon color="#346187" size="2.5rem" src="sap-icon://supplier"/>
-										<Title class="sapUiTinyMarginTopBottom" text="{i18n]supplierTitle}" titleStyle="H2"/>
-										<Text class="sapUiTinyMarginBottom" text="{i18n]supplierContent}"/>
-										<Link text="{i18n>accessLink}"/>
-										<Link text="{i18n>learnLink}"/>
-									</l:VerticalLayout>
-								</l:BlockLayoutCell>-->
-			
-						<!--	<l:BlockLayout background="Light" id="BlockLayout">
+						<l:BlockLayout background="Light" id="BlockLayout">
 							<l:BlockLayoutRow>
 								<l:BlockLayoutCell class="sapUiNoContentPadding">
-								<Image src="img/homeImage.png" width="100%"/>
+									<!--<Image src="img/homeImage.png" width="100%"/>-->
 								</l:BlockLayoutCell>
 							</l:BlockLayoutRow>
 							<l:BlockLayoutRow class="shopAdministrationTitle" rowColorSet="ColorSet1">
@@ -199,7 +99,7 @@
 									</l:VerticalLayout>
 								</l:BlockLayoutCell>
 							</l:BlockLayoutRow>
-						</l:BlockLayout>-->
+						</l:BlockLayout>
 					</Page>
 					<Page id="idExpensePage" showHeader="false">
 						<ScrollContainer height="100%" horizontal="false" id="root1" vertical="true">

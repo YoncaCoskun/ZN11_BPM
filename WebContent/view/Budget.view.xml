@@ -69,26 +69,26 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Period Start/End:"/>
-											<DatePicker class="inputForm" id="DP1" value="{PeriodDate}"/>
-											<DatePicker class="inputForm" id="DP2" value="{PeriodDate}"/>
+											<DatePicker class="inputForm" id="DP1" value="{PeriodDate}" required="true"/>
+											<DatePicker class="inputForm" id="DP2" value="{PeriodDate}" required="true"/>
 											<Label text="Supplier:"/>
-											<Input class="inputForm" value="{Supplier}"/>
+											<Input class="inputForm" value="{Supplier}" required="true"/>
 											<Label text="Subject:"/>
-											<TextArea class="inputTextArea" value=""/>
-											<Label text="Budget Allocation:"/>
+											<TextArea class="inputTextArea" value="" required="true"/>
+											<Label text="Budget Allocation:" required="true"/>
 											<Select class="budgetAllo" width="100%">
 												<items>
 													<core:Item text=""/>
 												</items>
 											</Select>
 											<Label text="Department:"/>
-											<Input class="inputForm" value="{Department}"/>
+											<Input class="inputForm" value="{Department}" enabled="false"/>
 											<Label text="Type:"/>
-											<Input class="inputForm" value="{Type} "/>
+											<Input class="inputForm" value="{Type} " enabled="false"/>
 											<Label text="Description:"/>
-											<Input class="inputForm" value="{Description}"/>
+											<Input class="inputForm" value="{Description}" enabled="false"/>
 											<Label text="Sub.Description:"/>
-											<Input class="inputForm" value="{SubDescription}"/>
+											<Input class="inputForm" value="{SubDescription}" enabled="false"/>
 											<Label text="Rem. Budget Amount:"/>
 											<Input class="inputForm" value="{RemBudAmount}"/>
 											<Label text="Purpose:"/>
@@ -130,7 +130,7 @@
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 										<f:content>
 											<core:Title/>
-											<Label text="Currency:"/>
+											<Label text="Currency:" required="true"/>
 											<Select width="100%">
 												<items>
 													<core:Item text="TRY"/>

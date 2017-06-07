@@ -76,7 +76,7 @@
 									<f:content>
 										<core:Title/>
 										<Label text="Invoice Date:"/>
-										<DatePicker class="inputForm" id="ID" value="{InvoiceDate}" width="100%"/>
+										<DatePicker class="inputForm" id="ID" value="{InvoiceDate}" width="100%" required="true"/>
 										<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onPress" text="Reset" width="30%">
 											<layoutData>
 												<FlexItemData growFactor="1"/>
@@ -84,7 +84,7 @@
 										</Button>
 										<Label text="Expiry Date:"/>
 										<DatePicker class="inputForm" id="ED" value="{ExpiryDate}" width="100%"/>
-										<Label text="Currency Type:"/>
+										<Label text="Currency Type:" required="true"/>
 										<Select width="100%">
 											<items>
 												<core:Item text="TRY"/>
@@ -183,7 +183,7 @@
 									<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
 										<f:content>
 											<Label text="Vendor Name:"/>
-											<Input class="inputForm" editable="false" value="n11.com"/>
+											<Input class="inputForm" editable="false" value="n11.com" required="true"/>
 											<Label text="Vendor Address:"/>
 											<TextArea class="inputTextArea" editable="false" value="ISTANBUL TEKNIK UNIVERSITESI-ARI3"/>
 											<Label text="Vendor VKN/TCKN:"/>
@@ -215,7 +215,7 @@
 								<VBox class="sapUiSmallMargin">
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
-											<Label text="Type:"/>
+											<Label text="Type:" required="true"/>
 											<Select id="idType" width="100%">
 												<items>
 													<core:Item text="Invoice"/>
@@ -224,7 +224,7 @@
 											</Select>
 											<Label text="Subject:"/>
 											<Input class="inputForm" id="idSubject"/>
-											<Label text="Payment Type:"/>
+											<Label text="Payment Type:" required="true"/>
 											<RadioButtonGroup columns="2" select="clickPayment">
 												<buttons>
 													<RadioButton id="RB-Down" text="Down Payment"/>
@@ -270,12 +270,12 @@
 												<Label class="labelPay" id="idTRY0" text="TRY"/>
 											</HBox>
 											<Label text="Payment Amount:"/>
-											<Input class="inputForm" id="idPayAmount" value="4.000"/>
+											<Input class="inputForm" id="idPayAmount" value="4.000" required="true"/>
 											<HBox>
 												<Label class="labelPay" id="idTRY1" text="TRY"/>
 											</HBox>
 											<Label text="VAT Amount:"/>
-											<Input class="inputForm" id="idAmount" value="200"/>
+											<Input class="inputForm" id="idAmount" value="200" required="true"/>
 											<Label text="Withholding Tax:"/>
 											<Input class="inputForm" id="idTax" value="0,00"/>
 											<Label text="VAT Incl. Amount:"/>
