@@ -26,6 +26,18 @@ sap.ui.define([
 	var CController = Controller.extend("zn11_expense.controller.Budget", {
 		model: new sap.ui.model.json.JSONModel(),
 		onInit: function() {
+				
+			var that = this;
+			var sServiceUrl = "http://dperppo01d.n11.local:50000/RESTAdapter";
+			var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl);
+			var oJsonModel = new sap.ui.model.json.JSONModel();
+
+			oModel.read("/BudgetAllocationSelect", null, null, true, function(oData) {
+				oJsonModel.setData(oData);
+				console.log(oData.results);
+			});
+			that.getView().setModel(oJsonModel, "JModel");
+			this.getView().byId("budgetAllocation").setModel(this.getView().getModel("JModel"));
 //budget
 		},
 		onAfterRendering: function() {},

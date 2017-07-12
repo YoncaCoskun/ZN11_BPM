@@ -24,11 +24,16 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
+						<Panel class="panelBottom" id="panelFs" width="auto">
+							<content>
+								<ImageContent class="imageLogo" src="img/3d-logo.jpg"></ImageContent>
+							</content>
+						</Panel>
 						<Panel class=" panelBottom" id="panelFirstContainer" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Form Details"/>
-									<ImageContent class="imageLogo" src="img/n11_logo.png"></ImageContent>
+									<!--<ImageContent class="imageLogo" src="img/n11_logo.png"></ImageContent>-->
 								</Toolbar>
 							</headerToolbar>
 							<content>
@@ -150,9 +155,12 @@
 						</Panel>
 					</content>
 				</Panel>
-				<Button icon="sap-icon://print" text="Print the document"/>
+				<!--
+					<Button icon="sap-icon://print" text="Print the document"/>
 				<Button icon="sap-icon://notes" text="Notes"/>
 				<Button icon="sap-icon://save" text="Save Changes"/>
+				-->
+			
 			</IconTabFilter>
 			<IconTabFilter text="FLOW">
 				<List headerText="A List" showSeparators="Inner"></List>

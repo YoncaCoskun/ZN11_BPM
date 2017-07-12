@@ -3,13 +3,13 @@
     font-size: 16px !important;
     line-height: 20px !important;
     padding: 10px !important;
-    background: #ee3343 !important;
+    background: #716c6c !important;
 }
 
 .box-header .sapMTitle {
     text-shadow: 0 0.0625rem 0 #000 !important;
     color: #fff !important;
-    font-size: 16px !important;
+    font-size: 20px !important;
     font-family: 'Open Sans', sans-serif !important;
     margin: auto !important;
 }
@@ -24,7 +24,7 @@
 }
 
 .panelContainer {
-    border: 2px solid #ee3343 !important;
+    border: 2px solid #716c6c !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24) !important;
     background: #fff !important;
 }
@@ -91,10 +91,12 @@
 
 .boldText {
     font-weight: bold;
+    padding-left: 42% !important;
 }
 
 .imageLogo {
     margin-left: auto !important;
+    float: left !important;
 }
 
 td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
@@ -102,7 +104,7 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
 }
 
 .sapMTB-Transparent-CTX.sapMTB {
-    padding-bottom: 20px !important;
+    padding-bottom: 10px !important;
 }
 
 .sapUiSizeCompact .sapMInputBaseWidthPadding {
@@ -260,6 +262,10 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
 .sapUiSizeCompact .sapUiFormContainerTitle>.sapUiFormTitle {
     height: 0rem !important;
 }
+.sapMBtn{
+	 margin-left: 1rem !important;
+}
+   
 /*.sapUiSizeCompact .sapUiDemoToolPage .sapTntToolHeader.sapMTB {
 
 	height: 3rem;
