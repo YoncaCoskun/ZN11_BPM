@@ -349,3 +349,48 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
 	
 
 }*/
+.tileLayout {
+    float: left !important;
+    width: 335px !important;
+    height: 176px !important;
+    background-color: #3f5161;
+}
+
+.numericTile {
+    float: left !important;
+}
+.sapMGTHdrIconImage {
+	color: #dee3e8 !important;
+	margin-right: 42% !important;
+    margin-top: 15% !important;
+}
+.budgetApproveLabel{
+	    font-size: larger !important;
+	    margin-top: 25% !important;
+	    color:#dee3e8 !important;
+	    padding-right: 13% !important;
+	   
+}
+.paymentApproveLabel{
+	    font-size: larger !important;
+	    margin-top: 25% !important;
+	    color:#dee3e8 !important;
+}
+.expenseApproveLabel{
+	    font-size: larger !important;
+	    margin-top: 25% !important;
+	    color:#dee3e8 !important;
+}
+.sapMNCInner{
+	margin-top: 7% !important;
+}
+.sapMNCValueScr{
+	color: #dee3e8 !important;
+}
+.html2canvas-container {
+	width: 3000px !important;
+ height: 3000px !important; 
+ }
+.sapUiSizeCompact .sapMInputBase.sapMTextArea .sapMTextAreaInner {
+    padding: 0; 
+}

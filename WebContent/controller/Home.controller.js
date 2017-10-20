@@ -1,41 +1,24 @@
 jQuery.sap.require("sap.ui.model.odata.AnnotationHelper");
-
 sap.ui.define([
-
 	'sap/m/MessagePopover',
-
 	'sap/m/MessagePopoverItem',
-
 	'sap/m/Link',
-
 	'jquery.sap.global',
-
 	'sap/ui/core/Fragment',
-
 	'sap/ui/core/mvc/Controller',
-
 	'sap/ui/model/json/JSONModel',
-
 	'sap/ui/model/odata/AnnotationHelper',
-
 	'sap/m/Popover',
-
 	'sap/m/Button'
 
 ], function(MessagePopover, MessagePopoverItem, Link, jQuery, Fragment, Controller, JSONModel, AnnotationHelper, Popover, Button) {
 
 	"use strict";
-
 	var oMessageTemplate = new MessagePopoverItem({
-
 		type: '{type}',
-
 		title: '{title}',
-
 		description: '{description}',
-
 		subtitle: '{subtitle}',
-
 		counter: '{counter}'
 
 	});
@@ -82,127 +65,7 @@ sap.ui.define([
 
 		model: new sap.ui.model.json.JSONModel(),
 
-		onInit: function() {
-
-			var sErrorDescription = 'First Error message description. \n' +
-
-				'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' +
-
-				'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,' +
-
-				'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo' +
-
-				'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' +
-
-				'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non' +
-
-				'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
-			var aMockMessages = [{
-
-				type: 'Error',
-
-				title: 'Error message',
-
-				description: sErrorDescription,
-
-				subtitle: 'Example of subtitle',
-
-				counter: 1
-
-			}, {
-
-				type: 'Warning',
-
-				title: 'Warning without description',
-
-				description: ''
-
-			}, {
-
-				type: 'Success',
-
-				title: 'Success message',
-
-				description: 'First Success message description',
-
-				subtitle: 'Example of subtitle',
-
-				counter: 1
-
-			}, {
-
-				type: 'Error',
-
-				title: 'Error message',
-
-				description: 'Second Error message description',
-
-				subtitle: 'Example of subtitle',
-
-				counter: 2
-
-			}, {
-
-				type: 'Information',
-
-				title: 'Information message',
-
-				description: 'First Information message description',
-
-				subtitle: 'Example of subtitle',
-
-				counter: 1
-
-			}];
-
-			var oModel = new JSONModel();
-
-			oModel.setData(aMockMessages);
-
-			var viewModel = new JSONModel()
-
-			viewModel.setData({
-
-				messagesLength: aMockMessages.length + ''
-
-			});
-
-			this.getView().setModel(viewModel);
-
-			oMessagePopover1.setModel(oModel);
-
-			this._setToggleButtonTooltip(!sap.ui.Device.system.desktop);
-
-			var sURL, oModel, oView;
-
-			jQuery.sap.require("sap.ui.core.util.MockServer");
-
-			var oMockServer = new sap.ui.core.util.MockServer({
-
-				rootUri: "smartfield.SmartField/"
-
-			});
-
-			oMockServer.simulate(
-				"https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/metadata.xml",
-				"https://sapui5.netweaver.ondemand.com/test-resources/sap/ui/comp/demokit/sample/smartfield/mockserver/");
-
-			oMockServer.start();
-
-			oModel = new sap.ui.model.odata.v2.ODataModel("smartfield.SmartField", true);
-
-			// oModel.setCountSupported(false);
-
-			oModel.setDefaultBindingMode("TwoWay"); // <-- needed to take over changes into model
-
-			oView = this.getView();
-
-			oView.setModel(oModel);
-
-			oView.bindElement("/Products('1239102')");
-
-		},
+		onInit: function() {},
 
 		onItemSelect: function(oEvent) {
 
@@ -369,6 +232,15 @@ sap.ui.define([
 			var navCon = this.getView().byId("navContainer");
 
 			navCon.to(this.getView().byId("idBudgetPage"), "slide");
+
+		},
+		btnManBudgetClick: function()
+
+		{
+
+			var navCon = this.getView().byId("navContainer");
+
+			navCon.to(this.getView().byId("idManBudgetPage"), "slide");
 
 		},
 

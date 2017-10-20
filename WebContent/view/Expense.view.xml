@@ -3,7 +3,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
 	<OverflowToolbar>
 		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
@@ -24,9 +24,9 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Panel class="panelBottom" id="panelFs" width="auto">
+						<Panel class="panelBottom" id="panelFirs" width="auto">
 							<content>
-								<ImageContent class="imageLogo" src="img/3d-logo.jpg"></ImageContent>
+								<ImageContent class="imageLogo" src="img/logo-n11-large.png"></ImageContent>
 							</content>
 						</Panel>
 						<Panel class=" panelBottom" id="panelFirstContainer" width="auto">
@@ -43,21 +43,21 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Request Owner:"/>
-											<Input class="inputForm" value="{Request Owner}"/>
+											<Input class="inputForm" value="ADEM YETİM"/>
 											<Label text="Department:"/>
-											<Input class="inputForm" value="{Department}"/>
+											<Input class="inputForm" value="SOUTHERN ANATOLIA"/>
 											<Label text="Title:"/>
-											<Input class="inputForm" value="{Title}"/>
+											<Input class="inputForm" value="SPECIALIST"/>
 											<core:Title/>
 											<Label text="Request Number:"/>
-											<Input class="inputForm" value="{Request Number}"/>
+											<Input class="inputForm" value="2017-BAF-4"/>
 											<Label text="Request Date:"/>
-											<Input class="inputForm" value="{RequestDate}"/>
+											<Input class="inputForm" value="02.06.2017"/>
 											<HBox>
 												<Input class="inputForm" value=""/>
 											</HBox>
 											<Label text="Status:"/>
-											<Input class="inputForm" placeholder="Form Status"/>
+											<Input class="inputForm" placeholder="Form Status" />
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
@@ -155,12 +155,9 @@
 						</Panel>
 					</content>
 				</Panel>
-				<!--
-					<Button icon="sap-icon://print" text="Print the document"/>
+				<!--<Button icon="sap-icon://print" text="Print the document"/>
 				<Button icon="sap-icon://notes" text="Notes"/>
-				<Button icon="sap-icon://save" text="Save Changes"/>
-				-->
-			
+				<Button icon="sap-icon://save" text="Save Changes"/>-->
 			</IconTabFilter>
 			<IconTabFilter text="FLOW">
 				<List headerText="A List" showSeparators="Inner"></List>
@@ -198,7 +195,7 @@
 	</IconTabBar>
 	<OverflowToolbar>
 		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>

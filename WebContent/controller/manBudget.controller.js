@@ -49,7 +49,7 @@ sap.ui.define([
 	var imgData = "";
 	var zdata = [];
 
-	var CController = Controller.extend("zn11_expense.controller.Budget", {
+	var CController = Controller.extend("zn11_expense.controller.manBudget", {
 		serviceUrl : "/bpmodata/taskdata.svc/",
 		bpmPrefixParameter : "?prefixReservedNames=true",
 		
@@ -61,127 +61,235 @@ sap.ui.define([
 		
 		model: new sap.ui.model.json.JSONModel(),
 		onInit: function() {
-			var oThat = this;
-			/*var that = this;
-			var sServiceUrl = "/RESTAdapter/BudgetAllocationSelect";
-			var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl);
-			var oJsonModel = new sap.ui.model.json.JSONModel();
-
-			oModel.read("", null, null, true, function(oData) {
-				oJsonModel.setData(oData);
-				console.log(oData.results);
-			});
-			that.getView().setModel(oJsonModel, "JModel");
-			this.getView().byId("budgetAllocation").setModel(this.getView().getModel("JModel"));
-			*/
-			//begin of startdata personel department cekme
-			try{
-				var persData = jQuery.ajax({
-	                type : "GET",
-	                contentType : "application/json",
-	                url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/PERNR=0417&PERSONEL",
-	                dataType : "json",
-	                async: false, 
-	                success : function(data,textStatus, jqXHR) {
-	                }
-
-	            });
-	    		var personelData = persData.responseJSON.T_RESULT.item.STRING;
-	    		
-	    		
-	    		 var arrayPers = personelData.split('@');
-	    		 var department = arrayPers[2];
-	    		 
-	    		 oThat.getView().byId('requestOwner').setValue(arrayPers[0] + " " + arrayPers[1]);
-	    		 oThat.getView().byId('department').setValue(arrayPers[2]);
-	    		 //oThat.getView().byId('requestNum').setValue(arrayPers[0]);
-	    		 oThat.getView().byId('title').setValue(arrayPers[3]);
-				
-				//end of ycoskun
-				
-			}catch(err){
-				
+			
+			var oUserData = "";
+			var usernameService =  "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp";
+			var HttpRequest = "";
+			HttpRequest = new XMLHttpRequest();
+			HttpRequest.onreadystatechange = function() {
+			if (HttpRequest.readyState == 4 && HttpRequest.status == 200) {
+			oUserData = JSON.parse(xmlHttp.responseText);
 			}
+
+			};
+
+			HttpRequest.open( "GET", usernameService, false );
+
+			var usernameFinal = oUserData.id
+			
+			console.log(usernameFinal);
+//			var oThat = this;
+//			/*var that = this;
+//			var sServiceUrl = "/RESTAdapter/BudgetAllocationSelect";
+//			var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl);
+//			var oJsonModel = new sap.ui.model.json.JSONModel();
+//
+//			oModel.read("", null, null, true, function(oData) {
+//				oJsonModel.setData(oData);
+//				console.log(oData.results);
+//			});
+//			that.getView().setModel(oJsonModel, "JModel");
+//			this.getView().byId("budgetAllocation").setModel(this.getView().getModel("JModel"));
+//			*/
+//			//begin of startdata personel department cekme
+//			try{
+//				var persData = jQuery.ajax({
+//	                type : "GET",
+//	                contentType : "application/json",
+//	                url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/PERNR=0417&PERSONEL",
+//	                dataType : "json",
+//	                async: false, 
+//	                success : function(data,textStatus, jqXHR) {
+//	                }
+//
+//	            });
+//	    		var personelData = persData.responseJSON.T_RESULT.item.STRING;
+//	    		
+//	    		
+//	    		 var arrayPers = personelData.split('@');
+//	    		 var department = arrayPers[2];
+//	    		 
+//	    		 oThat.getView().byId('requestOwner').setValue(arrayPers[0] + " " + arrayPers[1]);
+//	    		 oThat.getView().byId('department').setValue(arrayPers[2]);
+//	    		 //oThat.getView().byId('requestNum').setValue(arrayPers[0]);
+//	    		 oThat.getView().byId('title').setValue(arrayPers[3]);
+//				
+//				//end of ycoskun
+//				
+//			}catch(err){
+//				
+//			}
+//			
+//			
+//			var budgetModel = new sap.ui.model.json.JSONModel();
+//			var budgetIdModel = new sap.ui.model.json.JSONModel();
+//			var selects = [];
+//			var selectId = [];
+//			var budgetId ;
+//		     
+//		        var aData = jQuery.ajax({
+//		            type : "GET",
+//		            contentType : "application/json",
+//		            url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/DEPARTMENT="+department+"&INPUT_BUDGET_DEPARTMENT",
+//		            dataType : "json",
+//		            async: false, 
+//		            success : function(data,textStatus, jqXHR) {
+//		                oModel.setData({modelData : data}); 
+//		                console.log(data);
+//		                
+//		                for(var i = 0; i < data.T_RESULT.item.length; i++) {
+//		                   var text = data.T_RESULT.item[i];	                    
+//		                    var array = text.STRING.split('@');
+//		                    budgetId = array[0];
+//		                    selects.push(text);
+//		                   // selectId.push(budgetId);
+//		                    
+//		                    
+//		                 }
+//		               
+//		                console.log(selects);
+//		                
+//		    			budgetModel.setData(selects);
+//		    			//budgetIdModel.setData(Id);
+//		    			var Budget = oThat.getView().byId("idBudget");
+//		    		    Budget.setModel(budgetModel, "budgetModel");
+//		    		    console.log(Budget);
+//		    		    
+//		    			var fText = oThat.getView().byId('idText');
+//		    			Budget.bindItems("budgetModel>/", fText);
+//		    			
+//		                
+//		            }
+//		        
+//		        });
+//		        
+//		      
+//	    	
+//	    		 
+//	    		 
+//	    		 //begin of ycoskun Request Date otomatik getirme
+//	    		 var today = new Date();
+//	    		 var dd = today.getDate();
+//	    		 var mm = today.getMonth()+1; 
+//	    		 var yyyy = today.getFullYear();
+//	    		 
+//	    		 var hour = today.getHours();
+//	    		 var min = today.getMinutes();
+//	    		 var sec = today.getSeconds();
+//	    		 var time = hour + ":" + min;
+//
+//
+//	    		 if(dd<10) {
+//	    		     dd = '0'+dd
+//	    		 } 
+//
+//	    		 if(mm<10) {
+//	    		     mm = '0'+mm
+//	    		 } 
+//
+//	    		 today = dd + '/' + mm + '/' + yyyy;
+//	    		 sDate = yyyy.toString()+mm.toString()+dd;
+//	    		 sTime = hour+min+sec;
+//	    		 oThat.getView().byId('requestDate').setValue(today);
+//	    		 oThat.getView().byId('requestTime').setValue(time);
+//	    		 //end of ycoskun
+//	    		 
+//	    		
+//	            
+//		        
+////	    		 this.onSaveChange();
 			
 			
-			var budgetModel = new sap.ui.model.json.JSONModel();
-			var budgetIdModel = new sap.ui.model.json.JSONModel();
-			var selects = [];
-			var selectId = [];
-			var budgetId ;
-		     
-		        var aData = jQuery.ajax({
-		            type : "GET",
-		            contentType : "application/json",
-		            url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/DEPARTMENT="+department+"&INPUT_BUDGET_DEPARTMENT",
-		            dataType : "json",
-		            async: false, 
-		            success : function(data,textStatus, jqXHR) {
-		                oModel.setData({modelData : data}); 
-		                console.log(data);
-		                
-		                for(var i = 0; i < data.T_RESULT.item.length; i++) {
-		                   var text = data.T_RESULT.item[i];	                    
-		                    var array = text.STRING.split('@');
-		                    budgetId = array[0];
-		                    selects.push(text);
-		                   // selectId.push(budgetId);
-		                    
-		                    
-		                 }
-		               
-		                console.log(selects);
-		                
-		    			budgetModel.setData(selects);
-		    			//budgetIdModel.setData(Id);
-		    			var Budget = oThat.getView().byId("idBudget");
-		    		    Budget.setModel(budgetModel, "budgetModel");
-		    		    console.log(Budget);
-		    		    
-		    			var fText = oThat.getView().byId('idText');
-		    			Budget.bindItems("budgetModel>/", fText);
-		    			
-		                
-		            }
-		        
-		        });
-		        
-		      
-	    	
-	    		 
-	    		 
-	    		 //begin of ycoskun Request Date otomatik getirme
-	    		 var today = new Date();
-	    		 var dd = today.getDate();
-	    		 var mm = today.getMonth()+1; 
-	    		 var yyyy = today.getFullYear();
-	    		 
-	    		 var hour = today.getHours();
-	    		 var min = today.getMinutes();
-	    		 var sec = today.getSeconds();
-	    		 var time = hour + ":" + min;
+	   		var that = this;
+    		var aData = jQuery.ajax({
+                type : "GET",
+                contentType : "application/json",
+                url : "http://dperppo01d.n11.local:50000/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
+                dataType : "json",
+                async: false, 
+                success : function(data,textStatus, jqXHR) {
+                }
 
+            });
+    		try{
+    			TaskInstanceID = aData.responseJSON.d.results["0"].InstanceID;
+    	
+    		
+            
+    	
+    		var serviceUrlWithPrefix = this.serviceUrl + TaskInstanceID + this.bpmPrefixParameter;
+    		var odataModel = new sap.ui.model.odata.v2.ODataModel(serviceUrlWithPrefix, this.oDataSettings);
+    		
+            var startTypeINPUT = jQuery.ajax({
+                type : "GET",
+                contentType : "application/json",
+                url : "http://dperppo01d.n11.local:50000/bpmodata/taskdata.svc/"+ TaskInstanceID +"/InputData('"+ TaskInstanceID +"')?$format=json&$expand=startTypeINPUT/start/DO_BudgetApproval/Installments/row,startTypeINPUT/start/DO_BudgetApproval/Head,startTypeINPUT/start/DO_BudgetApproval/Details,startTypeINPUT/start/DO_BudgetApproval/Amount",
+                dataType : "json",
+                async: false, 
+                success : function(data,textStatus, jqXHR) {
+      
+    				var oODataJSONModel = new sap.ui.model.json.JSONModel(data);
+    				//oODataJSONModel.setDefaultBindingMode("TwoWay");
+    				//oODataJSONModel.setSizeLimit(100);
+//    				that.getView().setModel(oODataJSONModel);
+    				// eases the access for the controller
+    				// that.getView().setModel(odataModel, "odataModel");
+                }
 
-	    		 if(dd<10) {
-	    		     dd = '0'+dd
-	    		 } 
+            });
+            zdata = startTypeINPUT.responseJSON.d.startTypeINPUT.start;
+            console.log(zdata);
+        var Amount = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Amount;
+        var Head = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Head;
+        var Details = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Details;
+        var Installments = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Installments;
+        
+        
+        
+        that.getView().byId("ManrequestOwner").setValue(Head.requestOwner);
+        that.getView().byId("Mandepartment").setValue(Head.department);
+        that.getView().byId("Mantitle").setValue(Head.title);
+        that.getView().byId("ManrequestNum").setValue(Head.requestNum);
+        that.getView().byId("ManrequestDate").setValue(Head.requestDate);
+        that.getView().byId("ManrequestTime").setValue(Head.requestTime);
+        //that.getView().byId("Manstatus").setValue(Head.status); status doldurulmalı
+        
+        
+        that.getView().byId("ManperiodEnd").setValue(Details.periodEnd);
+        that.getView().byId("ManperiodStart").setValue(Details.periodStart);
+        that.getView().byId("Mansupplier").setValue(Details.supplier);
+        that.getView().byId("Mansubject").setValue(Details.subject);
+        that.getView().byId("ManidBudget").setValue(Details.Budget);
+        that.getView().byId("ManidDepartment").setValue(Details.Department);
+        that.getView().byId("ManidType").setValue(Details.Type);
+        that.getView().byId("ManidDesc").setValue(Details.Desc);
+        that.getView().byId("ManidSubDesc").setValue(Details.SubDesc);
+        that.getView().byId("ManremBudget").setValue(Details.remBudget);
+        that.getView().byId("Manpurpose").setValue(Details.purpose);
+        that.getView().byId("Manexplanation").setValue(Details.explanation);
+        that.getView().byId("ManbrExp").setValue(Details.brExp);
+        
+        that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
+        //currency ıle currency type aynı gıdıyor currency usd yerıne formu kaydettgı gunku currency degerı gelmelı
+        that.getView().byId("Mancurrency").setValue(Amount.Currency);
+        that.getView().byId("MantotalAmount").setValue(Amount.totalAmount);
+        
+        
+	
+		var oJsonModel = new sap.ui.model.json.JSONModel();
+		oJsonModel.setData(Installments.row);
+		console.log(Installments.row.results);
+		that.getView().setModel(oJsonModel, "JModel");
+		this.getView().byId("ManmainViewTbl").setModel(this.getView().getModel("JModel"));
+        
+        that.getView().byId("ManidTotalAmount").setValue(Amount.totalAmountTRY);
+        that.getView().byId("MantotalCurrAmount").setValue(Amount.ManidTotalAmount);
+        
 
-	    		 if(mm<10) {
-	    		     mm = '0'+mm
-	    		 } 
-
-	    		 today = dd + '/' + mm + '/' + yyyy;
-	    		 sDate = yyyy.toString()+mm.toString()+dd;
-	    		 sTime = hour+min+sec;
-	    		 oThat.getView().byId('requestDate').setValue(today);
-	    		 oThat.getView().byId('requestTime').setValue(time);
-	    		 //end of ycoskun
-	    		 
-	    		
-	            
-		        
-//	    		 this.onSaveChange();
-		        
+    		}
+    		catch(err){
+    			
+    		}	        
 		},
 		
 		approveAction : function (evt) {
@@ -190,8 +298,8 @@ sap.ui.define([
 			var odataModel = this.getView().getModel("odataModel");
 			var jsonModel = this.getView().getModel();
 
-			zn11_expense.util.ModelBuilder.setEdmTimeFromConvertedProperty(data);
-			zn11_expense.util.ModelBuilder.removeEmptyEntitiesFromCollections(data);
+			zn11_expense.util.ModelBuilder.setEdmTimeFromConvertedProperty(zdata);
+			zn11_expense.util.ModelBuilder.removeEmptyEntitiesFromCollections(zdata);
 			var outputData = {ManagerAppCompleteEventTypeOUTPUT : {ManagerAppCompleteEvent :  zdata }}; 
 
 			var bundle = this.getView().getModel("i18n").getResourceBundle();
@@ -245,9 +353,7 @@ sap.ui.define([
 		
 		
     	onSaveChange: function() {
-    	
-    		
-    		
+  
     		var that = this;
     		var aData = jQuery.ajax({
                 type : "GET",
@@ -274,32 +380,63 @@ sap.ui.define([
                 success : function(data,textStatus, jqXHR) {
       
     				var oODataJSONModel = new sap.ui.model.json.JSONModel(data);
-    				oODataJSONModel.setDefaultBindingMode("TwoWay");
-    				oODataJSONModel.setSizeLimit(100);
-    				that.getView().setModel(oODataJSONModel);
+    				//oODataJSONModel.setDefaultBindingMode("TwoWay");
+    				//oODataJSONModel.setSizeLimit(100);
+//    				that.getView().setModel(oODataJSONModel);
     				// eases the access for the controller
-    				that.getView().setModel(odataModel, "odataModel");
+    				// that.getView().setModel(odataModel, "odataModel");
                 }
 
             });
             zdata = startTypeINPUT.responseJSON.d.startTypeINPUT.start;
+            console.log(zdata);
         var Amount = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Amount;
         var Head = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Head;
         var Details = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Details;
         var Installments = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Installments;
         
-        that.getView().byId("idDepartment").setValue(Details.Department),
-        that.getView().byId("idDesc").setValue(Details.Desc),
-        that.getView().byId("idSubDesc").setValue(Details.SubDesc),
-        that.getView().byId("idType").setValue(Details.Type),
-        that.getView().byId("brExp").setValue(Details.brExp),
-        that.getView().byId("explanation").setValue(Details.explanation),
-        that.getView().byId("periodEnd").setValue(Details.periodEnd),
-        that.getView().byId("periodStart").setValue(Details.periodStart),
-        that.getView().byId("purpose").setValue(Details.purpose),
-        that.getView().byId("remBudget").setValue(Details.remBudget),
-        that.getView().byId("subject").setValue(Details.subject),
-        that.getView().byId("supplier").setValue(Details.supplier)
+        
+        
+        that.getView().byId("ManrequestOwner").setValue(Head.requestOwner);
+        that.getView().byId("Mandepartment").setValue(Head.department);
+        that.getView().byId("Mantitle").setValue(Head.title);
+        that.getView().byId("ManrequestNum").setValue(Head.requestNum);
+        that.getView().byId("ManrequestDate").setValue(Head.requestDate);
+        that.getView().byId("ManrequestTime").setValue(Head.requestTime);
+        //that.getView().byId("Manstatus").setValue(Head.status); status doldurulmalı
+        
+        
+        that.getView().byId("ManperiodEnd").setValue(Details.periodEnd);
+        that.getView().byId("ManperiodStart").setValue(Details.periodStart);
+        that.getView().byId("Mansupplier").setValue(Details.supplier);
+        that.getView().byId("Mansubject").setValue(Details.subject);
+        that.getView().byId("ManidBudget").setValue(Details.Budget);
+        that.getView().byId("ManidDepartment").setValue(Details.Department);
+        that.getView().byId("ManidType").setValue(Details.Type);
+        that.getView().byId("ManidDesc").setValue(Details.Desc);
+        that.getView().byId("ManidSubDesc").setValue(Details.SubDesc);
+        that.getView().byId("ManremBudget").setValue(Details.remBudget);
+        that.getView().byId("Manpurpose").setValue(Details.purpose);
+        that.getView().byId("Manexplanation").setValue(Details.explanation);
+        that.getView().byId("ManbrExp").setValue(Details.brExp);
+        
+        that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
+        //currency ıle currency type aynı gıdıyor currency usd yerıne formu kaydettgı gunku currency degerı gelmelı
+        that.getView().byId("Mancurrency").setValue(Amount.Currency);
+        that.getView().byId("MantotalAmount").setValue(Amount.totalAmount);
+        
+        
+	
+		var oJsonModel = new sap.ui.model.json.JSONModel();
+		oJsonModel.setData(Installments.row);
+		console.log(Installments.row.results);
+		that.getView().setModel(oJsonModel, "JModel");
+		this.getView().byId("ManmainViewTbl").setModel(this.getView().getModel("JModel"));
+        
+        that.getView().byId("ManidTotalAmount").setValue(Amount.totalAmountTRY);
+        that.getView().byId("MantotalCurrAmount").setValue(Amount.ManidTotalAmount);
+        
+
           
             
             
@@ -453,7 +590,7 @@ sap.ui.define([
 						var oEntry = {"ProcessStartEvent": {"BudgetApproval": {
 						    "Amount": {
 						        "CurrencyType": that.getView().byId("CurrencyType").getSelectedKey(),
-						        "Currency": sKur,
+						        "Currency": selectItem,
 						        "totalAmount": that.getView().byId("idTotalAmount").getValue(),
 						        "totalAmountTRY": that.getView().byId("totalAmount").getValue(),
 						        "approvalNecessary": true
@@ -499,7 +636,6 @@ sap.ui.define([
 				                "Content-Type": "application/json"              	
 				            },
 					        success: function(result) {
-					        	debugger;
 					        	alert("success");
 					        	console.log(result);
 					        }
@@ -839,7 +975,7 @@ sap.ui.define([
 									id: "button_"+file.name,
 									press: function(oEvent) {
 										alert("Dosyalarr!!" + oEvent.getSource().getId());
-										debugger;
+									
 									}
 								});
 								form.addContent(oButton);
@@ -879,29 +1015,8 @@ sap.ui.define([
 			setTimeout(function(){
 				oThat.byId("idBudget").setValue(budgetId);
 			},10);
+				
 			
-			//begin of budget id ye bağlı rem amount cekme
-			try{
-				var remAmountData = jQuery.ajax({
-	                type : "GET",
-	                contentType : "application/json",
-	                url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/RemainingBudget/"+ budgetId,
-	                dataType : "json",
-	                async: false, 
-	                success : function(data,textStatus, jqXHR) {
-	                }
-
-	            });
-	    		var remData = remAmountData.responseJSON.E_BUDGET;
-	    		
-	    		 oThat.getView().byId('remBudget').setValue(remData);
-				
-				//end of ycoskun
-				
-			}catch(err){
-				
-			}	
-			//end of budget id ye bağlı rem amount cekme
 	
 	
 			
@@ -991,7 +1106,7 @@ sap.ui.define([
 						width: "30%",
 						id: buttonId,
 						press: function(oEvent) {
-							debugger;
+							
 							if (oEvent.getSource().getParent().getParent().getItems().length > 0) {
 								var row = oEvent.getSource().getParent().getId();
 								oEvent.getSource().getParent().getParent().removeItem(row);
@@ -1054,6 +1169,37 @@ sap.ui.define([
 		            }
 		        
 		        });
+		},
+		taskAction:function(){
+			if (!this.oTasksDialog) {
+				this.oTasksDialog = sap.ui.xmlfragment("zn11_expense.view.Tasks", this);
+			}
+
+			this.oTasksDialog.open();
+
+			var tasksJson = new sap.ui.model.json.JSONModel();
+			var that = this;
+    		var aData = jQuery.ajax({
+                type : "GET",
+                contentType : "application/json",
+                url : "http://dperppo01d.n11.local:50000/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
+                dataType : "json",
+                async: false, 
+                success : function(data,textStatus, jqXHR) {
+                	tasksJson.setData(data);
+                }
+
+            });
+    		that.getView().setModel(tasksJson, "tasksModel");
+    		this.getView().byId("idpopFirstTable").setModel(this.getView().getModel("tasksModel"));
+
+		},
+	
+		oTasksDialogClose: function() {
+			this.oTasksDialog.close();
+			this.oTasksDialog.destroy();
+			
+//		window.location.reload();	
 		}
 		
 		

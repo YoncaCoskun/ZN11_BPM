@@ -27,19 +27,19 @@ sap.ui.define([
 				model: new sap.ui.model.json.JSONModel(),
 
 				onInit: function() {
-					var that = this;
-					var Model = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZN11_BPM_SRV");
-					var oJasonModel = new sap.ui.model.json.JSONModel();
-
-					Model.read("/BudgetSet", null, null, true,
-						function(oData, response) {
-							oJasonModel.setData(oData);
-
-							console.log(oData);
-
-						});
-					that.getView().setModel(oJasonModel, "JasonModel");
-					this.getView().byId("idProductsTable").setModel(this.getView().getModel("JasonModel"));
+//					var that = this;
+//					var Model = new sap.ui.model.odata.ODataModel("/sap/opu/odata/sap/ZN11_BPM_SRV");
+//					var oJasonModel = new sap.ui.model.json.JSONModel();
+//
+//					Model.read("/BudgetSet", null, null, true,
+//						function(oData, response) {
+//							oJasonModel.setData(oData);
+//
+//							console.log(oData);
+//
+//						});
+//					that.getView().setModel(oJasonModel, "JasonModel");
+//					this.getView().byId("idProductsTable").setModel(this.getView().getModel("JasonModel"));
 
 				},
 				fixedSizeDialog: null,

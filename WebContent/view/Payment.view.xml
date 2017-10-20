@@ -1,9 +1,9 @@
 <mvc:View xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact" controllerName="zn11_expense.controller.Payment" height="100%"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
 	<OverflowToolbar>
 		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
@@ -24,9 +24,9 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Panel class="panelBottom" id="panFirs" width="auto">
+						<Panel class="panelBottom" id="panelFirs" width="auto">
 							<content>
-								<ImageContent class="imageLogo" src="img/3d-logo.jpg"></ImageContent>
+								<ImageContent class="imageLogo" src="img/logo-n11-large.png"></ImageContent>
 							</content>
 						</Panel>
 						<Panel class="panelBottom" id="panelFirstContainerPayment" width="auto">
@@ -38,8 +38,8 @@
 							</headerToolbar>
 							<content>
 								<VBox class="sapUiSmallMargin">
-									<f:SimpleForm columnsXL="3" emptySpanM="0" columnsM="2" columnsL="2" editable="true" emptySpanL="0" emptySpanXL="0" labelSpanL="4" labelSpanM="4"
-										labelSpanXL="4" layout="ResponsiveGridLayout" maxContainerCols="3">
+									<f:SimpleForm columnsXL="3" emptySpanM="0" columnsM="2" columnsL="2" editable="true" emptySpanL="0" emptySpanXL="0" labelSpanL="4"
+										labelSpanM="4" labelSpanXL="4" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
 											<core:Title/>
 											<Label text="Request Owner:"/>
@@ -51,15 +51,15 @@
 											<Label text="Payment Form Type:"/>
 											<Select width="100%">
 												<items>
-													<core:Item text=""/>
 													<core:Item text="Charging and Return Invoice etc."/>
+													<core:Item text=""/>
 												</items>
 											</Select>
 											<core:Title/>
 											<Label text="Request Number:"/>
-											<Input class="inputForm" value="{Request Number}"/>
+											<Input class="inputForm" value="32726482"/>
 											<Label text="Request Date:"/>
-											<Input class="inputForm" value="{RequestDate}"/>
+											<Input class="inputForm" value="13.05.2017"/>
 											<HBox>
 												<Input class="inputForm" value=""/>
 											</HBox>
@@ -81,15 +81,15 @@
 									<f:content>
 										<core:Title/>
 										<Label text="Invoice Date:"/>
-										<DatePicker class="inputForm" id="ID" value="{InvoiceDate}" width="100%" required="true"/>
+										<DatePicker class="inputForm" id="ID" value="01.06.2017" width="100%"/>
 										<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onPress" text="Reset" width="30%">
 											<layoutData>
 												<FlexItemData growFactor="1"/>
 											</layoutData>
 										</Button>
 										<Label text="Expiry Date:"/>
-										<DatePicker class="inputForm" id="ED" value="{ExpiryDate}" width="100%"/>
-										<Label text="Currency Type:" required="true"/>
+										<DatePicker class="inputForm" id="ED" value="02.06.2017" width="100%"/>
+										<Label text="Currency Type:"/>
 										<Select width="100%">
 											<items>
 												<core:Item text="TRY"/>
@@ -188,23 +188,23 @@
 									<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
 										<f:content>
 											<Label text="Vendor Name:"/>
-											<Input class="inputForm" editable="false" value="n11.com" required="true"/>
+											<Input class="inputForm"  value="n11.com"/>
 											<Label text="Vendor Address:"/>
-											<TextArea class="inputTextArea" editable="false" value="ISTANBUL TEKNIK UNIVERSITESI-ARI3"/>
+											<TextArea class="inputTextArea"  value="ISTANBUL TEKNIK UNIVERSITESI-ARI3"/>
 											<Label text="Vendor VKN/TCKN:"/>
-											<Input class="inputForm" editable="false" value="6483532932"/>
+											<Input class="inputForm"  value="6483532932"/>
 											<Label text="Vendor Phone No:"/>
-											<Input class="inputForm" editable="false" value="5456372321"/>
+											<Input class="inputForm" value="5456372321"/>
 											<Label text="Contact Person:"/>
-											<Input class="inputForm" editable="false" value="EREN AKTAŞ"/>
+											<Input class="inputForm" value="EREN AKTAŞ"/>
 											<Label text="Vendor E-Mail:"/>
-											<Input class="inputForm" editable="false" value="eren@n11.com"/>
+											<Input class="inputForm"  value="eren@n11.com"/>
 											<Label text="Bank Name:"/>
-											<Input class="inputForm" editable="false" value="Akbank"/>
+											<Input class="inputForm"  value="Akbank"/>
 											<Label text="IBAN Number:"/>
-											<Input class="inputForm" editable="false" value="TR00 0000 0000 0000 00"/>
+											<Input class="inputForm"  value="TR00 0000 0000 0000 00"/>
 											<Label text="Swift Code:"/>
-											<Input class="inputForm" editable="false" value="SWF"/>
+											<Input class="inputForm"  value="SWF"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
@@ -220,7 +220,7 @@
 								<VBox class="sapUiSmallMargin">
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
-											<Label text="Type:" required="true"/>
+											<Label text="Type:"/>
 											<Select id="idType" width="100%">
 												<items>
 													<core:Item text="Invoice"/>
@@ -228,8 +228,8 @@
 												</items>
 											</Select>
 											<Label text="Subject:"/>
-											<Input class="inputForm" id="idSubject"/>
-											<Label text="Payment Type:" required="true"/>
+											<Input class="inputForm" id="idSubject" />
+											<Label text="Payment Type:"/>
 											<RadioButtonGroup columns="2" select="clickPayment">
 												<buttons>
 													<RadioButton id="RB-Down" text="Down Payment"/>
@@ -266,25 +266,25 @@
 												</HBox>
 											</VBox>
 											<Label text="Installment Amount:"/>
-											<Input class="inputForm" id="idInsAmount" value="0"/>
+											<Input class="inputForm" id="idInsAmount" value="0" />
 											<Label text="Comment:"/>
-											<TextArea class="inputTextArea" id="idComment"/>
+											<TextArea class="inputTextArea" id="idComment" />
 											<Label text="VAT Budget Amount:"/>
-											<Input class="inputForm" id="idBudAmount" value="29.000"/>
+											<Input class="inputForm" id="idBudAmount" value="29.000" />
 											<HBox>
 												<Label class="labelPay" id="idTRY0" text="TRY"/>
 											</HBox>
 											<Label text="Payment Amount:"/>
-											<Input class="inputForm" id="idPayAmount" value="4.000" required="true"/>
+											<Input class="inputForm" id="idPayAmount" value="4.000" />
 											<HBox>
 												<Label class="labelPay" id="idTRY1" text="TRY"/>
 											</HBox>
 											<Label text="VAT Amount:"/>
-											<Input class="inputForm" id="idAmount" value="200" required="true"/>
+											<Input class="inputForm" id="idAmount" value="200" />
 											<Label text="Withholding Tax:"/>
-											<Input class="inputForm" id="idTax" value="0,00"/>
+											<Input class="inputForm" id="idTax" value="0,00" />
 											<Label text="VAT Incl. Amount:"/>
-											<Input class="inputForm" id="idIncAmount" value="4200"/>
+											<Input class="inputForm" id="idIncAmount" value="4200" />
 											<HBox>
 												<Label class="labelPay" id="idTRY2" text="TRY"/>
 												<Button class="classButton" text="Calculate">
@@ -294,14 +294,14 @@
 												</Button>
 											</HBox>
 											<Label text="Advance Information:"/>
-											<Select width="100%">
+											<Select width="100%" >
 												<items>
 													<core:Item text="YES"/>
 													<core:Item text="NO"/>
 												</items>
 											</Select>
 											<Label text="Advance Amount:"/>
-											<Input class="inputForm" value="0,00"/>
+											<Input class="inputForm" value="0,00" />
 											<Label text="Net Payment Amount:"/>
 											<Input class="inputForm" value="0,00"/>
 										</f:content>
@@ -311,12 +311,9 @@
 						</Panel>
 					</content>
 				</Panel>
-				<!--
-					<Button icon="sap-icon://print" text="Print the document"/>
+			<!--	<Button icon="sap-icon://print" text="Print the document"/>
 				<Button icon="sap-icon://notes" text="Notes"/>
-				<Button icon="sap-icon://save" text="Save Changes"/>
-				-->
-			
+				<Button icon="sap-icon://save" text="Save Changes"/>-->
 			</IconTabFilter>
 			<IconTabFilter text="FLOW">
 				<List headerText="A List" showSeparators="Inner"></List>
@@ -354,7 +351,7 @@
 	</IconTabBar>
 	<OverflowToolbar>
 		<Button icon="sap-icon://paper-plane" text="Send" type="Accept">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>

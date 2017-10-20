@@ -13,7 +13,7 @@
 				<ToolbarSeparator/>
 				<!--<Image densityAware="false" src="img/n11.png" width="40px"></Image>-->
 				<ToolbarSpacer/>
-				<Text class="box-shadow" text="BPM MM OPERATIONS" wrapping="false"/>
+				<Text class="box-shadow" text="" wrapping="false"/>
 				<tnt:ToolHeaderUtilitySeparator/>
 				<ToolbarSpacer>
 					<layoutData>
@@ -39,8 +39,13 @@
 				<tnt:item>
 					<tnt:NavigationList>
 						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Home"/>
-						<tnt:NavigationListItem icon="sap-icon://settings" text="Applications">
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Employee">
 							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
+						</tnt:NavigationListItem>
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Manager">
+							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnManBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
 						</tnt:NavigationListItem>
@@ -112,6 +117,13 @@
 						<ScrollContainer height="100%" horizontal="false" id="root3" vertical="true">
 							<content>
 								<mvc:XMLView viewName="zn11_expense.view.Budget"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idManBudgetPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root33" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.manBudget"/>
 							</content>
 						</ScrollContainer>
 					</Page>
