@@ -293,34 +293,63 @@ sap.ui.define([
 		},
 		
 		approveAction : function (evt) {
-			debugger;
+			debugger;		
+			var username,password;
+			var oHeaders;
+			var oToken;
+			var oTaskId = TaskInstanceID.slice(-32);
 			
-			var odataModel = this.getView().getModel("odataModel");
-			var jsonModel = this.getView().getModel();
-
-			zn11_expense.util.ModelBuilder.setEdmTimeFromConvertedProperty(zdata);
-			zn11_expense.util.ModelBuilder.removeEmptyEntitiesFromCollections(zdata);
-			var outputData = {ManagerAppCompleteEventTypeOUTPUT : {ManagerAppCompleteEvent :  zdata }}; 
-
-			var bundle = this.getView().getModel("i18n").getResourceBundle();
+			username="0507";
+			password="Peaky11!";
+			jQuery.ajax({
+				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
+				  headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
+				  async: false,
+				  method: 'GET'
+				}).then(function(data,status,xhr) {
+					  oToken = xhr.getResponseHeader('x-csrf-token');
+					  oHeaders = {
+								"x-csrf-token": oToken
+							};
+					});
 			
-			var createParameters = {
-				success : function() {
-					// post was successful, either close window or show success message
-					window.close();
-					// in case close does not work due to security reasons
-					
-				},
-				error : function(oEvent) {
-					// show failure message
-				}
-			};
+			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMOutputData?prefixReservedNames=true";
+			//zdata formatını belirleme begin of
+			var oEntryData = {"PersonelCompleteEventTypeOUTPUT": {"PersonelCompleteEvent": zdata
+			}};
 			
-			odataModel.create("/SAPBPMOutputData", outputData, createParameters);	
+			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "1";
+			//end of
+			
+			//ready durumundaki taskı reserved yapmak begin of 
+			var tasksSvcURL = "/bpmodata/tasks.svc";
+			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
+			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
+			//end of
+			
+			
+			jQuery.ajax({
+		        type: 'POST',
+		        url: oPostURL,
+		        data: JSON.stringify(oEntryData),
+		        dataType: "json",
+		        headers: {
+	                "X-CSRF-Token": oToken,
+	                "Content-Type": "application/json"              	
+	            },
+		        success: function(result) {
+		        	debugger;
+		        	alert("success");
+		        	console.log(result);
+		        	
+		        
+		        }
+		    });
 		},
 		
 		rejectAction : function (evt) {
-			var odataModel = this.getView().getModel("odataModel");
+			/*var odataModel = this.getView().getModel("odataModel");
 			var jsonModel = this.getView().getModel();
 
 			var data = jQuery.extend(true, {}, jsonModel.getProperty("/startTypeINPUT/start"));
@@ -348,7 +377,60 @@ sap.ui.define([
 				}
 			};
 			
-			odataModel.create("/SAPBPMManagerApproveErrorEvent", faultData, createParameters);	
+			odataModel.create("/SAPBPMManagerApproveErrorEvent", faultData, createParameters);	*/
+			debugger;		
+			var username,password;
+			var oHeaders;
+			var oToken;
+			var oTaskId = TaskInstanceID.slice(-32);
+			
+			username="0507";
+			password="Peaky11!";
+			jQuery.ajax({
+				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
+				  headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
+				  async: false,
+				  method: 'GET'
+				}).then(function(data,status,xhr) {
+					  oToken = xhr.getResponseHeader('x-csrf-token');
+					  oHeaders = {
+								"x-csrf-token": oToken
+							};
+					});
+			
+			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMPersonelErrorEvent?prefixReservedNames=true";
+			//zdata formatını belirleme begin of
+			var oEntryData = {"PersonelErrorEventTypeOUTPUT": {"PersonelErrorEvent": zdata
+			}};
+			
+			oEntryData.PersonelErrorEventTypeOUTPUT.PersonelErrorEvent.UIAction = "0";
+			//end of
+			
+			//ready durumundaki taskı reserved yapmak begin of 
+			var tasksSvcURL = "/bpmodata/tasks.svc";
+			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
+			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
+			//end of
+			
+			
+			jQuery.ajax({
+		        type: 'POST',
+		        url: oPostURL,
+		        data: JSON.stringify(oEntryData),
+		        dataType: "json",
+		        headers: {
+	                "X-CSRF-Token": oToken,
+	                "Content-Type": "application/json"              	
+	            },
+		        success: function(result) {
+		        	debugger;
+		        	alert("success");
+		        	console.log(result);
+		        	
+		        
+		        }
+		    });
 		},
 		
 		
@@ -1186,21 +1268,22 @@ sap.ui.define([
                 dataType : "json",
                 async: false, 
                 success : function(data,textStatus, jqXHR) {
-                	tasksJson.setData(data);
+                	tasksJson.setData(data.d);
                 }
 
             });
     		that.getView().setModel(tasksJson, "tasksModel");
-    		this.getView().byId("idpopFirstTable").setModel(this.getView().getModel("tasksModel"));
-
+    		//this.getView().byId("idpopFirstTable").setModel(that.getView().getModel("tasksModel"));
+    		sap.ui.getCore().byId("idpopFirstTable").setModel(that.getView().getModel("tasksModel"));
 		},
-	
-		oTasksDialogClose: function() {
+		oTasksDialogClose : function(oEvent) {		
+		    this.oTasksDialog.destroy();
+			if (!this.oTasksDialog) {
+				this.oTasksDialog = sap.ui.xmlfragment("zn11_expense.view.Tasks", this.getView().getController());
+
+			}
 			this.oTasksDialog.close();
-			this.oTasksDialog.destroy();
-			
-//		window.location.reload();	
-		}
+		},
 		
 		
 

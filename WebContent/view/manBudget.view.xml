@@ -1,22 +1,14 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="zn11_expense.controller.manBudget" height="100%"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" class="sapUiSizeCompact"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
-<!-- 	<OverflowToolbar> -->
-<!-- 		<Button icon="sap-icon://paper-plane" text="Send" type="Accept" press="sendAction"> -->
-<!-- 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData> -->
-<!-- 		</Button> -->
-<!-- 		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject"> -->
-<!-- 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData> -->
-<!-- 		</Button> -->
-<!-- 	</OverflowToolbar> -->
-		<OverflowToolbar>
+	<OverflowToolbar>
 		<Button icon="sap-icon://paper-plane" text="Approve" type="Accept" press="approveAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 		<Button icon="sap-icon://sys-cancel" text="Reject" type="Reject" press="rejectAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
-		<Button  text="Tasks" press="taskAction">
+		<Button text="Tasks" press="taskAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 	</OverflowToolbar>
@@ -26,7 +18,7 @@
 				<Button icon="sap-icon://print" text="Print the document" press="onPdfExport"/>
 				<Button icon="sap-icon://notes" text="Notes"/>
 				<Button icon="sap-icon://save" press="onSaveChange" text="Save Changes"/>
-				<Panel  class="sapUiSmallMargin panelContainer generalLabelFont generalLabelFontUi"  width="95%">
+				<Panel class="sapUiSmallMargin panelContainer generalLabelFont generalLabelFontUi" width="95%">
 					<headerToolbar>
 						<Toolbar class="box-header">
 							<core:Icon class="size1 icon-shadow" color="#FFF" src="sap-icon://user-edit"/>
@@ -34,7 +26,7 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Panel class="panelBottom" id="ManpanelFirs" width="auto" expandeble="false" >
+						<Panel class="panelBottom" id="ManpanelFirs" width="auto" expandeble="false">
 							<content>
 								<ImageContent class="imageLogo" src="img/logo-n11-large.png"></ImageContent>
 							</content>
@@ -53,7 +45,7 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Request Owner"/>
-											<Input class="inputForm" value="" id="ManrequestOwner" enabled="false" />
+											<Input class="inputForm" value="" id="ManrequestOwner" enabled="false"/>
 											<Label text="Department"/>
 											<Input class="inputForm" value="" id="Mandepartment" enabled="false"/>
 											<Label text="Title"/>
@@ -90,16 +82,11 @@
 											<Label text="Supplier"/>
 											<Input class="inputForm" value="" id="Mansupplier" enabled="false"/>
 											<Label text="Subject"/>
-											<TextArea class="inputTextArea"
-												value="" id="Mansubject" enabled="false"/>
+											<TextArea class="inputTextArea" value="" id="Mansubject" enabled="false"/>
 											<Label text="Budget Allocation"/>
-											<Select id="ManidBudget" 
-													forceSelection="false"
-													items="{ path: 'budgetModel>/'}"
-													change="selectChange" enabled="false">
-													<core:Item key="" text="{path:'budgetModel>STRING',
-													formatter: '.setFormat'}" id="ManidText"/>
-											</Select> 
+											<Select id="ManidBudget" forceSelection="false" items="{ path: 'budgetModel>/'}" change="selectChange" enabled="false">
+												<core:Item key="" text="{path:'budgetModel>STRING', formatter: '.setFormat'}" id="ManidText"/>
+											</Select>
 											<Label text="Department"/>
 											<Input class="inputForm" value="" id="ManidDepartment" enabled="false"/>
 											<Label text="Type"/>
@@ -117,7 +104,7 @@
 											<Label text=""/>
 											<RadioButtonGroup class="sapUiMediumMarginBottom" id="ManformType" columns="5">
 												<buttons>
-													<RadioButton id="ManRB3-1" text="Related Party"  key="Related Party" enabled="false"/>
+													<RadioButton id="ManRB3-1" text="Related Party" key="Related Party" enabled="false"/>
 													<RadioButton id="ManRB3-2" text="Donation" key="Donation" enabled="false"/>
 													<RadioButton id="ManRB3-3" text="Domestic Education" key="Domestic Education" enabled="false"/>
 													<RadioButton id="ManRB3-4" text="Abroad Education" key="Abroad Education" enabled="false"/>
@@ -147,10 +134,7 @@
 							</headerToolbar>
 							<content>
 								<VBox class="sapUiSmallMargin">
-									<f:SimpleForm  id="ManSimpleFormChange354"
-												editable="true"
-												layout="ResponsiveGridLayout"
-												>
+									<f:SimpleForm id="ManSimpleFormChange354" editable="true" layout="ResponsiveGridLayout">
 										<f:content>
 											<core:Title/>
 											<Label text="Currency"/>
@@ -162,8 +146,7 @@
 													<core:Item text="EUR" key="EUR"/>
 												</items>
 											</Select>
-											<Input class="inputCurr" value="" id="Mancurrency" enabled="false" >
-											</Input>
+											<Input class="inputCurr" value="" id="Mancurrency" enabled="false"></Input>
 											<Label text="Total Amount"/>
 											<Input class="inputForm" value="" id="MantotalAmount" enabled="false"/>
 											<HBox>
@@ -197,7 +180,7 @@
 											<!--<List delete="handleDelete" enableBusyIndicator="true" growing="true" headerText="Users" id="addList1" mode="Delete"></List>-->
 											<Label text="Total Amount"/>
 											<Input class="inputForm" value="" editable="false" id="ManidTotalAmount" enabled="false"/>
-											<Input class="inputForm" value=""  id="MantotalCurrAmount" enabled="false"/>
+											<Input class="inputForm" value="" id="MantotalCurrAmount" enabled="false"/>
 											<HBox>
 												<Label class="labelPay" id="ManidTRY1" text="TRY"/>
 												<Label class="labelExc" text="(Exc.VAT)"/>
@@ -223,7 +206,7 @@
 						</Panel>
 					</content>
 				</Panel>
-			<!--	<Button icon="sap-icon://print" text="Print the document"/>
+				<!--	<Button icon="sap-icon://print" text="Print the document"/>
 				<Button icon="sap-icon://notes" text="Notes"/>
 				<Button icon="sap-icon://save" text="Save Changes"/>-->
 			</IconTabFilter>

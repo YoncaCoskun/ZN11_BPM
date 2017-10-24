@@ -1,45 +1,40 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:c="sap.suite.ui.commons"
-		xmlns:sap.ca.ui="sap.ca.ui" xmlns:suite="sap.suite.ui.commons">
-	<Dialog contentWidth="80%"   draggable="false" horizontalScrolling="false" resizable="false" showHeader="true" xmlns="sap.m"
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m"
+	xmlns:c="sap.suite.ui.commons" xmlns:sap.ca.ui="sap.ca.ui" xmlns:suite="sap.suite.ui.commons">
+	<Dialog contentWidth="80%" draggable="false" horizontalScrolling="false" resizable="false" showHeader="true" xmlns="sap.m"
 		xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.suite.ui.commons"
 		xmlns:sap.ca.ui="sap.ca.ui" xmlns:suite="sap.suite.ui.commons">
 		<content>
-			
-						
-				<Panel id="popDetail">
-					<Table id="idpopFirstTable" inset="false" items="{ path: '/results'  }">
-			
-										<columns>
-											<Column minScreenWidth="Tablet"  demandPopin="true">
-												<Text text="TaskTitle"/>
-											</Column>
-											<Column minScreenWidth="Tablet"  demandPopin="true">
-												<Text text="Priority"/>
-											</Column>
-											<Column minScreenWidth="Tablet"  demandPopin="true" hAlign="Right">
-												<Text text="Status"/>
-											</Column>
-											<Column minScreenWidth="Tablet"  demandPopin="true" hAlign="Right">
-												<Text text="CreatedOn"/>
-											</Column>
-										</columns>
-										<items>
-											<ColumnListItem 	type="Active" press="taskTablePress">
-												<cells>
-													<ObjectIdentifier text="{TaskTitle}"/>
-													<Text text="{Priority}"/>
-													<Text text="{Status}"/>
-													<Text text="{CreatedOn}"/>
-												</cells>
-											</ColumnListItem>
-										</items>
-									</Table>
-			
+			<Panel id="popDetail">
+				<Table id="idpopFirstTable" inset="false" items="{ path: '/results' }">
+					<columns>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="TaskTitle"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Priority"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+							<Text text="Status"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+							<Text text="CreatedOn"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem type="Active" press="taskTablePress">
+							<cells>
+								<ObjectIdentifier text="{TaskTitle}"/>
+								<Text text="{Priority}"/>
+								<Text text="{Status}"/>
+								<Text text="{CreatedOn}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
 			</Panel>
 		</content>
 		<buttons>
-		
-			<Button icon="sap-icon://sys-cancel" id="btnAttachClose" press="oTasksDialogClose" text="Close" />
+			<Button icon="sap-icon://sys-cancel" id="btnAttachClose" press="oTasksDialogClose" text="Close"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>
