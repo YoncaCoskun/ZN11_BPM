@@ -1,0 +1,42 @@
+<mvc:View controllerName="zn11_expense.controller.Route" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact" height="100%"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons"
+	xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:smartField="sap.ui.comp.smartfield"
+	xmlns:tnt="sap.tnt" xmlns="sap.m">
+		<Page
+		showHeader="false"
+		showNavButton="false"
+		>
+		<content>
+			<Page
+				id="sideContentContainer"
+				showHeader="false"
+				showNavButton="false">
+				<l:DynamicSideContent
+					id="DynamicSideContent"
+					class="sapUiDSCExplored sapUiContentPadding"
+					containerQuery="true"
+					equalSplit="true"
+					breakpointChanged="updateToggleButtonState">
+					<l:mainContent>
+						<VBox>
+							<Image src="img/login_n11.jpg" width="100%"/>
+						</VBox>
+					</l:mainContent>
+					<l:sideContent>
+						<VBox class="sapUiSmallMargin">
+			<Title level="H1" text="Log On" />
+			<Panel width="auto" class="sapUiResponsiveMargin" id="loginPanel">
+				<Label text="User ID"/>
+				<Input id="kardNo" value=""/>
+				<Label text="Password"/>
+				<Input id="sifre" value="" type="Password"></Input>
+			</Panel>
+			<Button icon="sap-icon://visits" id="btnLogin" press="onLogin" text="Log On" type="Transparent"/>	
+					</VBox>
+					</l:sideContent>
+				</l:DynamicSideContent>
+			</Page>
+		</content>
+	</Page>
+		
+</mvc:View>

@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog id="loginDialogTakeO" title="Take Opinion" contentWidth="200px" xmlns:b="sap.suite.ui.commons" xmlns:l="sap.ui.layout.form" xmlns:m="sap.m"
+		xmlns:u="sap.ui.unified">
+		<content>
+			<Panel width="auto" class="sapUiResponsiveMargin">
+				<Label text="User"/>
+				<Input class="inputForm" id="idSendUser" liveChange="additionalInfoValidation" showSuggestion="true"
+										showValueHelp="true" suggestionItems="{/SendUserSet}" type="Text" valueHelpRequest="handleValueHelpSendUser" valueState="{/sendState}">
+										<suggestionItems>
+											<core:Item key="" text="{path:'sendUserModel>'}" id="idTextSendUser"/>
+										</suggestionItems>
+				</Input>
+				<Label text="Sender Comment"/>
+				<TextArea value="" growing="true" width="100%" id="idSendComment"/>
+				<Label text="Receive Comment"/>
+				<TextArea value="" growing="true" width="100%" id="idReceiveComment" enabled="false"/>
+
+			</Panel>
+		</content>
+		<buttons>
+			<Button icon="sap-icon://paper-plane" id="btnSendTakeO" press="TakeOpinionAction" text="Send" type="Emphasized"/>
+			<Button icon="sap-icon://sys-cancel" id="btnCancelTakeO" press="oCommentDialogTakeOClose" text="Cancel" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -19,7 +19,6 @@
 				<Panel class="sapUiSmallMargin panelContainer generalLabelFont generalLabelFontUi" expandable="false" width="95%">
 					<headerToolbar>
 						<Toolbar class="box-header">
-							<core:Icon class="size1 icon-shadow" color="#FFF" src="sap-icon://user-edit"/>
 							<Title class="approvalText" text="Budget Approval"/>
 						</Toolbar>
 					</headerToolbar>
@@ -33,6 +32,7 @@
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Form Details"/>
+								
 									<!--<ImageContent class="imageLogo" src="img/n11_logo.png"></ImageContent>-->
 								</Toolbar>
 							</headerToolbar>
@@ -57,7 +57,7 @@
 												<Input class="inputForm" value="" id="requestTime"/>
 											</HBox>
 											<Label text="Status"/>
-											<Input class="inputForm" value="{Status}" id="status" />
+											<Input class="inputForm" value="" id="status" />
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
@@ -75,54 +75,60 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Period Start/End"/>
-											<DatePicker class="inputForm" id="periodStart" value="" />
-											<DatePicker class="inputForm" id="periodEnd" value="" />
+											<DatePicker class="inputForm" id="periodStart" value="" change="changeDate" />
+											<DatePicker class="inputForm" id="periodEnd" value="" change="changeDate"/>
 											<Label text="Supplier"/>
-											<Input class="inputForm" value="" id="supplier"/>
+											<Input class="inputForm" id="supplier" liveChange="additionalInfoValidation" showSuggestion="true"
+										showValueHelp="true" suggestionItems="{/SuppSet}" type="Text" valueHelpRequest="handleValueHelpSupplier" valueState="{/supplierState}">
+										<suggestionItems>
+											<core:Item key="" text="{path:'supplierModel>',
+													formatter: '.formatSupp'}" id="idTextSupp"/>
+										</suggestionItems>
+									</Input>
 											<Label text="Subject"/>
-											<TextArea class="inputTextArea"
-												value="" id="subject"/>
+											<TextArea value="" growing="true" width="100%" id="subject"/>
 											<Label text="Budget Allocation"/>
 											<Select id="idBudget" 
 													forceSelection="false"
 													items="{ path: 'budgetModel>/'}"
 													change="selectChange">
-													<core:Item key="" text="{path:'budgetModel>STRING',
+													<core:Item key="" text="{path:'budgetModel>',
 													formatter: '.setFormat'}" id="idText"/>
 											</Select> 
 											<Label text="Department"/>
-											<Input class="inputForm" value="" id="idDepartment"/>
+											<Input class="inputForm" enabled="false" value="" id="idDepartment"/>
 											<Label text="Type"/>
-											<Input class="inputForm" value="" id="idType"/>
+											<Input class="inputForm" enabled="false" value="" id="idType"/>
 											<Label text="Description"/>
-											<Input class="inputForm" value="" id="idDesc"/>
+											<Input class="inputForm" enabled="false" value="" id="idDesc"/>
 											<Label text="Sub.Description"/>
-											<Input class="inputForm" value="" id="idSubDesc"/>
+											<Input class="inputForm" enabled="false" value="" id="idSubDesc"/>
 											<Label text="Rem.Budget Amount"/>
 											<Input class="inputForm" value="" id="remBudget"/>
 											<Label text="Purpose"/>
-											<TextArea class="inputTextArea" value="" id="purpose"/>
+											<TextArea value="" growing="true" width="100%" id="purpose"/>
 											<Label text="Explanation"/>
-											<TextArea class="inputTextArea" value="" id="explanation"/>
+											<TextArea value="" growing="true" width="100%" id="explanation"/>
 											<Label text=""/>
-											<RadioButtonGroup class="sapUiMediumMarginBottom" id="formType" columns="5">
+											<RadioButtonGroup class="sapUiMediumMarginBottom" id="formType" columns="4" select="selectFormType">
 												<buttons>
-													<RadioButton id="RB3-1" text="Related Party"  key="Related Party" />
-													<RadioButton id="RB3-2" text="Donation" key="Donation"/>
+													<RadioButton id="RB3-2" text="Donation" key="Donation" selected="true"/>
+													<RadioButton id="RB3-1" text="Related Party"  key="Related Party"/>	
 													<RadioButton id="RB3-3" text="Domestic Education" key="Domestic Education"/>
 													<RadioButton id="RB3-4" text="Abroad Education" key="Abroad Education"/>
-													<RadioButton id="RB3-5" text="Business Trip" key="Business Trip"/>
-													<RadioButton id="RB3-6" text="Others" key="Others"/>
+													<RadioButton id="RB3-5" text="Oversea Business Trip" key="Oversea Business Trip"/>
+													<RadioButton id="RB3-6" text="Domestic Business Trip" key="Domestic Business Trip"/>
+													<RadioButton id="RB3-7" text="Others" key="Others"/>
 												</buttons>
 											</RadioButtonGroup>
-											<Label text="Related Party"/>
-											<Select width="100%" enabled="false" id="relatedParty" visible="false">
-												<items>
-													<core:Item text="" key="relatedParty" />
-												</items>
-											</Select>
+											<Label text="Related Party" id="idRelatedParty" visible="false"/>
+											<Input class="inputForm" id="relatedParty" showSuggestion="true" showValueHelp="true" suggestionItems="{/relatedPartySet}" type="Text" valueHelpRequest="handleValueHelpRelatedParty" valueState="{/relatedState}" visible="false" >
+										<suggestionItems>
+											<core:Item key="" text="{STRING}"/>
+										</suggestionItems>
+									</Input>
 											<Label text="B&amp;R Explanation"/>
-											<TextArea class="inputTextArea" value="" id="brExp"/>
+											<TextArea value="" growing="true" width="100%" id="brExp"/>
 											<Label text="Type here"/>
 										</f:content>
 									</f:SimpleForm>
@@ -150,15 +156,17 @@
 													<core:Item text="TRY" key="TRY"/>
 													<core:Item text="USD" key="USD"/>
 													<core:Item text="EUR" key="EUR"/>
+													<core:Item text="GBP" key="GBP"/>
 												</items>
 											</Select>
 											<Input class="inputCurr" value="" id="currency" enabled="false">
 											</Input>
 											<Label text="Total Amount"/>
-											<Input class="inputForm" value="" id="totalAmount"/>
+											<!--<Input class="inputForm" value="" id="totalAmount"/>-->
+											<commons:TextField class="inputForm" change="changeTotalAmount" value="" id="totalAmount"/>
 											<HBox>
 												<Label class="labelExc" text="(Exc.VAT)"/>
-												<Button icon="sap-icon://add" text="Add" class="" press="addListInput"/>
+												<!--<Button icon="sap-icon://add" text="Add" class="" press="addListInput"/>-->
 											</HBox><Label text="Installments"/>
 											<Table id="mainViewTbl" inset="false" items="{ path: '/ET_HEADERSet', sorter: { path: 'Name' } }">
 												<columns>
@@ -171,9 +179,6 @@
 													<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet" width="15rem">
 														<Text text="Installment Amount"/>
 													</Column>
-													<Column demandPopin="true" hAlign="Right" minScreenWidth="Tablet">
-														<Text text=""/>
-													</Column>
 												</columns>
 												<items>
 													<ColumnListItem>
@@ -181,6 +186,7 @@
 															<Text text="{#}"/>
 															<Text text="{Month}"/>
 															<Text text=""/>
+														
 														</cells>
 													</ColumnListItem>
 												</items>
@@ -219,7 +225,7 @@
 				<Button icon="sap-icon://save" text="Save Changes"/>-->
 			</IconTabFilter>
 			<IconTabFilter text="FLOW">
-				<List headerText="A List" showSeparators="Inner"></List>
+	
 			</IconTabFilter>
 			<IconTabFilter text="MESSAGES">
 				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="idClick"/>

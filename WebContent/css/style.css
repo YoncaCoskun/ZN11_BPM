@@ -33,17 +33,17 @@
     background: #ececec !important;
 }
 
-.sapMInputBaseInner {
+/*.sapMInputBaseInner {
     height: 2rem !important;
-}
+}*/
 
 .sapMInput {
     height: 2rem !important;
 }
 
-.sapMInputBase {
+/*.sapMInputBase {
     height: 3rem !important;
-}
+}*/
 
 .sapUiFormEdit.sapUiFormM .sapUiRespGridMedia-Std-Phone.sapUiFormResGridCont>.sapUiFormElementLbl:not(.sapUiRespGridSpanS12),
 .sapUiFormEdit.sapUiFormM .sapUiRespGridMedia-Std-Tablet.sapUiFormResGridCont>.sapUiFormElementLbl:not(.sapUiRespGridSpanM12),
@@ -113,18 +113,23 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
     height: 1.5rem !important;*/
 }
 
-.sapMInputBaseInner {
+/*.sapMInputBaseInner {
     height: 1.5rem !important;
 }
-
+*/
 .inputForm {
     margin-bottom: 5px !important;
     height: 1.5rem !important;
 }
-
-.sapMInputBase.sapMTextArea>.sapMTextAreaInner {
-    height: 50px !important;
+.inputBudget{
+	width: 83.2% !important;
+	margin-bottom: 5px !important;
+    height: 1.5rem !important;
 }
+
+/*.sapMInputBase.sapMTextArea>.sapMTextAreaInner {
+    height: 50px !important;
+}*/
 
 .inputTextArea {
     margin-bottom: 10px !important;
@@ -393,4 +398,16 @@ td.sapUiFormElementLbl:not(.sapUiGridLabelFull)>.sapMLabel {
  }
 .sapUiSizeCompact .sapMInputBase.sapMTextArea .sapMTextAreaInner {
     padding: 0; 
+}
+.editButton{
+    padding-left: 20rem !important;
+}
+.sapMRbGCol {
+    overflow: visible !important;
+}
+.sapMPage{
+	background-color: white !important;
+}
+.panelLogin{
+	width: 70% !important;
 }

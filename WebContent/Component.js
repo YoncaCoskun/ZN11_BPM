@@ -17,6 +17,7 @@ sap.ui.define([
 ], function(UIComponent, Device, models) {
 
 	"use strict";
+	var cSelectItemIndex;
 
 	return UIComponent.extend("zn11_expense.Component", {
 
@@ -74,7 +75,7 @@ sap.ui.define([
 
 			this.setModel(models.createDeviceModel(), "device");
 		
-
+			this.getRouter().initialize();
     
 	
 		}

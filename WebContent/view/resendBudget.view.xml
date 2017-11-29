@@ -1,6 +1,6 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="zn11_expense.controller.manBudget" height="100%"
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="zn11_expense.controller.resendBudget" height="100%"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" class="sapUiSizeCompact"
-	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m" xmlns:m="sap.m" xmlns:unified="sap.ui.unified">
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
 	<tnt:ToolPage>
 		<tnt:header>
 			<tnt:ToolHeader>
@@ -19,7 +19,7 @@
 						<OverflowToolbarLayoutData minWidth="20px" priority="NeverOverflow"/>
 					</layoutData>
 				</ToolbarSpacer>
-				<Button press="handleUserNamePress" text="" type="Transparent" id="idButtonUserForm" icon="sap-icon://log">
+				<Button press="handleUserNamePress" text="" type="Transparent"  icon="sap-icon://log">
 					<layoutData>
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
@@ -38,21 +38,12 @@
 		<tnt:mainContents>
 			<NavContainer>
 				<pages>
-					<Page id="idHomePagemanBudgetForm" showHeader="false">
+					<Page id="idHomePagemanBudgetFormResend" showHeader="false">
 					<ScrollContainer height="100%" horizontal="false"  vertical="true">
 						<OverflowToolbar>
-		<Button icon="sap-icon://paper-plane" text="Approve" type="Accept" press="approveAction">
+		<Button icon="sap-icon://undo" text="Send"  press="sendBackAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://undo" text="Send Back" press="onSendBackBtn">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://personnel-view" text="Take Opinion" press="onTakeOpinionBtn" type="Emphasized">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject" press="rejectAction">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
+		</Button>	
 	</OverflowToolbar>
 	<IconTabBar class="sapUiResponsiveContentPadding" expanded="{device]/isNoPhone}">
 		<items>
@@ -63,19 +54,23 @@
 				<Panel  class="sapUiSmallMargin panelContainer generalLabelFont generalLabelFontUi"  width="95%">
 					<headerToolbar>
 						<Toolbar class="box-header">
+							<!--<core:Icon class="size1 icon-shadow" color="#FFF" src="sap-icon://user-edit"/> -->
 							<Title class="approvalText" text="Budget Approval"/>
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Panel class="panelBottom" id="ManpanelFirs" width="auto" expandeble="false" >
+						<Panel class="panelBottom" id="RepanelFirs" width="auto" expandeble="false" >
 							<content>
 								<ImageContent class="imageLogo" src="img/logo-n11-large.png"></ImageContent>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="ManpanelFirstContainerBudget" width="auto">
+						<Panel class="panelBottom" id="RepanelFirstContainerBudget" width="auto">
 							<headerToolbar>
-								<Toolbar height="3rem">
+								<Toolbar height="3rem">							
 									<Title class="boldText" text="Form Details"/>
+									<Button  class="size1 icon-shadow" color="#FFF" icon="sap-icon://user-edit" press="editForm" text=""/>			
+									<Button class="size1 icon-shadow" color="#FFF" icon="sap-icon://comment" press="displayComment" text=""/>
+									<!--<ImageContent class="imageLogo" src="img/n11_logo.png"></ImageContent>-->
 								</Toolbar>
 							</headerToolbar>
 							<content>
@@ -85,27 +80,27 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Request Owner"/>
-											<Input class="inputForm" value="" id="ManrequestOwner" enabled="false" />
+											<Input class="inputForm" value="" id="RerequestOwner" enabled="false" />
 											<Label text="Department"/>
-											<Input class="inputForm" value="" id="Mandepartment" enabled="false"/>
+											<Input class="inputForm" value="" id="Redepartment" enabled="false"/>
 											<Label text="Title"/>
-											<Input class="inputForm" value="" id="Mantitle" enabled="false"/>
+											<Input class="inputForm" value="" id="Retitle" enabled="false"/>
 											<core:Title/>
 											<Label text="Request Number"/>
-											<Input class="inputForm" value="" id="ManrequestNum" enabled="false"/>
+											<Input class="inputForm" value="" id="RerequestNum" enabled="false"/>
 											<Label text="Request Date"/>
-											<DatePicker class="inputForm" id="ManrequestDate" value="" enabled="false" />
+											<DatePicker class="inputForm" id="RerequestDate" value="" enabled="false" />
 											<HBox>
-												<Input class="inputForm" value="" id="ManrequestTime" enabled="false"/>
+												<Input class="inputForm" value="" id="RerequestTime" enabled="false"/>
 											</HBox>
 											<Label text="Status"/>
-											<Input class="inputForm" value="In-Progress" id="Manstatus" enabled="false"/>
+											<Input class="inputForm" value="In-Progress" id="Restatus" enabled="false"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="ManpanelSecondContainerBudget" showCollapseIcon="true" width="auto">
+						<Panel class="panelBottom" id="RepanelSecondContainerBudget" showCollapseIcon="true" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Budget Details"/>
@@ -117,10 +112,10 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Period Start/End"/>
-											<DatePicker class="inputForm" id="ManperiodStart" value="" enabled="false"/>
-											<DatePicker class="inputForm" id="ManperiodEnd" value="" enabled="false"/>
+											<DatePicker class="inputForm" id="ReperiodStart" value="" enabled="false"/>
+											<DatePicker class="inputForm" id="ReperiodEnd" value="" enabled="false"/>
 											<Label text="Supplier"/>
-											<Input class="inputForm" id="Mansupplier" enabled="false" liveChange="additionalInfoValidation" showSuggestion="true"
+											<Input class="inputForm" id="Resupplier" enabled="false" liveChange="additionalInfoValidation" showSuggestion="true"
 										showValueHelp="true" suggestionItems="{/SupplierSet}" type="Text" valueHelpRequest="handleValueHelpSupplier" valueState="{/supplierState}">
 										<suggestionItems>
 											<core:Item key="" text="{STRING}"/>
@@ -128,47 +123,62 @@
 									</Input>
 											<Label text="Subject"/>
 											<TextArea class="inputTextArea"
-												value="" id="Mansubject" enabled="false"/>
-											<Label text="Budget Allocation"/>
-											<Input class="inputForm" value="" id="ManidBudget" enabled="false"/>
+												value="" id="Resubject" enabled="false"/>
+											<Label text="Budget Allocation" id="ReLabelBudget" visible="true"/>
+											<Input class="inputForm" value="" id="idInputBudget" enabled="false" visible = "true"/>
+											<Label/>
+											<Label/>
+											<Label/>
+											<Label text="Budget Allocation" id="ReLabelBudgetSelect" visible="false"/>
+											<Select id="ReidBudget" 
+													forceSelection="false"
+													items="{ path: 'budgetModel>/'}"
+													change="selectChange" class="inputForm" visible = "false">
+													<core:Item key="1" text="{path:'budgetModel>',
+													formatter: '.setFormat'}" id="ReidText" visible = "false"/>
+											</Select> 
+										
 											<Label text="Department"/>
-											<Input class="inputForm" value="" id="ManidDepartment" enabled="false"/>
+											<Input class="inputForm" value="" id="ReidDepartment" enabled="false"/>
 											<Label text="Type"/>
-											<Input class="inputForm" value="" id="ManidType" enabled="false"/>
+											<Input class="inputForm" value="" id="ReidType" enabled="false"/>
 											<Label text="Description"/>
-											<Input class="inputForm" value="" id="ManidDesc" enabled="false"/>
+											<Input class="inputForm" value="" id="ReidDesc" enabled="false"/>
 											<Label text="Sub.Description"/>
-											<Input class="inputForm" value="" id="ManidSubDesc" enabled="false"/>
+											<Input class="inputForm" value="" id="ReidSubDesc" enabled="false"/>
 											<Label text="Rem.Budget Amount"/>
-											<Input class="inputForm" value="" id="ManremBudget" enabled="false"/>
+											<Input class="inputForm" value="" id="ReremBudget" enabled="false"/>
 											<Label text="Purpose"/>
-											<TextArea class="inputTextArea" value="" id="Manpurpose" enabled="false"/>
+											<TextArea class="inputTextArea" value="" id="Repurpose" enabled="false"/>
 											<Label text="Explanation"/>
-											<TextArea class="inputTextArea" value="" id="Manexplanation" enabled="false"/>
+											<TextArea class="inputTextArea" value="" id="Reexplanation" enabled="false"/>
 											<Label text=""/>
-											<RadioButtonGroup class="sapUiMediumMarginBottom" id="ManformType" columns="4" select="selectFormType">
+											<RadioButtonGroup class="sapUiMediumMarginBottom" id="ReformType" columns="4" select="selectFormType">
 												<buttons>
-													<RadioButton id="RB3-2" text="Donation" key="Donation" enabled="false"/>
-													<RadioButton id="RB3-1" text="Related Party"  key="Related Party" enabled="false"/>					
-													<RadioButton id="RB3-3" text="Domestic Education" key="Domestic Education" enabled="false"/>
-													<RadioButton id="RB3-4" text="Abroad Education" key="Abroad Education" enabled="false"/>
-													<RadioButton id="RB3-5" text="Oversea Business Trip" key="Oversea Business Trip" enabled="false"/>
-													<RadioButton id="RB3-6" text="Domestic Business Trip" key="Domestic Business Trip" enabled="false"/>
-													<RadioButton id="RB3-7" text="Others" key="Others" enabled="false"/>
+													<RadioButton id="RB4-2" text="Donation" key="Donation" enabled="false" selected="true"/>
+													<RadioButton id="RB4-1" text="Related Party"  key="Related Party" enabled="false"/>			
+													<RadioButton id="RB4-3" text="Domestic Education" key="Domestic Education" enabled="false"/>
+													<RadioButton id="RB4-4" text="Abroad Education" key="Abroad Education" enabled="false"/>
+													<RadioButton id="RB4-5" text="Oversea Business Trip" key="Oversea Business Trip" enabled="false"/>
+													<RadioButton id="RB4-6" text="Domestic Business Trip" key="Domestic Business Trip" enabled="false"/>
+													<RadioButton id="RB4-7" text="Others" key="Others" enabled="false"/>
 												</buttons>
 											</RadioButtonGroup>
-											<Label text="Related Party" id="ManrelatedParty" visible="false"/>
-											<Input class="inputForm" id="MarelatedParty"  type="Text"  visible="false" >
-											</Input>
+											<Label text="Related Party"/>
+											<Input class="inputForm" id="RerelatedParty" showSuggestion="true" showValueHelp="true" suggestionItems="{/relatedPartySet}" type="Text" valueHelpRequest="handleValueHelpRelatedParty" valueState="{/relatedState}" visible="false" >
+										<suggestionItems>
+											<core:Item key="" text="{STRING}"/>
+										</suggestionItems>
+									</Input>
 											<Label text="B&amp;R Explanation"/>
-											<TextArea class="inputTextArea" value="" id="ManbrExp" enabled="false"/>
+											<TextArea class="inputTextArea" value="" id="RebrExp" enabled="false"/>
 											<Label text="Type here"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="ManpanelThirdContainerBudget" width="auto">
+						<Panel class="panelBottom" id="RepanelThirdContainerBudget" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Budget Amount"/>
@@ -176,22 +186,34 @@
 							</headerToolbar>
 							<content>
 								<VBox class="sapUiSmallMargin">
-									<f:SimpleForm  id="ManSimpleFormChange354"
+									<f:SimpleForm  id="ReSimpleFormChange354"
 												editable="true"
 												layout="ResponsiveGridLayout"
 												>
 										<f:content>
 											<core:Title/>
-											<Label text="Currency"/>
-											<Input class="inputForm" value="" id="ManCurrencyType" enabled="false"/>
-											<Input class="inputCurr" value="" id="Mancurrency" enabled="false" >
+											<Label text="Currency" visible = "true" id="ReLabelCurr"/>				
+											<Input class="inputForm" value="" id="ReCurrencyType" enabled="false" visible = "true"/>							
+											<Input class="inputCurr" value="" id="Recurrency" enabled="false" visible="true" >
 											</Input>
+											<Label text="Currency" visible = "false" id="ReSelectInputCurr"/>
+											<Select id="ReSelectCurrencyType" change="selectChangeCur" enabled="false" visible="false">
+												<items>
+													<core:Item text="" key=""/>
+													<core:Item text="TRY" key="TRY"/>
+													<core:Item text="USD" key="USD"/>
+													<core:Item text="EUR" key="EUR"/>
+													<core:Item text="GBP" key="GBP"/>
+												</items>
+											</Select>
+											<Input class="inputCurr" value="" id="RecurrencyV2" enabled="false" visible="false" >
+											</Input>	
 											<Label text="Total Amount"/>
-											<Input class="inputForm" value="" id="MantotalAmount" enabled="false"/>
+											<Input class="inputForm" value="" id="RetotalAmount" enabled="false"/>
 											<HBox>
 												<Label class="labelExc" text="(Exc.VAT)"/>
 											</HBox><Label text="Installments"/>
-											<Table id="ManmainViewTbl" inset="false" items="{ path: '/results', sorter: { path: 'rowNumber' } }">
+											<Table id="RemainViewTbl" inset="false" items="{ path: '/results', sorter: { path: 'rowNumber' } }">
 												<columns>
 													<Column width="3rem">
 														<Text text="#"/>
@@ -211,16 +233,17 @@
 														<cells>
 															<Text text="{rowNumber}"/>
 															<Text text="{Month}"/>
-															<Text text="{path: 'InstallmentAmount' , formatter: '.setInstallment'}"/>
+															<Text text="{InstallmentAmount}"/>
 														</cells>
 													</ColumnListItem>
 												</items>
 											</Table>
+											<!--<List delete="handleDelete" enableBusyIndicator="true" growing="true" headerText="Users" id="addList1" mode="Delete"></List>-->
 											<Label text="Total Amount"/>
-											<Input class="inputForm" value=""  id="ManidTotalAmount" enabled="false"/>
-											<Input class="inputForm" value=""  id="MantotalCurrAmount" enabled="false"/>
+											<Input class="inputForm" value=""  id="ReidTotalAmount" enabled="false"/>
+											<Input class="inputForm" value=""  id="RetotalCurrAmount" enabled="false"/>
 											<HBox>
-												<Label class="labelPay" id="ManidTRY1" text="TRY"/>
+												<Label class="labelPay" id="ReidTRY1" text="TRY"/>
 												<Label class="labelExc" text="(Exc.VAT)"/>
 											</HBox>
 										</f:content>
@@ -228,20 +251,28 @@
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="ManpanelFourthContainerBudget" width="auto">
+						<Panel class="panelBottom" id="RepanelFourthContainerBudget" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Attachment"/>
 								</Toolbar>
 							</headerToolbar>
 							<content>
+								<!--<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onPress" text="Add">
+									<layoutData>
+										<FlexItemData growFactor="1"/>
+									</layoutData>
+								</Button>-->
 							</content>
 						</Panel>
 					</content>
 				</Panel>
+			<!--	<Button icon="sap-icon://print" text="Print the document"/>
+				<Button icon="sap-icon://notes" text="Notes"/>
+				<Button icon="sap-icon://save" text="Save Changes"/>-->
 			</IconTabFilter>
 			<IconTabFilter text="FLOW">
-				<Panel id="ManBudgetFlowPanel1" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+				<Panel id="ResendBudgetFlowPanel1" width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
 						<headerToolbar>
 							<Toolbar height="3rem">
 								<Title text="Flow Properties"/>
@@ -254,29 +285,29 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Request Number"/>
-											<Input class="inputForm" value="" id="ManBudFlowRequestNum" enabled="false"/>
+											<Input class="inputForm" value="" id="ReBudFlowRequestNum" enabled="false"/>
 											<Label text="Request Owner"/>
-											<Input class="inputForm" value="" id="ManBudFlowRequestOwner" enabled="false" />
+											<Input class="inputForm" value="" id="ReBudFlowRequestOwner" enabled="false" />
 											<Label text="Request Type"/>
-											<Input class="inputForm" value="" id="ManBudFlowRequestType" enabled="false"/>
+											<Input class="inputForm" value="" id="ReBudFlowRequestType" enabled="false"/>
 											<Label text="Subject"/>
-											<Input class="inputForm" value="" id="ManBudFlowSubject" enabled="false"/>
+											<Input class="inputForm" value="" id="ReBudFlowSubject" enabled="false"/>
 											<Label text="Status"/>
-											<Input class="inputForm" value="" id="ManBudFlowStatus" enabled="false"/>
+											<Input class="inputForm" value="" id="ReBudFlowStatus" enabled="false"/>
 											<core:Title/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
 						</content>
 				</Panel>
-				<Panel width="auto" id="ManBudgetFlowPanel2" class="sapUiResponsiveMargin">
+				<Panel width="auto" id="ResendBudgetFlowPanel2" class="sapUiResponsiveMargin">
 						<headerToolbar>
 							<Toolbar height="3rem">
 								<Title text="Flow History"/>
 							</Toolbar>
 						</headerToolbar>
 						<content>
-								<Table id="ManBudgetFlowTbl" inset="false" items="{path: '/', sorter: { path: 'FNAME' }}">
+								<Table id="ReBudgetFlowTbl" inset="false" items="{path: '/', sorter: { path: 'FNAME' }}">
 									<columns>
 													<Column width="10rem">
 														<Text text="User"/>
@@ -300,12 +331,12 @@
 											<items>
 												<ColumnListItem>
 													<cells>
-														<Text text="{FNAME}  {LNAME}" id="manBudUser"/>
-														<Text text="{TITLE}" id="manBudTitle"/>
-														<Text text="{DEPRT}" id="manBudDprt"/>	
-														<Text text="{path: 'OBJTY' , formatter: '.setEventType'}" id="manBudEvnt"/>
-														<Text text="{DATUM}  {UZEIT}" id="manBudReqDate"/>	
-														<Text text=""/>												
+														<Text text="{FNAME}  {LNAME}" id="reBudUser"/>
+														<Text text="{TITLE}" id="reBudTitle"/>
+														<Text text="{DEPRT}" id="reBudDprt"/>	
+														<Text text="{path: 'OBJTY' , formatter: '.setEventType'}" id="reBudEvnt"/>
+														<Text text="{DATUM}  {UZEIT}" id="reBudReqDate"/>	
+														<Text text="" id="reBudResDate"/>												
 													</cells>
 												</ColumnListItem>
 											</items>
@@ -315,8 +346,8 @@
 				</Panel>	
 			</IconTabFilter>
 			<IconTabFilter text="MESSAGES">
-				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="ManidClick"/>
-				<Table id="ManidBudgetMessage" inset="false" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
+				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="ReidClick"/>
+				<Table id="ReidBudgetMessage" inset="false" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
 					<columns>
 						<Column width="12em">
 							<Text text="Send Name"/>
@@ -346,16 +377,7 @@
 		</items>
 	</IconTabBar>
 	<OverflowToolbar>
-		<Button icon="sap-icon://paper-plane" text="Approve" type="Accept" press="approveAction">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://undo" text="Send Back" press="onSendBackBtn">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://personnel-view" text="Take Opinion" press="onTakeOpinionBtn" type="Emphasized">
-			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
-		</Button>
-		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject" press="rejectAction">
+		<Button icon="sap-icon://undo" text="Send"  press="sendBackAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 	</OverflowToolbar>

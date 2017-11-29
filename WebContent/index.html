@@ -18,11 +18,13 @@
 		<script id="sap-ui-bootstrap"
 
 
-			src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+			src="https://sapui5.hana.ondemand.com/sdk/resources/sap-ui-core.js"
 
 			data-sap-ui-libs="sap.m"
 
 			data-sap-ui-theme="sap_belize"
+			
+			data-sap-ui-bindingSyntax="complex"
 
 			data-sap-ui-preload="async"
 
@@ -33,6 +35,7 @@
 
 
 		</script>
+	
 
 
 
@@ -50,7 +53,7 @@
 
 						height : "100%",
 
-						width : "90%",
+						width : "100%",
 
 						name : "zn11_expense"
 
@@ -71,9 +74,15 @@
 
 
 	<body class="sapUiBody" id="content">
-
-
-
+	
+  	<script src='build/pdfmake.min.js'></script>
+  	<script src='build/vfs_fonts.js'></script>
+	<script src="dist/html2canvas.js"></script>
+	<script src="dist/html2canvas.min.js"></script>
+	<script src="dist/html2canvas.svg.js"></script>
+	<script src="dist/html2canvas.svg.min.js"></script>
+	<script src="dist/jspdf.min.js"></script>
+	
 	</body>
 
 

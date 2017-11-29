@@ -12,16 +12,6 @@
 		"sourceTemplate": {
 			"id": "servicecatalog.connectivityComponent",
 			"version": "1.0.0"
-		},
-		"dataSources": {
-			"ZN11_BPM_SRV": {
-				"uri": "/sap/opu/odata/sap/ZN11_BPM_SRV/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"localUri": "model/metadata.xml"
-				}
-			}
 		}
 	},
 	"sap.ui": {
@@ -46,8 +36,87 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "zn11_expense.view.Home",
+			"viewName": "zn11_expense.view.App",
 			"type": "XML"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewPath": "zn11_expense.view",
+				"controlId": "rootControl",
+				"controlAggregation": "pages",
+				"viewType": "XML"
+			},
+			"routes": [
+				{
+					"name": "Route",
+					"pattern": "",
+					"target": "Route"
+				},
+				{
+					"name": "Home",
+					"pattern": "Home",
+					"target": "Home"
+				},
+				{
+					"name": "manBudget",
+					"pattern": "manBudget",
+					"target": "manBudget"
+				},
+				{
+					"name": "resendBudget",
+					"pattern": "resendBudget",
+					"target": "resendBudget"
+				},
+				{
+					"name": "takeOBudget",
+					"pattern": "takeOBudget",
+					"target": "takeOBudget"
+				},
+				{
+					"name": "manPayment",
+					"pattern": "manPayment",
+					"target": "manPayment"
+				}
+			],
+			"targets": {
+				"Route": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "Route"
+				},
+				"Home": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "Home"
+				},
+				"manBudget": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "manBudget"
+				},
+				"resendBudget": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "resendBudget"
+				},
+				"takeOBudget": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "takeOBudget"
+				},
+				"manPayment": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "manPayment"
+				}
+			}
 		},
 		"dependencies": {
 			"minUI5Version": "1.30.0",

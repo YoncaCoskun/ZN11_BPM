@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog id="loginDialogTakeOComment" title="Take Opinion" contentWidth="200px" xmlns:b="sap.suite.ui.commons" xmlns:l="sap.ui.layout.form" xmlns:m="sap.m"
+		xmlns:u="sap.ui.unified">
+		<content>
+			<Panel width="auto" class="sapUiResponsiveMargin">
+				<Label text="User"/>
+				<Input class="inputForm" value="" width="100%" id="idSendUserTakeO" enabled="false"/>
+				<Label text="Sender Comment"/>
+				<TextArea value="" growing="true" width="100%" id="idSendCommentTakeO" enabled="false"/>
+				<Label text="Receive Comment"/>
+				<TextArea value="" growing="true" width="100%" id="idReceiveCommentTakeO"/>
+
+			</Panel>
+		</content>
+		<buttons>
+			<Button icon="sap-icon://paper-plane" id="btnSendTakeO" press="TakeOpinionRcvAction" text="Send" type="Emphasized"/>
+			<Button icon="sap-icon://sys-cancel" id="btnCancelTakeO" press="oCommentDialogRcvTakeOClose" text="Cancel" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

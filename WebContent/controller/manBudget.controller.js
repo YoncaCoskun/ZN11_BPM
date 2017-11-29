@@ -3,9 +3,9 @@ jQuery.sap.require("zn11_expense.util.ErrorHandler");
 jQuery.sap.require("zn11_expense.util.TcmHelper");
 jQuery.sap.require("zn11_expense.util.ModelBuilder");
 sap.ui.define([
-'sap/m/MessagePopover',
-'sap/m/MessagePopoverItem',
-'sap/m/Link',
+	'sap/m/MessagePopover',
+	'sap/m/MessagePopoverItem',
+	'sap/m/Link',
 	'jquery.sap.global',
 	'sap/ui/core/Fragment',
 	'sap/ui/core/mvc/Controller',
@@ -14,12 +14,13 @@ sap.ui.define([
 	'sap/m/Popover',
 	'sap/m/Button',
 	'sap/ui/model/resource/ResourceModel',
-			'sap/m/MessageToast',
-					'sap/ui/model/Filter'
+	'sap/m/MessageToast',
+	'sap/ui/model/Filter',
+	'sap/m/MessageBox'
 ], function(MessagePopover, MessagePopoverItem, Link, jQuery, Fragment, Controller, JSONModel, AnnotationHelper, Popover, Button,
-	ResourceModel, MessageToast, Filter) {
+	ResourceModel, MessageToast, Filter,MessageBox) {
 	"use strict";
-//test
+    //test
 	var usersTo = [];
 	var budgetId = "";
 	var multiUserTo = [];
@@ -36,18 +37,25 @@ sap.ui.define([
 	var sDate;
 	var sTime;
 	var TaskInstanceID;
-	//var budgetID;
-	/*var budgetId;
-	var department;
-	var type;
-	var desc;
-	var subDesc;*/
+	var supplierModel = new sap.ui.model.json.JSONModel();
+	var searchModel = new sap.ui.model.json.JSONModel();
+	var sendUserModel =  new sap.ui.model.json.JSONModel();
+	var oSelectedIndex;
+	var oSelectedRadioText;
+
 	var twoEntry = [];
 	var oModel = new sap.ui.model.json.JSONModel();
 	var sKur;
 	var selectItem;
 	var imgData = "";
 	var zdata = [];
+	
+
+	var unamePas;
+	var arrayUserPas;
+	var username;
+	var password;
+
 
 	var CController = Controller.extend("zn11_expense.controller.manBudget", {
 		serviceUrl : "/bpmodata/taskdata.svc/",
@@ -61,9 +69,16 @@ sap.ui.define([
 		
 		model: new sap.ui.model.json.JSONModel(),
 		onInit: function() {
+			unamePas = atob(window.localStorage["unamePas"]);
+			arrayUserPas = unamePas.split(":");
+			username = arrayUserPas[0];
+			password = arrayUserPas[1];
 			
+			
+			debugger;
+			var that = this;
 			var oUserData = "";
-			var usernameService =  "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp";
+			var usernameService =  "/RESTAdapter/b2b/SearchHelp";
 			var HttpRequest = "";
 			HttpRequest = new XMLHttpRequest();
 			HttpRequest.onreadystatechange = function() {
@@ -72,171 +87,49 @@ sap.ui.define([
 			}
 
 			};
-
 			HttpRequest.open( "GET", usernameService, false );
-
-			var usernameFinal = oUserData.id
-			
+			var usernameFinal = oUserData.id;			
 			console.log(usernameFinal);
-//			var oThat = this;
-//			/*var that = this;
-//			var sServiceUrl = "/RESTAdapter/BudgetAllocationSelect";
-//			var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl);
-//			var oJsonModel = new sap.ui.model.json.JSONModel();
-//
-//			oModel.read("", null, null, true, function(oData) {
-//				oJsonModel.setData(oData);
-//				console.log(oData.results);
-//			});
-//			that.getView().setModel(oJsonModel, "JModel");
-//			this.getView().byId("budgetAllocation").setModel(this.getView().getModel("JModel"));
-//			*/
-//			//begin of startdata personel department cekme
-//			try{
-//				var persData = jQuery.ajax({
-//	                type : "GET",
-//	                contentType : "application/json",
-//	                url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/PERNR=0417&PERSONEL",
-//	                dataType : "json",
-//	                async: false, 
-//	                success : function(data,textStatus, jqXHR) {
-//	                }
-//
-//	            });
-//	    		var personelData = persData.responseJSON.T_RESULT.item.STRING;
-//	    		
-//	    		
-//	    		 var arrayPers = personelData.split('@');
-//	    		 var department = arrayPers[2];
-//	    		 
-//	    		 oThat.getView().byId('requestOwner').setValue(arrayPers[0] + " " + arrayPers[1]);
-//	    		 oThat.getView().byId('department').setValue(arrayPers[2]);
-//	    		 //oThat.getView().byId('requestNum').setValue(arrayPers[0]);
-//	    		 oThat.getView().byId('title').setValue(arrayPers[3]);
-//				
-//				//end of ycoskun
-//				
-//			}catch(err){
-//				
-//			}
-//			
-//			
-//			var budgetModel = new sap.ui.model.json.JSONModel();
-//			var budgetIdModel = new sap.ui.model.json.JSONModel();
-//			var selects = [];
-//			var selectId = [];
-//			var budgetId ;
-//		     
-//		        var aData = jQuery.ajax({
-//		            type : "GET",
-//		            contentType : "application/json",
-//		            url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/SearchHelp/DEPARTMENT="+department+"&INPUT_BUDGET_DEPARTMENT",
-//		            dataType : "json",
-//		            async: false, 
-//		            success : function(data,textStatus, jqXHR) {
-//		                oModel.setData({modelData : data}); 
-//		                console.log(data);
-//		                
-//		                for(var i = 0; i < data.T_RESULT.item.length; i++) {
-//		                   var text = data.T_RESULT.item[i];	                    
-//		                    var array = text.STRING.split('@');
-//		                    budgetId = array[0];
-//		                    selects.push(text);
-//		                   // selectId.push(budgetId);
-//		                    
-//		                    
-//		                 }
-//		               
-//		                console.log(selects);
-//		                
-//		    			budgetModel.setData(selects);
-//		    			//budgetIdModel.setData(Id);
-//		    			var Budget = oThat.getView().byId("idBudget");
-//		    		    Budget.setModel(budgetModel, "budgetModel");
-//		    		    console.log(Budget);
-//		    		    
-//		    			var fText = oThat.getView().byId('idText');
-//		    			Budget.bindItems("budgetModel>/", fText);
-//		    			
-//		                
-//		            }
-//		        
-//		        });
-//		        
-//		      
-//	    	
-//	    		 
-//	    		 
-//	    		 //begin of ycoskun Request Date otomatik getirme
-//	    		 var today = new Date();
-//	    		 var dd = today.getDate();
-//	    		 var mm = today.getMonth()+1; 
-//	    		 var yyyy = today.getFullYear();
-//	    		 
-//	    		 var hour = today.getHours();
-//	    		 var min = today.getMinutes();
-//	    		 var sec = today.getSeconds();
-//	    		 var time = hour + ":" + min;
-//
-//
-//	    		 if(dd<10) {
-//	    		     dd = '0'+dd
-//	    		 } 
-//
-//	    		 if(mm<10) {
-//	    		     mm = '0'+mm
-//	    		 } 
-//
-//	    		 today = dd + '/' + mm + '/' + yyyy;
-//	    		 sDate = yyyy.toString()+mm.toString()+dd;
-//	    		 sTime = hour+min+sec;
-//	    		 oThat.getView().byId('requestDate').setValue(today);
-//	    		 oThat.getView().byId('requestTime').setValue(time);
-//	    		 //end of ycoskun
-//	    		 
-//	    		
-//	            
-//		        
-////	    		 this.onSaveChange();
-			
-			
-	   		var that = this;
+
+			//get token begin of 
+			var oHeaders;
+			var oToken;
+
     		var aData = jQuery.ajax({
                 type : "GET",
                 contentType : "application/json",
-                url : "http://dperppo01d.n11.local:50000/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
+                url : "/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
                 dataType : "json",
+                headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
                 async: false, 
                 success : function(data,textStatus, jqXHR) {
                 }
 
             });
+    	
     		try{
-    			TaskInstanceID = aData.responseJSON.d.results["0"].InstanceID;
-    	
-    		
-            
-    	
+    			debugger;
+    			TaskInstanceID = aData.responseJSON.d.results[sap.ui.getCore().cSelectItemIndex].InstanceID;
+
+    			
     		var serviceUrlWithPrefix = this.serviceUrl + TaskInstanceID + this.bpmPrefixParameter;
     		var odataModel = new sap.ui.model.odata.v2.ODataModel(serviceUrlWithPrefix, this.oDataSettings);
     		
             var startTypeINPUT = jQuery.ajax({
                 type : "GET",
                 contentType : "application/json",
-                url : "http://dperppo01d.n11.local:50000/bpmodata/taskdata.svc/"+ TaskInstanceID +"/InputData('"+ TaskInstanceID +"')?$format=json&$expand=startTypeINPUT/start/DO_BudgetApproval/Installments/row,startTypeINPUT/start/DO_BudgetApproval/Head,startTypeINPUT/start/DO_BudgetApproval/Details,startTypeINPUT/start/DO_BudgetApproval/Amount",
+                url : "/bpmodata/taskdata.svc/"+ TaskInstanceID +"/InputData('"+ TaskInstanceID +"')?$format=json&$expand=startTypeINPUT/start/DO_BudgetApproval/Installments/row,startTypeINPUT/start/DO_BudgetApproval/Head,startTypeINPUT/start/DO_BudgetApproval/Details,startTypeINPUT/start/DO_BudgetApproval/Amount,startTypeINPUT/start/DO_BudgetApproval/Attachments,startTypeINPUT/start/DO_BudgetApproval/Opinion",
                 dataType : "json",
+                headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
                 async: false, 
-                success : function(data,textStatus, jqXHR) {
-      
+                success : function(data,textStatus, jqXHR) {    
     				var oODataJSONModel = new sap.ui.model.json.JSONModel(data);
-    				//oODataJSONModel.setDefaultBindingMode("TwoWay");
-    				//oODataJSONModel.setSizeLimit(100);
-//    				that.getView().setModel(oODataJSONModel);
-    				// eases the access for the controller
-    				// that.getView().setModel(odataModel, "odataModel");
                 }
 
             });
+            debugger;
             zdata = startTypeINPUT.responseJSON.d.startTypeINPUT.start;
             console.log(zdata);
         var Amount = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Amount;
@@ -245,11 +138,14 @@ sap.ui.define([
         var Installments = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Installments;
         
         
+        var uiAction = startTypeINPUT.responseJSON.d.startTypeINPUT.start.UIAction;
+        var dobeln = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BELN;
         
+        if(uiAction !== "2" || uiAction !== "3"){
         that.getView().byId("ManrequestOwner").setValue(Head.requestOwner);
         that.getView().byId("Mandepartment").setValue(Head.department);
         that.getView().byId("Mantitle").setValue(Head.title);
-        that.getView().byId("ManrequestNum").setValue(Head.requestNum);
+        that.getView().byId("ManrequestNum").setValue(dobeln);
         that.getView().byId("ManrequestDate").setValue(Head.requestDate);
         that.getView().byId("ManrequestTime").setValue(Head.requestTime);
         //that.getView().byId("Manstatus").setValue(Head.status); status doldurulmalı
@@ -257,9 +153,10 @@ sap.ui.define([
         
         that.getView().byId("ManperiodEnd").setValue(Details.periodEnd);
         that.getView().byId("ManperiodStart").setValue(Details.periodStart);
-        that.getView().byId("Mansupplier").setValue(Details.supplier);
-        that.getView().byId("Mansubject").setValue(Details.subject);
+        that.getView().byId("Mansupplier").setValue(Details.supplierId + " - "+ Details.supplier);
+        that.getView().byId("Mansubject").setValue(Details.subject);     
         that.getView().byId("ManidBudget").setValue(Details.Budget);
+	
         that.getView().byId("ManidDepartment").setValue(Details.Department);
         that.getView().byId("ManidType").setValue(Details.Type);
         that.getView().byId("ManidDesc").setValue(Details.Desc);
@@ -269,38 +166,249 @@ sap.ui.define([
         that.getView().byId("Manexplanation").setValue(Details.explanation);
         that.getView().byId("ManbrExp").setValue(Details.brExp);
         
-        that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
-        //currency ıle currency type aynı gıdıyor currency usd yerıne formu kaydettgı gunku currency degerı gelmelı
+        //that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
         that.getView().byId("Mancurrency").setValue(Amount.Currency);
-        that.getView().byId("MantotalAmount").setValue(Amount.totalAmount);
         
+        if(Details.relatedParty !== null){
+        	that.getView().byId("ManrelatedParty").setVisible(true);
+        	that.getView().byId("MarelatedParty").setVisible(true);
+        	that.getView().byId("MarelatedParty").setEnabled(false);
+        	that.getView().byId("MarelatedParty").setValue(Details.relatedParty + " - " + Details.relatedPartyId);
+        }
+        else{
+        	that.getView().byId("ManrelatedParty").setVisible(false);
+        	that.getView().byId("MarelatedParty").setVisible(false);
+        	that.getView().byId("MarelatedParty").setEnabled(true);
+        }
+      
+        if(Details.formType === "Donation"){
+        	that.getView().byId("RB3-2").setSelected(true);
+        }
+        else if(Details.formType === "Related Party"){
+        	that.getView().byId("RB3-1").setSelected(true);
+        }
+        else if(Details.formType === "Domestic Education"){
+        	that.getView().byId("RB3-3").setSelected(true);
+        }
+        else if(Details.formType === "Abroad Education"){
+        	that.getView().byId("RB3-4").setSelected(true);
+        }
+        else if(Details.formType === "Oversea Business Trip"){
+        	that.getView().byId("RB3-5").setSelected(true);
+        }
+        else if(Details.formType === "Domestic Business Trip"){
+        	that.getView().byId("RB3-6").setSelected(true);
+        }
+        else if(Details.formType === "Others"){
+        	that.getView().byId("RB3-7").setSelected(true);
+        }
         
+        var floatTotalAmount = parseFloat(Amount.totalAmount.toString().replace(/\D/g, '')).toFixed(2);
+        var floatIdTotalAmount = parseFloat(Amount.totalAmount.toString().replace(/\D/g, '')).toFixed(2);
+        var floatTotalCurrAmount = parseFloat(Amount.totalAmountTRY.toString().replace(/\D/g, '')).toFixed(2);
+        
+        that.getView().byId("MantotalAmount").setValue(floatTotalAmount);
+        that.getView().byId("ManidTotalAmount").setValue(floatIdTotalAmount);
+        that.getView().byId("MantotalCurrAmount").setValue(floatTotalCurrAmount);
 	
+        that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
+        //that.getView().byId("ManidBudget").setSelectedKey(2);;
+
 		var oJsonModel = new sap.ui.model.json.JSONModel();
 		oJsonModel.setData(Installments.row);
 		console.log(Installments.row.results);
 		that.getView().setModel(oJsonModel, "JModel");
 		this.getView().byId("ManmainViewTbl").setModel(this.getView().getModel("JModel"));
-        
-        that.getView().byId("ManidTotalAmount").setValue(Amount.totalAmountTRY);
-        that.getView().byId("MantotalCurrAmount").setValue(Amount.ManidTotalAmount);
-        
+		
+		//flow içeriğinin doldurulması begin of ycoskun
+		var aDataFlow = jQuery.ajax({
+            type : "GET",
+            contentType : "application/json",
+            url : "/RESTAdapter/b2b/processLog/*/*/"+dobeln,
+            dataType : "json",
+            headers: {"x-csrf-token": "Fetch",
+				  "Authorization":"Basic "+btoa(username+":"+password)},
+            async: false, 
+            success : function(data,textStatus, jqXHR) {
+            }
 
+        });
+		var vStatu;
+		if(aDataFlow.responseJSON.T_LOG.item.length === undefined){
+			if(aDataFlow.responseJSON.T_LOG.item.OBJTY === -2){
+				vStatu="Pending Approval";
+			}
+			else{
+				
+			}
+			that.getView().byId("manBudUser").setText(aDataFlow.responseJSON.T_LOG.item.FNAME+" "+aDataFlow.responseJSON.T_LOG.item.LNAME);
+    		that.getView().byId("manBudTitle").setText(aDataFlow.responseJSON.T_LOG.item.TITLE);
+    		that.getView().byId("manBudDprt").setText(aDataFlow.responseJSON.T_LOG.item.DEPRT);
+    		that.getView().byId("manBudEvnt").setText(aDataFlow.responseJSON.T_LOG.item.OBJTY);
+    		that.getView().byId("manBudReqDate").setText(aDataFlow.responseJSON.T_LOG.item.DATUM+" "+aDataFlow.responseJSON.T_LOG.item.UZEIT);
+			
+		}
+		else{
+			if(aDataFlow.responseJSON.T_LOG.item[aDataFlow.responseJSON.T_LOG.item.length-1].OBJTY === -2){
+				vStatu="Pending Approval";
+			}
+			else{
+				
+			}
+		      		
+    		var oJsonFlowModel = new sap.ui.model.json.JSONModel();
+    		oJsonFlowModel.setData(aDataFlow.responseJSON.T_LOG.item);
+    		that.getView().setModel(oJsonFlowModel, "oFlowModel");
+    		this.getView().byId("ManBudgetFlowTbl").setModel(this.getView().getModel("oFlowModel"));
+		}
+		that.getView().byId("ManBudFlowRequestNum").setValue(dobeln);
+		that.getView().byId("ManBudFlowRequestOwner").setValue(Head.requestOwner);
+		that.getView().byId("ManBudFlowRequestType").setValue(Details.formType);
+		that.getView().byId("ManBudFlowSubject").setValue(Details.subject);
+		that.getView().byId("ManBudFlowStatus").setValue(vStatu);
+		//flow içeriğinin doldurulması end of ycoskun
+        }
+        
     		}
     		catch(err){
+    			 that.getView().byId("ManrequestOwner").setValue("");
+    		        that.getView().byId("Mandepartment").setValue("");
+    		        that.getView().byId("Mantitle").setValue("");
+    		        that.getView().byId("ManrequestNum").setValue("");
+    		        that.getView().byId("ManrequestDate").setValue("");
+    		        that.getView().byId("ManrequestTime").setValue("");
+    		        //that.getView().byId("Manstatus").setValue(Head.status); status doldurulmalı
+    		        
+    		        
+    		        that.getView().byId("ManperiodEnd").setValue("");
+    		        that.getView().byId("ManperiodStart").setValue("");
+    		        that.getView().byId("Mansupplier").setValue("");
+    		        that.getView().byId("Mansubject").setValue("");     
+    		        that.getView().byId("ManidBudget").setValue("");
+    			
+    		        that.getView().byId("ManidDepartment").setValue("");
+    		        that.getView().byId("ManidType").setValue("");
+    		        that.getView().byId("ManidDesc").setValue("");
+    		        that.getView().byId("ManidSubDesc").setValue("");
+    		        that.getView().byId("ManremBudget").setValue("");
+    		        that.getView().byId("Manpurpose").setValue("");
+    		        that.getView().byId("Manexplanation").setValue("");
+    		        that.getView().byId("ManbrExp").setValue("");
+    		        
+    		        //that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
+    		        that.getView().byId("Mancurrency").setValue("");
+    		        
+    		
+    		        	that.getView().byId("ManrelatedParty").setVisible(false);
+    		        	that.getView().byId("MarelatedParty").setVisible(false);
+    		        	that.getView().byId("MarelatedParty").setEnabled(true);
+    		         		      
+    		        	that.getView().byId("RB3-2").setSelected(true);
+    		        
+
+    		        
+    		        that.getView().byId("MantotalAmount").setValue("");
+    		        that.getView().byId("ManidTotalAmount").setValue("");
+    		        that.getView().byId("MantotalCurrAmount").setValue("");
+    			
+    		        that.getView().byId("ManCurrencyType").setValue("");
+    		        //that.getView().byId("ManidBudget").setSelectedKey(2);;
+
+    				var oJsonModel = new sap.ui.model.json.JSONModel();
+    				oJsonModel.setData("");
+    		
+    				that.getView().setModel(oJsonModel, "JModel");
+    				this.getView().byId("ManmainViewTbl").setModel(this.getView().getModel("JModel"));
+    		     
     			
     		}	        
 		},
+		selectFormType:function(){
+			var that = this;
+			oSelectedIndex = oEvent.getParameter("selectedIndex");  
+			var oRadioButtonSrc = oEvent.getSource().getAggregation("buttons");  
+			oSelectedRadioText = oRadioButtonSrc[oSelectedIndex].getText();
+			
+			if(oSelectedRadioText !== "Related Party"){
+				that.getView().byId("ManidRelatedParty").setVisible(false);
+				that.getView().byId("ManrelatedParty").setVisible(false);
+				that.getView().byId("ManidBudget").setValue(budgetId);
+				}
+			else{
+				that.getView().byId("ManidRelatedParty").setVisible(true);
+				that.getView().byId("ManrelatedParty").setVisible(true);
+				that.getView().byId("ManidBudget").setValue(budgetId);
+			}
+
 		
-		approveAction : function (evt) {
-			debugger;		
+		},		
+		approveAction : function (evt) {	
+			var oHeaders;
+			var oToken;
+			var oTaskId = TaskInstanceID.slice(-32);
+			var that = this;
+
+			
+			jQuery.ajax({
+				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
+				  headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
+				  async: false,
+				  method: 'GET'
+				}).then(function(data,status,xhr) {
+					  oToken = xhr.getResponseHeader('x-csrf-token');
+					  oHeaders = {
+								"x-csrf-token": oToken
+							};
+					});
+			
+			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMOutputData?prefixReservedNames=true";
+			
+			//zdata formatını belirleme begin of
+			var oEntryData = {"PersonelCompleteEventTypeOUTPUT": {"PersonelCompleteEvent": zdata
+			}};
+
+			
+			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "1";
+			//end of 
+			
+			//ready durumundaki taskı reserved yapmak begin of 
+			var tasksSvcURL = "/bpmodata/tasks.svc";
+			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
+			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
+			//end of
+			
+			
+			jQuery.ajax({
+		        type: 'POST',
+		        url: oPostURL,
+		        data: JSON.stringify(oEntryData),
+		        dataType: "json",
+		        headers: {
+	                "X-CSRF-Token": oToken,
+	                "Content-Type": "application/json"              	
+	            },
+		        success: function(result) {
+
+		        	alert("success");
+		        	console.log(result);
+		        	tasksODataModel.refresh(true);
+		        	that.onInit();
+		        	that.getOwnerComponent().getRouter().navTo("Home");
+					window.location.reload();
+		   
+		        
+		        }
+		    });
+		},
+		
+		rejectAction : function (evt) {
+			var that = this;
 			var username,password;
 			var oHeaders;
 			var oToken;
 			var oTaskId = TaskInstanceID.slice(-32);
-			
-			username="0507";
-			password="Peaky11!";
+
 			jQuery.ajax({
 				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
 				  headers: {"x-csrf-token": "Fetch",
@@ -319,7 +427,7 @@ sap.ui.define([
 			var oEntryData = {"PersonelCompleteEventTypeOUTPUT": {"PersonelCompleteEvent": zdata
 			}};
 			
-			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "1";
+			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "0";
 			//end of
 			
 			//ready durumundaki taskı reserved yapmak begin of 
@@ -338,194 +446,19 @@ sap.ui.define([
 	                "X-CSRF-Token": oToken,
 	                "Content-Type": "application/json"              	
 	            },
-		        success: function(result) {
-		        	debugger;
+		        success: function(result) {	        
 		        	alert("success");
 		        	console.log(result);
-		        	
+		        	tasksODataModel.refresh(true);
+		        	that.onInit();
+		        	that.getOwnerComponent().getRouter().navTo("Home");
+					window.location.reload();
 		        
 		        }
 		    });
-		},
-		
-		rejectAction : function (evt) {
-			/*var odataModel = this.getView().getModel("odataModel");
-			var jsonModel = this.getView().getModel();
-
-			var data = jQuery.extend(true, {}, jsonModel.getProperty("/startTypeINPUT/start"));
-			zn11_expense.util.ModelBuilder.setEdmTimeFromConvertedProperty(data);
-			zn11_expense.util.ModelBuilder.removeEmptyEntitiesFromCollections(data);
-			var faultData = {ManagerApproveErrorEventTypeOUTPUT : {ManagerApproveErrorEvent :  data }}; 
-
-			var bundle = this.getView().getModel("i18n").getResourceBundle();		
-			
-			var createParameters = {
-				success : function() {
-					// post was successful, either close window or show success message
-					window.close();
-					// in case close does not work due to security reasons
-					var successMsg = bundle.getText("FaultSuccessMsg");
-					var successDialogTitle = bundle.getText("FaultSuccessDialogTitle");
-					sap.m.MessageBox.show(successMsg, {
-						icon : sap.m.MessageBox.Icon.SUCCESS, 
-						title : successDialogTitle
-					}); 
-				},
-				error : function(oEvent) {
-					// show failure message
-					zn11_expense.util.ErrorHandler.handleRequestFailedError(oEvent, bundle, "FaultFailedDialogTitle", "FaultFailedMsg");
-				}
-			};
-			
-			odataModel.create("/SAPBPMManagerApproveErrorEvent", faultData, createParameters);	*/
-			debugger;		
-			var username,password;
-			var oHeaders;
-			var oToken;
-			var oTaskId = TaskInstanceID.slice(-32);
-			
-			username="0507";
-			password="Peaky11!";
-			jQuery.ajax({
-				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
-				  headers: {"x-csrf-token": "Fetch",
-					  "Authorization":"Basic "+btoa(username+":"+password)},
-				  async: false,
-				  method: 'GET'
-				}).then(function(data,status,xhr) {
-					  oToken = xhr.getResponseHeader('x-csrf-token');
-					  oHeaders = {
-								"x-csrf-token": oToken
-							};
-					});
-			
-			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMPersonelErrorEvent?prefixReservedNames=true";
-			//zdata formatını belirleme begin of
-			var oEntryData = {"PersonelErrorEventTypeOUTPUT": {"PersonelErrorEvent": zdata
-			}};
-			
-			oEntryData.PersonelErrorEventTypeOUTPUT.PersonelErrorEvent.UIAction = "0";
-			//end of
-			
-			//ready durumundaki taskı reserved yapmak begin of 
-			var tasksSvcURL = "/bpmodata/tasks.svc";
-			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
-			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
-			//end of
-			
-			
-			jQuery.ajax({
-		        type: 'POST',
-		        url: oPostURL,
-		        data: JSON.stringify(oEntryData),
-		        dataType: "json",
-		        headers: {
-	                "X-CSRF-Token": oToken,
-	                "Content-Type": "application/json"              	
-	            },
-		        success: function(result) {
-		        	debugger;
-		        	alert("success");
-		        	console.log(result);
-		        	
-		        
-		        }
-		    });
-		},
-		
-		
-    	onSaveChange: function() {
-  
-    		var that = this;
-    		var aData = jQuery.ajax({
-                type : "GET",
-                contentType : "application/json",
-                url : "http://dperppo01d.n11.local:50000/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
-                dataType : "json",
-                async: false, 
-                success : function(data,textStatus, jqXHR) {
-                }
-
-            });
-    		TaskInstanceID = aData.responseJSON.d.results["0"].InstanceID;
-            
-    	
-    		var serviceUrlWithPrefix = this.serviceUrl + TaskInstanceID + this.bpmPrefixParameter;
-    		var odataModel = new sap.ui.model.odata.v2.ODataModel(serviceUrlWithPrefix, this.oDataSettings);
-    		
-            var startTypeINPUT = jQuery.ajax({
-                type : "GET",
-                contentType : "application/json",
-                url : "http://dperppo01d.n11.local:50000/bpmodata/taskdata.svc/"+ TaskInstanceID +"/InputData('"+ TaskInstanceID +"')?$format=json&$expand=startTypeINPUT/start/DO_BudgetApproval/Installments/row,startTypeINPUT/start/DO_BudgetApproval/Head,startTypeINPUT/start/DO_BudgetApproval/Details,startTypeINPUT/start/DO_BudgetApproval/Amount",
-                dataType : "json",
-                async: false, 
-                success : function(data,textStatus, jqXHR) {
-      
-    				var oODataJSONModel = new sap.ui.model.json.JSONModel(data);
-    				//oODataJSONModel.setDefaultBindingMode("TwoWay");
-    				//oODataJSONModel.setSizeLimit(100);
-//    				that.getView().setModel(oODataJSONModel);
-    				// eases the access for the controller
-    				// that.getView().setModel(odataModel, "odataModel");
-                }
-
-            });
-            zdata = startTypeINPUT.responseJSON.d.startTypeINPUT.start;
-            console.log(zdata);
-        var Amount = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Amount;
-        var Head = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Head;
-        var Details = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Details;
-        var Installments = startTypeINPUT.responseJSON.d.startTypeINPUT.start.DO_BudgetApproval.Installments;
-        
-        
-        
-        that.getView().byId("ManrequestOwner").setValue(Head.requestOwner);
-        that.getView().byId("Mandepartment").setValue(Head.department);
-        that.getView().byId("Mantitle").setValue(Head.title);
-        that.getView().byId("ManrequestNum").setValue(Head.requestNum);
-        that.getView().byId("ManrequestDate").setValue(Head.requestDate);
-        that.getView().byId("ManrequestTime").setValue(Head.requestTime);
-        //that.getView().byId("Manstatus").setValue(Head.status); status doldurulmalı
-        
-        
-        that.getView().byId("ManperiodEnd").setValue(Details.periodEnd);
-        that.getView().byId("ManperiodStart").setValue(Details.periodStart);
-        that.getView().byId("Mansupplier").setValue(Details.supplier);
-        that.getView().byId("Mansubject").setValue(Details.subject);
-        that.getView().byId("ManidBudget").setValue(Details.Budget);
-        that.getView().byId("ManidDepartment").setValue(Details.Department);
-        that.getView().byId("ManidType").setValue(Details.Type);
-        that.getView().byId("ManidDesc").setValue(Details.Desc);
-        that.getView().byId("ManidSubDesc").setValue(Details.SubDesc);
-        that.getView().byId("ManremBudget").setValue(Details.remBudget);
-        that.getView().byId("Manpurpose").setValue(Details.purpose);
-        that.getView().byId("Manexplanation").setValue(Details.explanation);
-        that.getView().byId("ManbrExp").setValue(Details.brExp);
-        
-        that.getView().byId("ManCurrencyType").setValue(Amount.CurrencyType);
-        //currency ıle currency type aynı gıdıyor currency usd yerıne formu kaydettgı gunku currency degerı gelmelı
-        that.getView().byId("Mancurrency").setValue(Amount.Currency);
-        that.getView().byId("MantotalAmount").setValue(Amount.totalAmount);
-        
-        
-	
-		var oJsonModel = new sap.ui.model.json.JSONModel();
-		oJsonModel.setData(Installments.row);
-		console.log(Installments.row.results);
-		that.getView().setModel(oJsonModel, "JModel");
-		this.getView().byId("ManmainViewTbl").setModel(this.getView().getModel("JModel"));
-        
-        that.getView().byId("ManidTotalAmount").setValue(Amount.totalAmountTRY);
-        that.getView().byId("MantotalCurrAmount").setValue(Amount.ManidTotalAmount);
-        
-
-          
-            
-            
-		},
-		
+		},	
 		onPdfExport: function() {
-			var oURL = "/RESTAdapter/BudgetApproval/Attachment";
+			//var oURL = "/RESTAdapter/BudgetApproval/Attachment";
 			var doc;
 				
 			 html2canvas($('#__panel1'), {
@@ -538,7 +471,7 @@ sap.ui.define([
 		            }
 		        });
 			 
-			 setTimeout(function(){				
+			/* setTimeout(function(){				
 			 var FileData = {"MT_UI_BudgetApproval_Attachment": {
 			        "FileContent": imgData,
 			        "FileName": "doc.png"
@@ -556,242 +489,9 @@ sap.ui.define([
 			        	alert("Success");
 			        }
 			    });
-			 },1000);
+			 },1000);*/
 			 
-		},	
-		sendAction:function(){
-			debugger;
-			var that = this;
-			var startDate,endDate,arrayStart,count,arrayEnd;
-			
-			startDate = that.getView().byId("periodStart").getValue();
-			arrayStart = startDate.split(".");
-			count = arrayStart[0].length;
-			if (count === 1) {
-				arrayStart[0] = "0" + arrayStart[0];
-			}
-			var sTarih = arrayStart[2] + arrayStart[1] + arrayStart[0];
-			
-			endDate = that.getView().byId("periodEnd").getValue();
-			arrayEnd = endDate.split(".");
-			count = arrayEnd[0].length;
-			if (count === 1) {
-				arrayEnd[0] = "0" + arrayEnd[0];
-			}
-			var eTarih = arrayEnd[2] + arrayEnd[1] + arrayEnd[0];
-			
-			var vCount, vMonth, vInsAmount;
-			for (var i = 0; i < tableList.length; i++) {
-				vCount = tableList[i].mAggregations.cells["0"].mProperties.text;
-				vMonth = tableList[i].mAggregations.cells["1"].mProperties.value;
-				vInsAmount = tableList[i].mAggregations.cells["2"].mProperties.value;
-
-				oInstallments.push({
-					rowNumber: vCount,
-					Month: vMonth,
-					InstallmentAmount: vInsAmount
-				});
-			}
-			console.log(oInstallments);
-
-			this.onPdfExport();
-			
-			
-			var username,password;
-			var oHeaders;
-			var oToken;
-			username="0417";
-			password="Peaky11!";
-			jQuery.ajax({
-				  url: "http://dperppo01d.n11.local:50000/bpmodata/startprocess.svc/itelligence.com.tr/budget/BPM_Budget_Approval/$metadata",
-				  headers: {"x-csrf-token": "Fetch",
-					  "Authorization":"Basic "+btoa(username+":"+password)},
-				  async: false,
-				  method: 'GET'
-				}).then(function(data,status,xhr) {
-					  oToken = xhr.getResponseHeader('x-csrf-token');
-					  oHeaders = {
-								"x-csrf-token": oToken
-							};
-					});
-			var oURL = "http://dperppo01d.n11.local:50000/bpmodata/startprocess.svc/itelligence.com.tr/budget/BPM_Budget_Approval/StartData";
-			
-//			var oEntry = {"ProcessStartEvent": {"BudgetApproval": {
-//			    "Amount": {
-//			        "CurrencyType": "",
-//			        "Currency": "TRY",
-//			        "totalAmount": "945",
-//			        "totalAmountTRY": "945",
-//			        "approvalNecessary": true
-//			    },
-//			    "Details": {
-//			        "Budget": "17001",
-//			        "Department": "CUSTOMER VALUE",
-//			        "Desc": "CV",
-//			        "SubDesc": "OUTSRC COST FOR CALL CENTER",
-//			        "Type": "2017 OPEX",
-//			        "brExp": "BR EXP TEXT",
-//			        "explanation": "EXPLANATION TEXT",
-//			        "formType": "Donation",
-//			        "periodEnd": "20171231",
-//			        "periodStart": "20170901",
-//			        "purpose": "PURPOSE TEXT",
-//			       "relatedParty": "",
-//			        "remBudget": "1255",
-//			        "subject": "2017 BAF DENEME",
-//			        "supplier": ""
-//			    },
-//			    "Head": {
-//			        "department": "IT",
-//			        "requestDate": "20170907",
-//			        "requestNum": "2017-BAF-0013",
-//			        "requestOwner": "",
-//			        "requestTime": "",
-//			        "title": "DIRECTOR"
-//			    },
-//			    "Installments": {"row": [
-//			        {
-//			            "InstallmentAmount": "",
-//			            "Month": "",
-//			            "rowNumber": ""
-//			        },
-//			        {
-//			            "InstallmentAmount": "",
-//			            "Month": "",
-//			            "rowNumber": ""
-//			        }
-//			    ]}
-//			}}};
-			
-			//mkaya 16.10.2017 
-//			if(that.getView().byId("idTotalAmount").getValue() !== that.getView().byId("totalAmount").getValue()){
-//				sap.m.MessageToast.show("Lütfen Total Amountları aynı giriniz");
-//			}
-//			else{
-				 setTimeout(function(){	
-						var oEntry = {"ProcessStartEvent": {"BudgetApproval": {
-						    "Amount": {
-						        "CurrencyType": that.getView().byId("CurrencyType").getSelectedKey(),
-						        "Currency": selectItem,
-						        "totalAmount": that.getView().byId("idTotalAmount").getValue(),
-						        "totalAmountTRY": that.getView().byId("totalAmount").getValue(),
-						        "approvalNecessary": true
-						    },
-						    "Details": {
-						        "Budget": budgetId,
-						        "Department": that.getView().byId("idDepartment").getValue(),
-						        "Desc": that.getView().byId("idDesc").getValue(),
-						        "SubDesc": that.getView().byId("idSubDesc").getValue(),
-						        "Type": that.getView().byId("idType").getValue(),
-						        "brExp": that.getView().byId("brExp").getValue(),
-						        "explanation": that.getView().byId("explanation").getValue(),
-						        "formType": "",//that.getView().byId("formType").getSelectedIndex(),
-						        "periodEnd": sTarih,
-						        "periodStart": eTarih ,
-						        "purpose": that.getView().byId("purpose").getValue(),
-						        "relatedParty": that.getView().byId("relatedParty").getSelectedKey(),
-						        "remBudget": that.getView().byId("remBudget").getValue(),
-						        "subject": that.getView().byId("subject").getValue(),
-						        "supplier": that.getView().byId("supplier").getValue()
-						    },
-						    "Head": {
-						        "department": that.getView().byId("department").getValue(),
-						        "requestDate": sDate,
-						        "requestNum": that.getView().byId("requestNum").getValue(),
-						        "requestOwner": that.getView().byId("requestOwner").getValue(),
-						        "requestTime": "",
-						        "title": that.getView().byId("title").getValue()
-						    },
-						    "Installments": {"row": oInstallments},
-						    "Attachments":{
-						    	"Content":imgData,
-						    	"FileName":"test"
-						    }
-						}}};
-						jQuery.ajax({
-					        type: 'POST',
-					        url: oURL,
-					        data: JSON.stringify(oEntry),
-					        dataType: "json",
-					        headers: {
-				                "X-CSRF-Token": oToken,
-				                "Content-Type": "application/json"              	
-				            },
-					        success: function(result) {
-					        	alert("success");
-					        	console.log(result);
-					        }
-					    });
-				 },2000);
-			
-//			}
-		},
-		
-		/*sendActionOLD: function() {
-			var that = this;
-			var BudgetApproval = {};
-			var ProcessStartEvent = {};
-			var eInstallments = {};
-			var Installments = {
-					row: []
-				};
-			var Head = {};
-			var Details = {};
-			var Amount = {};
-			var oneEntry = [];
-			var oEntry = [];
-			
-
-			Head.requestOwner = that.getView().byId("requestOwner").getValue();
-			Head.department = that.getView().byId("department").getValue();
-			Head.title = that.getView().byId("title").getValue();
-			Head.requestNum = that.getView().byId("requestNum").getValue();
-			Head.requestDate = that.getView().byId("requestDate").getValue();
-			Head.requestTime = that.getView().byId("requestTime").getValue();
-			Head.requestTime = that.getView().byId("status").getValue();
-			
-			oEntry.Head = Head;
-			
-			Details.Department = that.getView().byId("idDepartment").getValue();
-			Details.Type = that.getView().byId("idType").getValue();
-			Details.Desc = that.getView().byId("idDesc").getValue();
-			Details.SubDesc = that.getView().byId("idSubDesc").getValue();
-			Details.Budget = that.getView().byId("idBudget").getSelectedKey();
-			Details.periodStart = that.getView().byId("periodStart").getValue();
-			Details.periodEnd = that.getView().byId("periodEnd").getValue();
-			Details.supplier = that.getView().byId("supplier").getValue();
-			Details.subject = that.getView().byId("subject").getValue();
-			Details.remBudget = that.getView().byId("remBudget").getValue();
-			Details.purpose = that.getView().byId("purpose").getValue();
-			Details.explanation = that.getView().byId("explanation").getValue();
-			Details.formType = that.getView().byId("formType").getSelectedIndex();
-			Details.relatedParty = that.getView().byId("relatedParty").getSelectedKey();
-			Details.brExp = that.getView().byId("brExp").getValue();
-			
-			oEntry.Details = Details;
-			
-			
-			
-			Amount.CurrencyType = that.getView().byId("CurrencyType").getSelectedKey();
-			Amount.currency = that.getView().byId("currency").getValue();
-			Amount.totalAmount = that.getView().byId("totalAmount").getValue();
-			Amount.totalAmountTRY = that.getView().byId("totalAmount").getValue();
-			
-			oEntry.Amount = Amount;
-			
-			
-			
-			oEntry.Installments = oInstallments;
-			
-			oneEntry.BudgetApproval = oEntry;
-			twoEntry.ProcessStartEvent = oneEntry;
-			
-		
-			
-		},
-		*/
-		
-		
+		},			
 		setFormat:function(value){
 			if (value) {
 				/*var array = value.split('@');
@@ -1095,7 +795,7 @@ sap.ui.define([
 			
 			
 			setTimeout(function(){
-				oThat.byId("idBudget").setValue(budgetId);
+				oThat.byId("ManidBudget").setValue(budgetId);
 			},10);
 				
 			
@@ -1233,59 +933,499 @@ sap.ui.define([
 		selectChangeCur:function(oEvent){
 			var oThat = this;
 		 selectItem = oEvent.oSource.getSelectedItem().getText();
-	
-			
+				
 		       var aData = jQuery.ajax({
 		            type : "GET",
 		            contentType : "application/json",
-		            url : "http://dperppo01d.n11.local:50000/RESTAdapter/b2b/ExchangeRate/"+selectItem,
+		            url : "/RESTAdapter/b2b/ExchangeRate/"+selectItem,
 		            dataType : "json",
 		            async: false, 
 		            success : function(data,textStatus, jqXHR) {
 		                oModel.setData({modelData : data}); 
 		                sKur = data.E_UKURS;
 		                oThat.getView().byId('currency').setValue(sKur);
-		             
-		    			
-		                
+		                         
 		            }
 		        
 		        });
 		},
-		taskAction:function(){
-			if (!this.oTasksDialog) {
-				this.oTasksDialog = sap.ui.xmlfragment("zn11_expense.view.Tasks", this);
+		selectChange:function(oEvent){
+			
+			var oThat = this;
+			var selectItem = oEvent.oSource.getSelectedItem().getText();
+			console.log(selectItem);
+			
+			var array = selectItem.split(' - ');
+			budgetId = array[0];
+			var department = array[1];
+			var type = array[2];
+			var desc = array[3];
+			var subDesc = array[4];
+					
+			
+			
+			oThat.getView().byId("ManidDepartment").setValue(department);
+			oThat.getView().byId("ManidType").setValue(type);
+			oThat.getView().byId("ManidDesc").setValue(desc);
+			oThat.getView().byId("ManidSubDesc").setValue(subDesc);
+			
+			
+			setTimeout(function(){
+				oThat.byId("ManidBudget").setValue(budgetId);
+			},10);
+			
+			//begin of budget id ye bağlı rem amount cekme
+			try{
+				var remAmountData = jQuery.ajax({
+	                type : "GET",
+	                contentType : "application/json",
+	                url : "/RESTAdapter/b2b/RemainingBudget/"+ budgetId,
+	                dataType : "json",
+	                async: false, 
+	                success : function(data,textStatus, jqXHR) {
+	                }
+
+	            });
+	    		var remData = remAmountData.responseJSON.E_BUDGET;
+	    		
+	    		 oThat.getView().byId('ManremBudget').setValue(remData);
+				
+				//end of ycoskun
+				
+			}catch(err){
+				
+			}	
+			//end of budget id ye bağlı rem amount cekme
+	
+	
+			
+		},
+		handleValueHelpSupplier: function() {
+			var that = this;
+			var supplier;
+			var handleClose = function(oEvent) {
+				var oSelectedItem = oEvent.getParameter("selectedItem");
+				if (oSelectedItem) {
+					
+					var title = oSelectedItem.getTitle();
+					 var array = title.split('@');
+					 supplier = array[0];
+					that.getView().byId("Mansupplier").setValue(supplier);
+					//that.additionalInfoValidation();
+				}
+			};
+			if (!this._valueHelpSelectDialogOkulAd) {
+				this._valueHelpSelectDialogOkulAd = new sap.m.SelectDialog("valueHelpSelectDialogOkulAd", {
+					title: "Supplier",
+					items: {
+						path: "/",
+						sorter: "STRING",
+						template: new sap.m.StandardListItem({
+							title: "{STRING}",
+							description: "{STRING}",
+							active: true
+						})
+					},
+					search: function(oEvent) {
+						var searchSupp = [];
+						var sValue = oEvent.getParameter("value");						
+						//supplier search help begin of 	     
+				        var aData = jQuery.ajax({
+				            type : "GET",
+				            contentType : "application/json",
+				            url : "/RESTAdapter/b2b/SearchHelp/NAME1*"+sValue+"&VENDOR",
+				            dataType : "json",
+				            async: false, 
+				            success : function(data,textStatus, jqXHR) {
+				            
+				            	oModel.setData({modelData : data}); 
+				                console.log(data);
+				                
+				                for(var i = 0; i < data.T_RESULT.item.length; i++) {
+					                   var text = data.T_RESULT.item[i];	                    
+					                   searchSupp.push(text);
+					                   // selectId.push(budgetId);
+					                    
+					                    
+					                 }
+					               
+				    			console.log(searchSupp);
+				    			searchModel.setData(searchSupp);
+				    			that._valueHelpSelectDialogOkulAd.setModel(searchModel);
+				                
+				            }
+				        
+				        });		        
+				        //end of
+						/*var oFilter = new sap.ui.model.Filter(
+							"STRING",
+							sap.ui.model.FilterOperator.Contains, sValue
+						);
+						oEvent.getSource().getBinding("items").filter([oFilter]);*/
+					},
+					confirm: handleClose
+				});
+				this._valueHelpSelectDialogOkulAd.setModel(supplierModel);
+
+			} else {
+				this._valueHelpSelectDialogOkulAd.setModel(supplierModel);
+			}
+			this._valueHelpSelectDialogOkulAd.open();
+
+			
+			
+		},
+		sendBackAction:function(){
+			var vComment = sap.ui.getCore().byId("idComment").getValue();	
+			var oHeaders;
+			var oToken;
+			var oTaskId = TaskInstanceID.slice(-32);
+			var that = this;
+	
+			jQuery.ajax({
+				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
+				  headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
+				  async: false,
+				  method: 'GET'
+				}).then(function(data,status,xhr) {
+					  oToken = xhr.getResponseHeader('x-csrf-token');
+					  oHeaders = {
+								"x-csrf-token": oToken
+							};
+					});
+			
+			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMOutputData?prefixReservedNames=true";
+			//zdata formatını belirleme begin of
+			zdata.DO_BudgetApproval.Details.comment = vComment;
+			var oEntryData = {"PersonelCompleteEventTypeOUTPUT": {"PersonelCompleteEvent": zdata
+			}};		
+			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "2";
+			
+			//end of
+			
+			//ready durumundaki taskı reserved yapmak begin of 
+			var tasksSvcURL = "/bpmodata/tasks.svc";
+			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
+			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
+			//end of
+			
+			
+			jQuery.ajax({
+		        type: 'POST',
+		        url: oPostURL,
+		        data: JSON.stringify(oEntryData),
+		        dataType: "json",
+		        headers: {
+	                "X-CSRF-Token": oToken,
+	                "Content-Type": "application/json"              	
+	            },
+		        success: function(result) {
+		        	console.log(result);
+		        	var bCompact = !!that.getView().$().closest(".sapUiSizeCompact").length;
+	    			MessageBox.success(
+	    				"Form sended.",
+	    				{
+	    					styleClass: bCompact ? "sapUiSizeCompact" : ""
+	    				}
+	    			);
+		        	tasksODataModel.refresh(true);
+		        	that.onInit();
+		        	that.getOwnerComponent().getRouter().navTo("Home");
+					window.location.reload();
+		        	
+		        	
+		        
+		        }
+		    });	
+			 this.oCommentDialog.destroy();
+				if (!this.oCommentDialog) {
+					this.oCommentDialog = sap.ui.xmlfragment("zn11_expense.view.Comment", this.getView().getController());
+
+				}
+				this.oCommentDialog.close();
+		},
+		onSendBackBtn:function(){
+			if (!this.oCommentDialog) {
+				this.oCommentDialog = sap.ui.xmlfragment("zn11_expense.view.Comment", this);
 			}
 
-			this.oTasksDialog.open();
+			this.oCommentDialog.open();
 
-			var tasksJson = new sap.ui.model.json.JSONModel();
+			},
+		oCommentDialogClose : function() {		
+			this.oCommentDialog.destroy();
+			this.oCommentDialog = sap.ui.xmlfragment("zn11_expense.view.Comment", this.getView().getController());
+			
+			this.oCommentDialog.close();
+		},
+		setInstallment:function(value){
+			if (value) {
+				var floatValue = parseFloat(value.toString().replace(/\D/g, '')).toFixed(2);
+				return floatValue;
+			
+			} else {
+				return value;
+			}
+		},
+		TakeOpinionAction:function(){
 			var that = this;
-    		var aData = jQuery.ajax({
+			var oHeaders;
+			var oToken;
+			debugger;
+			var oTaskId = TaskInstanceID.slice(-32);
+			
+	
+			jQuery.ajax({
+				  url: "/bpmodata/taskdata.svc/"+oTaskId+"/?prefixReservedNames=true",
+				  headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
+				  async: false,
+				  method: 'GET'
+				}).then(function(data,status,xhr) {
+					  oToken = xhr.getResponseHeader('x-csrf-token');
+					  oHeaders = {
+								"x-csrf-token": oToken
+							};
+					});
+			
+			var oPostURL = "/bpmodata/taskdata.svc/"+oTaskId+"/SAPBPMOutputData?prefixReservedNames=true";
+			debugger;
+			zdata.DO_BudgetApproval.Opinion.OpSndPerNo = username ;
+			zdata.DO_BudgetApproval.Opinion.OpSndComment = sap.ui.getCore().byId("idSendComment").getValue();
+			zdata.DO_BudgetApproval.Opinion.OpRcvPerNo =  sap.ui.getCore().byId("idSendUser").getValue();
+			zdata.DO_BudgetApproval.Opinion.OpRcvComment =  sap.ui.getCore().byId("idReceiveComment").getValue();
+			//zdata formatını belirleme begin of
+			var oEntryData = {"PersonelCompleteEventTypeOUTPUT": {"PersonelCompleteEvent": zdata
+			}};
+			
+			oEntryData.PersonelCompleteEventTypeOUTPUT.PersonelCompleteEvent.UIAction = "3";
+			//end of
+			
+			//ready durumundaki taskı reserved yapmak begin of 
+			var tasksSvcURL = "/bpmodata/tasks.svc";
+			var tasksODataModel = new sap.ui.model.odata.ODataModel(tasksSvcURL, false);
+			tasksODataModel.create("/Claim?InstanceID='"+TaskInstanceID+"'", null);
+			//end of
+			
+			
+			jQuery.ajax({
+		        type: 'POST',
+		        url: oPostURL,
+		        data: JSON.stringify(oEntryData),
+		        dataType: "json",
+		        headers: {
+	                "X-CSRF-Token": oToken,
+	                "Content-Type": "application/json"              	
+	            },
+		        success: function(result) {
+		        	var bCompact = !!that.getView().$().closest(".sapUiSizeCompact").length;
+		        	MessageBox.success(
+		    				"Form sended.",
+		    				{
+		    					styleClass: bCompact ? "sapUiSizeCompact" : ""
+		    				}
+		    			);
+		        	console.log(result);
+		        	tasksODataModel.refresh(true);
+		        	that.onInit();
+		        	that.getOwnerComponent().getRouter().navTo("Home");
+					window.location.reload();
+		        
+		        }
+		    });
+			 this.oCommentTakeODialog.destroy();
+			 this.oCommentTakeODialog = sap.ui.xmlfragment("zn11_expense.view.CommentTakeO", this.getView().getController());
+			
+			 this.oCommentTakeODialog.close();
+		},
+		onTakeOpinionBtn:function(){
+	
+			if (!this.oCommentTakeODialog) {
+				this.oCommentTakeODialog = sap.ui.xmlfragment("zn11_expense.view.CommentTakeO", this);
+			}
+
+			this.oCommentTakeODialog.open();
+
+			},
+		oCommentDialogTakeOClose : function() {		
+			 this.oCommentTakeODialog.destroy();
+			 this.oCommentTakeODialog = sap.ui.xmlfragment("zn11_expense.view.CommentTakeO", this.getView().getController());
+			
+			 this.oCommentTakeODialog.close();
+		},
+		btnHomeClick:function(){
+			this.getOwnerComponent().getRouter().navTo("Home");
+			window.location.reload();
+		},
+		handleUserNamePress: function(event) {
+			var that = this;
+			var oHeaders;
+
+			var popover = new Popover({
+
+				showHeader: false,
+
+				placement: sap.m.PlacementType.Bottom,
+
+				content: [
+
+					new Button({
+
+						text: 'Feedback',
+
+						type: sap.m.ButtonType.Transparent
+
+					}),
+
+					new Button({
+
+						text: 'Help',
+
+						type: sap.m.ButtonType.Transparent
+
+					}),
+
+					new Button({
+						text: 'Logout',
+						type: sap.m.ButtonType.Transparent,					
+						press:function(){
+							debugger;
+							var oToken;
+							var oHeaders;
+							window.localStorage.clear();
+							document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });						
+							that.getOwnerComponent().getRouter().navTo("Route");							
+							window.location.reload();
+							//document.execCommand('ClearAuthenticationCache'); 
+							
+
+							jQuery.ajax({
+	    			                type : "GET",
+	    			                contentType : "application/json",
+	    			                url : "http://dperppo01d.n11.local:50000/bpminbox/auth?serviceName=logout",
+	    			                dataType : "json",
+	    			                async: false, 
+	    			                success : function(data,textStatus, jqXHR) {
+	    			                }
+
+	    			            });
+							
+						}
+
+					})
+
+				]
+
+			}).addStyleClass('sapMOTAPopover sapTntToolHeaderPopover');
+
+			popover.openBy(event.getSource());
+
+		},
+		setEventType:function(value){
+			debugger;
+			var eventText;
+				if (value === -1) {
+					eventText = "Send";
+					return eventText;
+				
+				} else if (value === -2) {
+					eventText = "Pending Approval";
+					return eventText;				
+				} 
+				else if (value === 0) {
+					eventText = "Rejected";
+					return eventText;				
+				} 
+				else if (value === 1) {
+					eventText = "Approved";
+					return eventText;				
+				} 
+				else if (value === 2) {
+					eventText = "Send Back";
+					return eventText;				
+				} 
+				else if (value === 3) {
+					eventText = "Take Opinion";
+					return eventText;				
+				} 
+				else{
+					return value;
+				}
+		},
+		handleValueHelpSendUser: function() {
+			debugger;
+			var that = this;
+			var vPersonelNo;
+	;
+			var jsonResult;
+			var selectsUser=[];
+
+			jQuery.ajax({
                 type : "GET",
                 contentType : "application/json",
-                url : "http://dperppo01d.n11.local:50000/bpmodata/tasks.svc/TaskCollection?$filter=Status eq 'READY'",
+                url : "/RESTAdapter/b2b/personelQuery",
                 dataType : "json",
+                headers: {"x-csrf-token": "Fetch",
+					  "Authorization":"Basic "+btoa(username+":"+password)},
                 async: false, 
                 success : function(data,textStatus, jqXHR) {
-                	tasksJson.setData(data.d);
+                	debugger;
+	            	oModel.setData({modelData : data}); 
+	                console.log(data);
+	                
+	                for(var i = 0; i < data.T_PERSONEL.item.length; i++) {                    
+		                   var test = data.T_PERSONEL.item[i].PERSONEL_NO+" - "+data.T_PERSONEL.item[i].PERSONEL_ADI+" - "+data.T_PERSONEL.item[i].PERSONEL_SOYADI+" - "+data.T_PERSONEL.item[i].DEPARTMAN+" - "+data.T_PERSONEL.item[i].TITLE;
+		                   jsonResult = {STRING: test};
+		                    selectsUser.push(jsonResult);
+		                    
+		                		                    
+		                 }	
+	                
+	    			console.log(selectsUser);
+	    			sendUserModel.setData(selectsUser);
                 }
 
             });
-    		that.getView().setModel(tasksJson, "tasksModel");
-    		//this.getView().byId("idpopFirstTable").setModel(that.getView().getModel("tasksModel"));
-    		sap.ui.getCore().byId("idpopFirstTable").setModel(that.getView().getModel("tasksModel"));
-		},
-		oTasksDialogClose : function(oEvent) {		
-		    this.oTasksDialog.destroy();
-			if (!this.oTasksDialog) {
-				this.oTasksDialog = sap.ui.xmlfragment("zn11_expense.view.Tasks", this.getView().getController());
+    		
+			var handleClose = function(oEvent) {
+				var oSelectedItem = oEvent.getParameter("selectedItem");
+				if (oSelectedItem) {
+					debugger;
+					var title = oSelectedItem.getTitle();
+					 var array = title.split(' - ');
+					 vPersonelNo = array[0];
+					sap.ui.getCore().byId("idSendUser").setValue(vPersonelNo);
+				}
+			};
+			if (!this._valueHelpSelectUser) {
+				this._valueHelpSelectUser = new sap.m.SelectDialog("valueHelpSelectUser", {
+					title: "Users",
+					items: {
+						path: "/",
+						sorter: "STRING",
+						template: new sap.m.StandardListItem({
+							title: "{STRING}",
+							description: "",
+							active: true
+						})
+					},
+					search: function(oEvent) {
+						
+					},
+					confirm: handleClose
+				});
+				this._valueHelpSelectUser.setModel(sendUserModel);
 
+			} else {
+				this._valueHelpSelectUser.setModel(sendUserModel);
 			}
-			this.oTasksDialog.close();
-		},
-		
-		
+			this._valueHelpSelectUser.open();
+
+			
+			
+		}
+
 
 
 	});

@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog id="loginDialog" title="Enter Comment" contentWidth="200px" xmlns:b="sap.suite.ui.commons" xmlns:l="sap.ui.layout.form" xmlns:m="sap.m"
+		xmlns:u="sap.ui.unified">
+		<content>
+			<Panel width="auto" class="sapUiResponsiveMargin">
+				<Label text="Comment"/>
+				<TextArea value="" growing="true" width="100%" id="idComment"/>
+
+			</Panel>
+		</content>
+		<buttons>
+			<Button icon="sap-icon://paper-plane" id="btnSend" press="sendBackAction" text="Send" type="Emphasized"/>
+			<Button icon="sap-icon://sys-cancel" id="btnCancel" press="oCommentDialogClose" text="Cancel" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

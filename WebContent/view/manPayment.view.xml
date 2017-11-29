@@ -1,11 +1,55 @@
-<mvc:View xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact" controllerName="zn11_expense.controller.Payment" height="100%"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" xmlns:core="sap.ui.core"
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" controllerName="zn11_expense.controller.manPayment" height="100%"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:commons="sap.ui.commons" class="sapUiSizeCompact"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" xmlns="sap.m">
-	<OverflowToolbar>
-		<Button icon="sap-icon://paper-plane" text="Send" type="Accept" press="sendAcceptAction">
-		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+	<tnt:ToolPage>
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button class="box-shadow" icon="sap-icon://menu2"  press="onSideNavButtonPress" type="Transparent">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<ToolbarSeparator/>
+				<ToolbarSpacer/>
+				<Text class="box-shadow" text="" wrapping="false"/>
+				<tnt:ToolHeaderUtilitySeparator/>
+				<ToolbarSpacer>
+					<layoutData>
+						<OverflowToolbarLayoutData minWidth="20px" priority="NeverOverflow"/>
+					</layoutData>
+				</ToolbarSpacer>
+				<Button press="handleUserNamePress" text="" type="Transparent" id="ManidButtonUserForm" icon="sap-icon://log">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation>
+				<tnt:item>
+					<tnt:NavigationList>
+						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Home"/>					
+					</tnt:NavigationList>
+				</tnt:item>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<NavContainer>
+				<pages>
+					<Page id="idHomePagemanBudgetForm" showHeader="false">
+					<ScrollContainer height="100%" horizontal="false"  vertical="true">
+						<OverflowToolbar>
+		<Button icon="sap-icon://paper-plane" text="Approve" type="Accept" press="approveAction">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
-		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
+		<Button icon="sap-icon://undo" text="Send Back" press="onSendBackBtn">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		</Button>
+		<Button icon="sap-icon://personnel-view" text="Take Opinion" press="onTakeOpinionBtn" type="Emphasized">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		</Button>
+		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject" press="rejectAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 	</OverflowToolbar>
@@ -24,12 +68,12 @@
 						</Toolbar>
 					</headerToolbar>
 					<content>
-						<Panel class="panelBottom" id="panelFirs" width="auto">
+						<Panel class="panelBottom" id="ManPaymentpanelFirs" width="auto">
 							<content>
 								<ImageContent class="imageLogo" src="img/logo-n11-large.png"></ImageContent>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="panelFirstContainerPayment" width="auto">
+						<Panel class="panelBottom" id="ManpanelFirstContainerPayment" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Form Details"/>
@@ -43,34 +87,29 @@
 										<f:content>
 											<core:Title/>
 											<Label text="Request Owner"/>
-											<Input class="inputForm" value="" id="PayrequestOwner"/>
+											<Input class="inputForm" value="" id="ManPayrequestOwner" enabled="false"/>
 											<Label text="Department"/>
-											<Input class="inputForm" value="" id="Paydepartment"/>
+											<Input class="inputForm" value="" id="ManPaydepartment" enabled="false"/>
 											<Label text="Title"/>
-											<Input class="inputForm" value="" id="Paytitle"/>
+											<Input class="inputForm" value="" id="ManPaytitle" enabled="false"/>
 											<Label text="Payment Form Type"/>
-											<Select width="100%"  id="PayFormType" change="selectChange">
-												<items>
-													<core:Item text="Charging and Return Invoice etc."/>
-													<core:Item text=""/>
-												</items>
-											</Select>
+											<Input class="inputForm" value="" id="ManPayFormType" enabled="false"/>
 											<core:Title/>
 											<Label text="Request Number"/>
-											<Input class="inputForm" value="" id="PayrequestNum"/>
+											<Input class="inputForm" value="" id="ManPayrequestNum" enabled="false"/>
 											<Label text="Request Date"/>
-											<Input class="inputForm" value="" id="PayrequestDate"/>
+											<DatePicker class="inputForm" id="ManPayrequestDate" value="" enabled="false" />
 											<HBox>
-												<Input class="inputForm" value="" id="PayrequestTime"/>
+												<Input class="inputForm" value="" id="ManPayrequestTime" enabled="false"/>
 											</HBox>
 											<Label text="Status"/>
-											<Input class="inputForm" value="" id="Paystatus"/>
+											<Input class="inputForm" value="" id="ManPaystatus" enabled="false"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom buttonPosition" id="panelSecondContainerPayment" width="auto">
+						<Panel class="panelBottom buttonPosition" id="ManpanelSecondContainerPayment" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Invoice Details"/>
@@ -81,26 +120,19 @@
 									<f:content>
 										<core:Title/>
 										<Label text="Invoice Date"/>
-										<DatePicker class="inputForm" id="PayInvoiceDate" value="" width="100%" change="changeInvoice"/>
+										<DatePicker class="inputForm" id="ManPayInvoiceDate" value="" width="100%"  enabled="false"/>
 										<Label text="Expiry Date"/>
-										<DatePicker class="inputForm" id="PayExpiryDate" value="" width="100%"  change="changeDate" enabled="false"/>
+										<DatePicker class="inputForm" id="ManPayExpiryDate" value="" width="100%" enabled="false"/>
 										<Label text="Currency Type" />
-										<Select width="100%" id="PayCurrencyType" change="selectChangeCur">
-											<items>
-												<core:Item text=""/>
-												<core:Item text="TRY"/>
-												<core:Item text="USD"/>
-												<core:Item text="EUR"/>
-											</items>
-										</Select>
-										<Input class="inputForm" value="" width="100%" id="PayCurrency" enabled="false"/>
+										<Input class="inputForm" value="" width="100%" id="ManPayCurrencyType" enabled="false"/>
+										<Input class="inputForm" value="" width="100%" id="ManPayCurrency" enabled="false"/>
 										<Label text="Invoice Number"/>
-										<Input class="inputForm" value="" width="100%" id="PayInvoiceNum"/>
+										<Input class="inputForm" value="" width="100%" id="ManPayInvoiceNum" enabled="false"/>
 									</f:content>
 								</f:SimpleForm>
 							</VBox>
 						</Panel>
-						<Panel class="panelBottom buttonPosition" id="panelThirdContainerPayment" width="auto">
+						<Panel class="panelBottom buttonPosition" id="ManpanelThirdContainerPayment" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Budget Approval Form"/>
@@ -111,7 +143,7 @@
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
 										<f:content>
 											<Label text="Related Budget No"/>
-											<Table id="idProductsTable" inset="false" items="{ path: '/results', sorter: { path: 'BudgetNum' } }">
+											<Table id="ManPayBafidTable" inset="false" items="{ path: '/results', sorter: { path: 'budgetNumber' } }">
 												<columns>
 													<Column width="12em">
 														<Text text="Budget Number"/>
@@ -132,27 +164,27 @@
 												<items>
 													<ColumnListItem>
 														<cells>
-															<Text text="{BudgetNum}"/>
-															<Text text="{VatAmount}"/>
-															<Text text="{Amount}"/>
-															<Text text="{UsedAmount}"/>
-															<Text text="{RemAmount}"/>
+															<Text text="{budgetNumber}"/>
+															<Text text="{totalBAF}"/>
+															<Text text="{usedBAF}"/>
+															<Text text="{usedAmount}"/>
+															<Text text="{remainAmount}"/>
 														</cells>
 													</ColumnListItem>
 												</items>
 											</Table>
 											<Label text=""/>
-											<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" press="onAddBudget" text="Add" width="20%">
+											<Button ariaDescribedBy="defaultButtonDescription genericButtonDescription" visible="false" text="Add" width="20%">
 												<layoutData>
 													<FlexItemData growFactor="1"/>
 												</layoutData>
 											</Button>
 											<HBox>
 												<Label class="labelPay" text="Total Amount:"/>
-												<Input class="inputForm" value="" id="PayTotalAmount"/>
+												<Input class="inputForm" value="" id="ManPayTotalAmount" enabled="false"/>
 											</HBox>
 											<Label text="Doc(invoice..etc)"/>
-											<Button press="onPress" text="Add" width="10%">
+											<Button text="Add" width="10%" visible="false">
 												<layoutData>
 													<FlexItemData growFactor="1"/>
 												</layoutData>
@@ -162,7 +194,7 @@
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom" id="panelFourthContainerPayment" width="auto">
+						<Panel class="panelBottom" id="ManpanelFourthContainerPayment" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Vendor Details"/>
@@ -173,33 +205,33 @@
 									<f:SimpleForm editable="false" layout="ResponsiveGridLayout">
 										<f:content>
 											<Label text="Vendor Name"/>
-											<Input class="inputForm" id="PayVenName" liveChange="additionalInfoValidation" showSuggestion="true"
-										showValueHelp="true" suggestionItems="{/SuppSet}" type="Text" valueHelpRequest="handleValueHelpVendor" valueState="{/supplierState}">
+											<Input class="inputForm" id="ManPayVenName" liveChange="additionalInfoValidation" showSuggestion="true"
+										showValueHelp="true" suggestionItems="{/SuppSet}" type="Text" valueHelpRequest="handleValueHelpVendor" valueState="{/supplierState}" enabled="false">
 										<suggestionItems>
 											<core:Item key="" text="{path:'vendorModel>',
-													formatter: '.formatSupp'}" id="idTextSupp"/>
+													formatter: '.formatSupp'}" id="ManidTextSupp"/>
 										</suggestionItems>
 											</Input>
 											<Label text="Vendor Address"/>
-											<TextArea class="inputTextArea"  value="" id="PayVenAdd" enabled="false"/>
+											<TextArea class="inputTextArea"  value="" id="ManPayVenAdd" enabled="false"/>
 											<Label text="Vendor VKN/TCKN"/>
-											<Input class="inputForm"  value="" id="PayVenTC" enabled="false"/>
+											<Input class="inputForm"  value="" id="ManPayVenTC" enabled="false"/>
 											<Label text="Vendor Phone No"/>
-											<Input class="inputForm" value="" id="PayVenPhone" enabled="false"/>
+											<Input class="inputForm" value="" id="ManPayVenPhone" enabled="false"/>
 											<Label text="Contact Person"/>
-											<Input class="inputForm" value="" id="PayConPer" enabled="false"/>
+											<Input class="inputForm" value="" id="ManPayConPer" enabled="false"/>
 											<Label text="Vendor E-Mail"/>
-											<Input class="inputForm"  value="" id="PayVenMail" enabled="false"/>
+											<Input class="inputForm"  value="" id="ManPayVenMail" enabled="false"/>
 											<Label text="Bank Name"/>
-											<Input class="inputForm"  value="" id="PayBankName" enabled="false"/>
+											<Input class="inputForm"  value="" id="ManPayBankName" enabled="false"/>
 											<Label text="IBAN Number"/>
-											<Input class="inputForm"  value="" id="PayIBAN" enabled="false"/>
+											<Input class="inputForm"  value="" id="ManPayIBAN" enabled="false"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
 							</content>
 						</Panel>
-						<Panel class="panelBottom buttonPosition" id="panelFifthContainerPayment" width="auto">
+						<Panel class="panelBottom buttonPosition" id="ManpanelFifthContainerPayment" width="auto">
 							<headerToolbar>
 								<Toolbar height="3rem">
 									<Title class="boldText" text="Payment Details"/>
@@ -210,24 +242,19 @@
 									<f:SimpleForm editable="true" layout="ResponsiveGridLayout" maxContainerCols="3">
 										<f:content>
 											<Label text="Type"/>
-											<Select id="PayType" width="100%">
-												<items>
-													<core:Item text="Invoice"/>
-													<core:Item text=""/>
-												</items>
-											</Select>
+											<Input class="inputForm"  value="" id="ManPayType" enabled="false" />
 											<Label text="Subject"/>									
-											<TextArea value="" growing="true" width="100%" id="PaySubject"/>
+											<TextArea value="" growing="true" width="100%" id="ManPaySubject" enabled="false"/>
 											<Label text="Payment Type"/>
-											<RadioButtonGroup columns="2" select="clickPayment">
+											<RadioButtonGroup columns="2" select="clickPayment" id="ManPaymentType" >
 												<buttons>
-													<RadioButton id="RB-Down" text="Down Payment"/>
-													<RadioButton id="RB-Ins" text="Installment Payment"/>
+													<RadioButton id="ManRB-Down" text="Down Payment" enabled="false"/>
+													<RadioButton id="ManRB-Ins" text="Installment Payment" enabled="false"/>
 												</buttons>
 											</RadioButtonGroup>
 											<Label text=""/>
 											<VBox>
-												<Table id="mainViewTbl32" inset="false" items="{ path: '/results', sorter: { path: 'Name' } }">
+												<Table id="ManPayInstallementTbl" inset="false" items="{ path: '/results', sorter: { path: 'installement' } }">
 													<columns>
 														<Column width="12em">
 															<Text text="Installement"/>
@@ -242,35 +269,31 @@
 													<items>
 														<ColumnListItem>
 															<cells>
-																<Text text="{Installement}"/>
-																<Text text="{ExpiryDate}"/>
-																<Text text="{VATAmount}"/>
+																<Text text="{installement}"/>
+																<Text text="{expdt}"/>
+																<Text text="{vatInclAmount}"/>
 															</cells>
 														</ColumnListItem>
 													</items>
 												</Table>
-												<HBox>
-													<Button text="Add"></Button>
-													<Button class="classButton" text="Delete"></Button>
-												</HBox>
 											</VBox>
 											<Label text="Installment Amount"/>
-											<Input class="inputForm" id="PayInsAmount" value="" />
+											<Input class="inputForm" id="ManPayInsAmount" value="" enabled="false"/>
 											<Label text="Comment"/>
-											<TextArea class="inputTextArea" id="PayComment" />
+											<TextArea class="inputTextArea" id="ManPayComment" enabled="false"/>
 											<Label text="Payment Amount"/>
-											<Input class="inputForm" id="idPayAmount" value="" />
+											<Input class="inputForm" id="ManidPayAmount" value="" enabled="false"/>
 											<HBox>
-												<Label class="labelPay" id="idTRY1" text="TRY"/>
+												<Label class="labelPay" id="ManidTRY1" text="TRY"/>
 											</HBox>
 											<Label text="VAT Amount"/>
-											<Input class="inputForm" id="PayidAmount" value="" />
+											<Input class="inputForm" id="ManPayidVatAmount" value="" enabled="false"/>
 											<Label text="Withholding Tax"/>
-											<Input class="inputForm" id="PayidTax" value="" />
+											<Input class="inputForm" id="ManPayidTax" value="" enabled="false"/>
 											<Label text="VAT Incl. Amount"/>
-											<Input class="inputForm" id="PayidVatIncAmount" value="" />
+											<Input class="inputForm" id="ManPayidVatIncAmount" value="" enabled="false"/>
 											<HBox>
-												<Label class="labelPay" id="idTRY2" text="TRY"/>
+												<Label class="labelPay" id="ManidTRY2" text="TRY"/>
 												<Button class="classButton" text="Calculate">
 													<layoutData>
 														<FlexItemData growFactor="1"/>
@@ -278,16 +301,11 @@
 												</Button>
 											</HBox>
 											<Label text="Advance Information"/>
-											<Select width="100%" id="PayAdvanceInf">
-												<items>
-													<core:Item text="YES"/>
-													<core:Item text="NO"/>
-												</items>
-											</Select>
+											<Input class="inputForm" value="" id="ManPayAdvanceInf" enabled="false"/>
 											<Label text="Advance Amount"/>
-											<Input class="inputForm" value="" id="PayAdvAmount"/>
+											<Input class="inputForm" value="" id="ManPayAdvAmount" enabled="false"/>
 											<Label text="Net Payment Amount"/>
-											<Input class="inputForm" value="" id="PayNetAmount"/>
+											<Input class="inputForm" value="" id="ManPayNetAmount" enabled="false"/>
 										</f:content>
 									</f:SimpleForm>
 								</VBox>
@@ -300,7 +318,7 @@
 				<List headerText="A List" showSeparators="Inner"></List>
 			</IconTabFilter>
 			<IconTabFilter text="MESSAGES">
-				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="idClickPay"/>
+				<Button icon="sap-icon://add" press="onAddMessageDialogPress" text="Add Message" id="ManidClickPay"/>
 				<Table id="idPaymentMessage" inset="false" items="{ path: '/ProductCollection', sorter: { path: 'Name' } }">
 					<columns>
 						<Column width="12em">
@@ -331,11 +349,30 @@
 		</items>
 	</IconTabBar>
 	<OverflowToolbar>
-		<Button icon="sap-icon://paper-plane" text="Send" type="Accept" press="sendAcceptAction">
-		<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		<Button icon="sap-icon://paper-plane" text="Approve" type="Accept" press="approveAction">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
-		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject">
+		<Button icon="sap-icon://undo" text="Send Back" press="onSendBackBtn">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		</Button>
+		<Button icon="sap-icon://personnel-view" text="Take Opinion" press="onTakeOpinionBtn" type="Emphasized">
+			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
+		</Button>
+		<Button icon="sap-icon://sys-cancel" text="Cancel" type="Reject" press="rejectAction">
 			<layoutData><OverflowToolbarLayoutData moveToOverflow="false"/></layoutData>
 		</Button>
 	</OverflowToolbar>
+						</ScrollContainer>
+					</Page>
+				
+					<ScrollContainer height="100%" horizontal="false"  vertical="true">						
+					</ScrollContainer>
+
+				</pages>
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>	
+		
+		
+		
 </mvc:View>

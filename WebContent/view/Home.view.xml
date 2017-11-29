@@ -20,14 +20,11 @@
 						<OverflowToolbarLayoutData minWidth="20px" priority="NeverOverflow"/>
 					</layoutData>
 				</ToolbarSpacer>
-				<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://bell"/>
+				<Button class="box-shadow" color="#cae4fb"  press="handlePopoverPress" icon="sap-icon://message-popup" text="" id="idButtonMsg"/>
 				<ToolbarSeparator/>
-				<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://email"/>
+				<Button class="box-shadow" color="#cae4fb" icon="sap-icon://email"/>
 				<ToolbarSeparator/>
-				<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://log"/>
-				<ToolbarSeparator/>
-				<Button class="box-shadow" color="#cae4fb" counter="3" press="handlePopover" icon="sap-icon://person-placeholder"/>
-				<Button press="handleUserNamePress" text="Eren Aktaş" type="Transparent">
+				<Button press="handleUserNamePress" text="" type="Transparent" id="idButtonUser" icon="sap-icon://log">
 					<layoutData>
 						<OverflowToolbarLayoutData priority="NeverOverflow"/>
 					</layoutData>
@@ -39,16 +36,26 @@
 				<tnt:item>
 					<tnt:NavigationList>
 						<tnt:NavigationListItem icon="sap-icon://home" select="btnHomeClick" text="Home"/>
-						<tnt:NavigationListItem icon="sap-icon://settings" text="Employee">
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Application">
 							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
 						</tnt:NavigationListItem>
-						<tnt:NavigationListItem icon="sap-icon://settings" text="Manager">
+						<!--<tnt:NavigationListItem icon="sap-icon://settings" text="Approvers">
 							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnManBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
-							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings"  select="btnManPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
 							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
 						</tnt:NavigationListItem>
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Send Back">
+							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnResendBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
+						</tnt:NavigationListItem>	
+						<tnt:NavigationListItem icon="sap-icon://settings" text="Take Opinion">
+							<tnt:NavigationListItem icon="sap-icon://action-settings" key="idExpensekey" select="btnTakeOBudgetClick" text="Budget Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnTakeOPaymentClick" text="Payment Approval"></tnt:NavigationListItem>
+							<tnt:NavigationListItem icon="sap-icon://action-settings" select="btnTakeOExpenseClick" text="Expense Approval"></tnt:NavigationListItem>
+						</tnt:NavigationListItem>-->					
 					</tnt:NavigationList>
 				</tnt:item>
 			</tnt:SideNavigation>
@@ -56,11 +63,10 @@
 		<tnt:mainContents>
 			<NavContainer id="navContainer">
 				<pages>
-					<Page id="idHomePage" showHeader="false">
+					<!-- <Page id="idHomePage" showHeader="false">
 						<l:BlockLayout background="Light" id="BlockLayout">
 							<l:BlockLayoutRow>
 								<l:BlockLayoutCell class="sapUiNoContentPadding">
-									<!--<Image src="img/homeImage.png" width="100%"/>-->
 								</l:BlockLayoutCell>
 							</l:BlockLayoutRow>
 							<l:BlockLayoutRow class="shopAdministrationTitle" rowColorSet="ColorSet1">
@@ -105,14 +111,7 @@
 								</l:BlockLayoutCell>
 							</l:BlockLayoutRow>
 						</l:BlockLayout>
-					</Page>
-					<Page id="idExpensePage" showHeader="false">
-						<ScrollContainer height="100%" horizontal="false" id="root1" vertical="true">
-							<content>
-								<mvc:XMLView viewName="zn11_expense.view.Expense"/>
-							</content>
-						</ScrollContainer>
-					</Page>
+					</Page> -->
 					<Page id="idBudgetPage" showHeader="false">
 						<ScrollContainer height="100%" horizontal="false" id="root3" vertical="true">
 							<content>
@@ -120,13 +119,69 @@
 							</content>
 						</ScrollContainer>
 					</Page>
-					<Page id="idManBudgetPage" showHeader="false">
+					<!-- <Page id="idManBudgetPage" showHeader="false">
 						<ScrollContainer height="100%" horizontal="false" id="root33" vertical="true">
 							<content>
 								<mvc:XMLView viewName="zn11_expense.view.manBudget"/>
 							</content>
 						</ScrollContainer>
 					</Page>
+					<Page id="idResendBudgetPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root9" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.resendBudget"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idTakeOBudgetPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root045" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.takeOBudget"/>
+							</content>
+						</ScrollContainer>
+					</Page> 
+					<Page id="idManPaymentPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root695" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.manPayment"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idResendPaymentPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root873" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.resendPayment"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idTakeOPaymentPage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root65" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.takeOPayment"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idManExpensePage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root63" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.manExpense"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idResendExpensePage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root20" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.resendExpense"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					<Page id="idTakeOExpensePage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root087" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.takeOExpense"/>
+							</content>
+						</ScrollContainer>
+					</Page>-->
 					<Page id="idPaymentPage" showHeader="false">
 						<ScrollContainer height="100%" horizontal="false" id="root4" vertical="true">
 							<content>
@@ -134,6 +189,15 @@
 							</content>
 						</ScrollContainer>
 					</Page>
+					
+					<Page id="idExpensePage" showHeader="false">
+						<ScrollContainer height="100%" horizontal="false" id="root1" vertical="true">
+							<content>
+								<mvc:XMLView viewName="zn11_expense.view.Expense"/>
+							</content>
+						</ScrollContainer>
+					</Page>
+					
 					<ScrollContainer height="100%" horizontal="false" id="idExpensePage2" vertical="true">
 						<Panel class="sapUiSmallMargin sapUiLargeMarginBegin panelContainer" expandable="false" width="85%">
 							<headerToolbar>
